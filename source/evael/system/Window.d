@@ -1,4 +1,4 @@
-module evael.Window.Window;
+module evael.system.Window;
 
 import std.string : toStringz;
 import std.traits : EnumMembers;
@@ -7,9 +7,9 @@ public import derelict.glfw3.glfw3;
 import derelict.opengl;
 import derelict.nanovg.nanovg;
 
-import evael.Window.WindowSettings;
-import evael.Window.GLContextSettings;
-import evael.Window.Cursor;
+import evael.system.WindowSettings;
+import evael.system.GLContextSettings;
+import evael.system.Cursor;
 
 /**
  * Window.

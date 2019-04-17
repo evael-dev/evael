@@ -6,17 +6,17 @@ public import derelict.openal.al;
 
 struct al
 {
+	static string file = __FILE__;
+	static int line = __LINE__;
+
 	@nogc
 	static auto ref opDispatch(string name, Args...)(Args args) nothrow
 	{ 
 		debug
 		{
-			string file = __FILE__;
-			int line = __LINE__;
-
 			scope (exit)
 			{
-				uint error = alGetError();
+				immutable uint error = alGetError();
 
 				if (error != AL_NO_ERROR)
 				{

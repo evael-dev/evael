@@ -52,7 +52,7 @@ class GuiManager
 	/**
 	 * GuiManager constructor.
 	 */
-	public this(GraphicsDevice graphics, int line  = __LINE__, string file = __FILE__)
+	public this(GraphicsDevice graphics)
 	{
 		this.m_graphicsDevice = graphics;
         this.m_nvg = graphics.nvgContext;

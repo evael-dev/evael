@@ -16,7 +16,7 @@ struct gl
 		{
 			scope (exit)
 			{
-				uint error = glGetError();
+				immutable uint error = glGetError();
 
 				if (error != GL_NO_ERROR)
 				{

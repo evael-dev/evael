@@ -1,4 +1,4 @@
-module evael.Window.Cursor;
+module evael.system.Cursor;
 
 import derelict.glfw3.glfw3;
 

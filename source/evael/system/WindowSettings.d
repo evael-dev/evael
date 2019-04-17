@@ -1,4 +1,4 @@
-module evael.Window.WindowSettings;
+module evael.system.WindowSettings;
 
 import evael.utils.Size;
 

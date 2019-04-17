@@ -8,8 +8,6 @@ public import decs;
 
 import dnogc.DynamicArray;
 
-import evael.Window;
-
 import evael.core.GameState;
 
 import evael.graphics.GraphicsDevice;
@@ -22,6 +20,10 @@ import evael.system.AssetLoader;
 import evael.system.InputHandler;
 import evael.system.Input;
 import evael.system.I18n;
+import evael.system.Window;
+import evael.system.WindowSettings;
+import evael.system.GLContextSettings;
+import evael.system.Cursor;
 
 import evael.utils.Math;
 import evael.utils.Singleton;
@@ -71,11 +73,11 @@ class Game
 	 *      settings : window settings
 	 *      contextSettings : gl context settings
 	 */
-	public this(in ref WindowSettings settings, in ref GLContextSettings contextSettings, in int line  = __LINE__, in string file = __FILE__)
+	public this(in WindowSettings settings, in GLContextSettings contextSettings = GLContextSettings())
 	{
 		loadExternalLibraries();
 			   
-		Config.load("config.ini");
+		Config.load("./config.ini");
 
 		this.m_window = new Window(settings, contextSettings);
 		this.m_window.setWindowCloseCallback(bindDelegate(&this.onWindowClose));

@@ -50,7 +50,7 @@ float getCurrentTime() nothrow
 }
 
 @nogc
-auto bindDelegate(T, string file = __FILE__, size_t line = __LINE__)(T t) nothrow
+auto bindDelegate(T)(T t) nothrow
 	if(isDelegate!T)
 {
 	static T dg;

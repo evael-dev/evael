@@ -21,7 +21,7 @@ class AssetLoader
 	 * AssetLoader constructor.
 	 */
 	@nogc @safe
-	private this(int line  = __LINE__, string file = __FILE__) pure nothrow
+	private this() pure nothrow
 	{
 
 	}
@@ -43,7 +43,7 @@ class AssetLoader
      *		fileName : asset to load
 	 *      params : variadic params
 	 */
-	public T load(T, int line  = __LINE__, string file = __FILE__, Params...)(in string fileName, Params params)
+	public T load(T, Params...)(in string fileName, Params params)
 	{
 		import std.conv : to;
 		import std.path : baseName;

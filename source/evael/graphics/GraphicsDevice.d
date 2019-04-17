@@ -87,7 +87,7 @@ class GraphicsDevice
 	/**
 	 * GraphicsDevice constructor.
 	 */
-	private this(int line  = __LINE__, string file = __FILE__)
+	private this()
 	{
 		this.m_nvg = nvgCreateGL3(NVGcreateFlags.NVG_STENCIL_STROKES | NVGcreateFlags.NVG_DEBUG);
 

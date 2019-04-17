@@ -1,7 +1,7 @@
 evael
 ===========
 
-Evael is a small 2D/3D game engine written in the D programming langage. It is based on OpenGL 3.3.
+Evael is a small 2D/3D game engine written in the D programming language. It is based on OpenGL 3.3.
 
 It implements the following features:
 
@@ -22,6 +22,7 @@ It implements the following features:
 - Network support
 - Physics support
 - Navigation support (recast & detour)
+- Controller support
 - more!
 
 Some part of the code are old. They need to be updated:
