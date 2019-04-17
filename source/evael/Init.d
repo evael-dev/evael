@@ -45,7 +45,7 @@ void unloadExternalLibraries()
     DerelictFI.unload();
     DerelictNANOVG.unload();   
 	DerelictSndFile.unload();
-	DerelictAL.unload();
+    DerelictAL.unload();
 
     glfwTerminate();
 }
