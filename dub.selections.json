@@ -1,0 +1,20 @@
+{
+	"fileVersion": 1,
+	"versions": {
+		"ctini": "0.2.1",
+		"decs": "1.0.3",
+		"derelict-al": "2.0.0-beta.2",
+		"derelict-fi": "3.0.0-beta.1",
+		"derelict-ft": "1.0.2",
+		"derelict-gl3": "2.0.0-beta.8",
+		"derelict-glfw3": "4.0.0-beta.1",
+		"derelict-nanovg": "1.1.0",
+		"derelict-util": "3.0.0-beta.2",
+		"derelict_extras-sndfile": "3.1.0",
+		"dlib": "0.14.0",
+		"dnogc": "~master",
+		"jsonizer": "0.7.6",
+		"msgpack-d": "1.0.0-beta.8",
+		"pegged": "~master"
+	}
+}

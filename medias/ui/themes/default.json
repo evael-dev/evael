@@ -1,0 +1,95 @@
+{
+    "borderType": "Solid",
+    "cornerRadius": 3.0,
+	"drawDropShadow": true,
+	"drawTextShadow": true,
+	"fontSize": 20,
+	"fontColor": { "rgba": [ 255, 255, 255, 255 ] },
+	"font": { "path": "medias\\ui\\fonts\\clear-sans.medium.ttf" },
+	"iconFont": { "path": "medias\\ui\\fonts\\entypo.ttf" },
+		
+	"scale": 1,
+	
+	"background": 
+	{
+		"colorStateList":
+		{
+			"normal":{"rgba":[30,30,30,190]},
+			"hovered":{"rgba":[50,50,50,190]},
+			"clicked":{"rgba":[255,195,110,190]},
+			"disabled":{"rgba":[0,255,0,190]},
+			"focused":{"rgba":[0,255,0,190]},
+			"selected":{"rgba":[0,255,0,190]}
+		},
+		"type":"Solid"
+	},
+		
+    "borderColor": 
+	{
+        "rgba": [ 0, 0, 0, 128 ]
+    },
+    "disabledTextColor": 
+	{
+        "rgba": [ 255, 0, 0, 255 ]
+    },
+    "dropShadowColor": 
+	{
+        "rgba": [ 255, 0, 0, 255 ]
+    },
+	
+	"button":
+	{
+
+	},
+	
+	"scrollBar":
+	{
+
+	},
+
+	"textBox":
+	{
+		"background": 
+		{
+			"colorStateList":
+			{
+				"normal":{"rgba":[30,30,30,190]},
+				"hovered":{"rgba":[50,50,50,190]},
+				"clicked":{"rgba":[50,50,50,190]},
+				"disabled":{"rgba":[0,255,0,190]},
+				"focused":{"rgba":[0,255,0,190]},
+				"selected":{"rgba":[0,255,0,190]}
+			},
+			"type":"Solid"
+		}
+	},
+	
+	"textBlock":
+	{
+		"fillColor": { "rgba": [ 40, 40, 40, 128 ] },
+		"mouseOverFillColor": { "rgba": [ 255, 195, 110, 255 ] },
+		"mouseClickFillColor": { "rgba": [ 252, 148, 0, 255 ] }
+	},
+	
+	"tooltip": 
+	{
+		"fillColor": { "rgba": [ 255, 0, 0, 255 ] }
+	},
+	
+	"listBox":
+	{
+		"drawDropShadow": false,
+		"fillColor": { "rgba": [ 0, 0, 0, 128 ] },
+		"mouseOverFillColor": { "rgba": [ 0, 0, 0, 128 ] },
+		"mouseClickFillColor": { "rgba": [ 0, 0, 0, 128 ] },
+					
+		"listBoxItem":
+		{
+			"drawDropShadow": false,
+			"cornerRadius": 0.0,
+			"fillColor": { "rgba": [ 40, 40, 40, 128 ] },
+			"mouseOverFillColor": { "rgba": [ 255, 195, 110, 255 ] },
+			"mouseClickFillColor": { "rgba": [ 252, 148, 0, 255 ] }
+		}
+	}
+}
