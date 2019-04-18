@@ -14,7 +14,7 @@ It implements the following features:
 - Integrated custom GUI based on NanoVG (support multiple basic controls, theming, fonts...)
 - GUI animations
 - Input handling as event mode or immediate mode (onMouseAction() or isMouseButtonClicked())
-- Entity Component System with decs
+- Entity Component System with [decs](https://github.com/aldocd4/decs)
 
 ## Planned features
 
