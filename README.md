@@ -31,6 +31,12 @@ Some part of the code are old. They need to be updated:
  - Models (write better loader and clean the code)
  - probably other parts...
 
+## Supported platforms
+
+- Windows (tested)
+- Linux?
+- Android?
+
 ## Build
 
 You have to use [dub](https://code.dlang.org/download) to build the project.
@@ -39,12 +45,21 @@ Add this project as a dependency to your **dub.json**:
 
 ```json
 "dependencies": {
-    "evael": "~>x.x.x"
+    "evael": "~>0.0.1"
 }
 ```
 
+## Disclaimer
+
+Evael engine development is in an early stage, do not use it for production.
+
+
 Documentation
 ===========
+
+You can find tutorials on [this repository](https://github.com/evael-dev/evael-tutorials).
+
+A base game template is provided [here](https://github.com/evael-dev/evael-game-template).
 
 License
 ===========
