@@ -2,7 +2,7 @@ module evael.graphics.lights.DirectionalLight;
 
 import evael.graphics.lights.Light;
 
-import evael.utils.Math;
+import evael.utils.math;
 
 class DirectionalLight : Light
 {

@@ -5,7 +5,7 @@ import std.math : round;
 import evael.graphics.gui.controls.Control;
 import evael.graphics.gui.controls.TextBlock;
 
-import evael.utils.Math;
+import evael.utils.math;
 
 import evael.utils.Size;
 import evael.utils.Color;

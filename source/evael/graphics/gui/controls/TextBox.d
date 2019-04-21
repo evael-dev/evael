@@ -10,7 +10,7 @@ import evael.graphics.gui.controls.Control;
 
 import evael.system.Input;
 
-import evael.utils.Math;
+import evael.utils.math;
 import evael.utils.Size;
 import evael.utils.Color;
 

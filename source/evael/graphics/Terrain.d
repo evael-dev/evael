@@ -12,7 +12,7 @@ import evael.graphics.Texture;
 import evael.graphics.TextureArray;
 import evael.graphics.lights;
 
-import evael.utils.Math;
+import evael.utils.math;
 import evael.utils.Color;
 import evael.utils.Size;
 

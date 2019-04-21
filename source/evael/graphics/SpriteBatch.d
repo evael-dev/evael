@@ -6,7 +6,7 @@ import evael.graphics.GraphicsDevice;
 import evael.graphics.Drawable;
 import evael.graphics.Vertex;
 
-import evael.utils.Math;
+import evael.utils.math;
 import evael.utils.Color;
 
 import dnogc.DynamicArray;

@@ -8,7 +8,7 @@ import evael.graphics.gui.controls.Container;
 import evael.graphics.gui.controls.TextBlock;
 import evael.graphics.gui.controls.ScrollBar;
 
-import evael.utils.Math;
+import evael.utils.math;
 
 import evael.utils.Size;
 import evael.utils.Color;

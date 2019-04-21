@@ -19,7 +19,7 @@ import evael.graphics.models.BoundingBox;
 import evael.system.Asset;
 import evael.system.AssetLoader;
 
-import evael.utils.Math;
+import evael.utils.math;
 import evael.utils.Color;
 
 class Iqm : Model

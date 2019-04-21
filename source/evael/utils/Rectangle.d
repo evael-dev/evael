@@ -1,7 +1,7 @@
 module evael.utils.Rectangle;
 
 import evael.utils.Size;
-import evael.utils.Math;
+import evael.utils.math;
 
 /**
  * Rectangle.

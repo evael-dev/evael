@@ -3,7 +3,7 @@ module evael.graphics.Effect;
 import evael.graphics.Drawable;
 import evael.graphics.particles.ParticleEmitter;
 
-import evael.utils.Math;
+import evael.utils.math;
 import evael.utils.Size;
 
 /**

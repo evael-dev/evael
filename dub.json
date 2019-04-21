@@ -4,7 +4,7 @@
 	"copyright": "Copyright 2015-2019, Robert Georges",
 	"license": "BSL-1.0",
 	"authors": ["Robert Georges"],
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"dependencies": {
 		"derelict-gl3": "~>2.0.0-beta.3",
         "derelict-fi": "~>3.0.0-alpha.1",

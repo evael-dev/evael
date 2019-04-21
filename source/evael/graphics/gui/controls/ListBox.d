@@ -8,7 +8,7 @@ import evael.graphics.gui.controls.ScrollBar;
 import evael.graphics.gui.controls.Button;
 import evael.graphics.Font;
 
-import evael.utils.Math;
+import evael.utils.math;
 
 import evael.utils.Size;
 import evael.utils.Rectangle;

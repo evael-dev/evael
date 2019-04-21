@@ -11,7 +11,7 @@ import evael.graphics.gui.GuiManager;
 import evael.system.Input;
 import evael.system.AssetLoader;
 
-import evael.utils.Math;
+import evael.utils.math;
 
 public import std.variant;
 

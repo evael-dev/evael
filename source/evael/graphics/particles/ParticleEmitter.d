@@ -8,7 +8,7 @@ import evael.graphics.particles.Particle;
 
 import evael.system.AssetLoader;
 
-import evael.utils.Math;
+import evael.utils.math;
 import evael.utils.Color;
 
 class ParticleEmitter : Drawable

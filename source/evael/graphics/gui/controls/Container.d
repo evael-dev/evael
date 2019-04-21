@@ -5,7 +5,7 @@ import std.math;
 public import evael.graphics.gui.controls.Control;
 import evael.graphics.GUI;
 
-import evael.utils.Math;
+import evael.utils.math;
 import evael.utils.Size;
 import evael.utils.Rectangle;
 import evael.utils.Color;

@@ -1,4 +1,4 @@
-module evael.utils.Math;
+module evael.utils.math;
 
 alias ubvec4 = Vector!(ubyte, 4);
 

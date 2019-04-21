@@ -25,7 +25,7 @@ import evael.system.WindowSettings;
 import evael.system.GLContextSettings;
 import evael.system.Cursor;
 
-import evael.utils.Math;
+import evael.utils.math;
 import evael.utils.Singleton;
 import evael.utils.Size;
 import evael.utils.Config;

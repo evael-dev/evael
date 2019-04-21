@@ -4,7 +4,7 @@ import std.math;
 
 import dnogc.DynamicArray;
 
-import evael.utils.Math;
+import dlib.math.vector;
 
 enum degToRad = (PI * 2) / 360;
 enum pi = 180 / PI;
