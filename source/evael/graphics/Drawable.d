@@ -4,7 +4,7 @@ import evael.graphics.GraphicsDevice;
 import evael.graphics.Texture;
 import evael.graphics.shaders.Shader;
 
-import evael.utils.math;
+import evael.utils.Math;
 import evael.utils.Size;
 import evael.utils.Rectangle;
 

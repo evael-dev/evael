@@ -6,7 +6,7 @@ import evael.graphics.shaders.Shader;
 import evael.graphics.Vertex;
 import evael.graphics.Texture;
 
-import evael.utils.math;
+import evael.utils.Math;
 import evael.utils.Color;
 
 /**

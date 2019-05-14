@@ -1,10 +1,18 @@
-module evael.utils.math.Functions;
+module evael.utils.Math;
 
 import std.math;
-
 import dnogc.DynamicArray;
 
-import dlib.math.vector;
+alias ubvec4 = Vector!(ubyte, 4);
+
+public
+{
+	import dlib.math.vector;
+	import dlib.math.matrix;
+	import dlib.math.quaternion;
+	import dlib.math.transformation;
+	import dlib.math.utils;
+}
 
 enum degToRad = (PI * 2) / 360;
 enum pi = 180 / PI;

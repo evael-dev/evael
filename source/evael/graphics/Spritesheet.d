@@ -11,7 +11,7 @@ import evael.graphics.Vertex;
 import evael.graphics.shapes.Quad;
 import evael.graphics.models.Animation;
 
-import evael.utils.math;
+import evael.utils.Math;
 import evael.utils.Color;
 import evael.utils.Size;
 import evael.utils.Rectangle;

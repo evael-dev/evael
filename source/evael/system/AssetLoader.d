@@ -15,7 +15,7 @@ class AssetLoader
 {	
 	mixin Singleton!();
 
-	private __gshared IAsset[string] m_assets;
+	private IAsset[string] m_assets;
 
 	/**
 	 * AssetLoader constructor.

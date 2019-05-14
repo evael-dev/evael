@@ -4,7 +4,7 @@ import std.conv : to;
 
 import evael.graphics.GL;
 
-import evael.utils.math;
+import evael.utils.Math;
 import evael.utils.Color;
 
 alias Vertex2PositionColor = VertexPositionColor!2;

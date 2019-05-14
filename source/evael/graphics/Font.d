@@ -13,7 +13,7 @@ import evael.graphics.Vertex;
 import evael.system.Asset;
 
 import evael.utils.Color;
-import evael.utils.math;
+import evael.utils.Math;
 
 import jsonizer;
 

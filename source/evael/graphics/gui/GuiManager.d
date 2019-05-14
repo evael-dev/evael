@@ -14,7 +14,7 @@ import evael.graphics.GraphicsDevice;
 import evael.system.AssetLoader;
 import evael.system.Input;
 
-import evael.utils.math;
+import evael.utils.Math;
 import evael.utils.Rectangle;
 
 /**

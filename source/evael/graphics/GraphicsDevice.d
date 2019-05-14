@@ -25,7 +25,7 @@ import evael.graphics.Environment;
 import evael.system.AssetLoader;
 
 import evael.utils.Singleton;
-import evael.utils.math;
+import evael.utils.Math;
 import evael.utils.Size;
 import evael.utils.Color;
 

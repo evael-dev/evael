@@ -3,7 +3,7 @@ module evael.audio.Source;
 import evael.audio.AL;
 import evael.audio.AudioException;
 
-import evael.utils.math;
+import evael.utils.Math;
 
 import evael.system.Asset;
 

@@ -1,6 +1,6 @@
 module evael.graphics.particles.Particle;
 
-import evael.utils.math;
+import evael.utils.Math;
 
 import evael.utils.Color;
 

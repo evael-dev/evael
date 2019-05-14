@@ -25,7 +25,7 @@ import evael.system.WindowSettings;
 import evael.system.GLContextSettings;
 import evael.system.Cursor;
 
-import evael.utils.math;
+import evael.utils.Math;
 import evael.utils.Singleton;
 import evael.utils.Size;
 import evael.utils.Config;
@@ -116,6 +116,11 @@ class Game
 	{
 		this.m_running = false;
 
+		foreach (gameState; this.m_gameStates.byValue)
+		{
+			gameState.dispose();
+		}
+
 		this.m_window.dispose();
 		this.m_events.dispose();
 		this.m_currentGameState.dispose();
@@ -186,12 +191,17 @@ class Game
 	/**
 	 * Defines current game state.
 	 * Params:
-	 *		gameState : new gamestate to set
+	 *		params : params
 	 */
-	public void setGameState(T)() nothrow
+	public void setGameState(T)(Variant[] params = null)
 	{
 		T* gameState = cast(T*) (T.stringof in this.m_gameStates);
 		
+		if (this.m_currentGameState !is null)
+		{
+			this.m_currentGameState.onExit();
+		}
+
 		if (gameState is null) 
 		{
 			T gs = new T();
@@ -200,6 +210,8 @@ class Game
 			this.m_currentGameState = gs;
 		}
 		else this.m_currentGameState = *gameState;
+
+		this.m_currentGameState.onInit(params);
 	}
 
 	/**

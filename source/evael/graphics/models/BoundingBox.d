@@ -1,6 +1,6 @@
 module evael.graphics.models.BoundingBox;
 
-import evael.utils.math;
+import evael.utils.Math;
 
 struct BoundingBox
 {

@@ -2,7 +2,7 @@ module evael.graphics.lights.AmbientLight;
 
 import evael.graphics.lights.Light;
 
-import evael.utils.math;
+import evael.utils.Math;
 
 class AmbientLight : Light
 {

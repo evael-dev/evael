@@ -3,7 +3,7 @@ module evael.graphics.gui.controls.TabControl;
 import evael.graphics.gui.controls.Container;
 import evael.graphics.gui.controls.Button;
 
-import evael.utils.math;
+import evael.utils.Math;
 
 import evael.utils.Size;
 import evael.utils.Color;

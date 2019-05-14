@@ -2,7 +2,7 @@ module evael.graphics.gui.controls.Panel;
 
 import evael.graphics.gui.controls.Container;
 
-import evael.utils.math;
+import evael.utils.Math;
 
 import evael.utils.Size;
 import evael.utils.Color;

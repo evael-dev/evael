@@ -11,7 +11,7 @@ import evael.graphics.gui.GuiManager;
 import evael.system.Input;
 import evael.system.AssetLoader;
 
-import evael.utils.math;
+import evael.utils.Math;
 
 public import std.variant;
 
@@ -20,7 +20,7 @@ public import std.variant;
  */
 abstract class GameState
 {
-	protected Game 		 m_game;
+	protected Game 		 	 m_game;
 	protected GraphicsDevice m_graphicsDevice;
 	protected GuiManager  	 m_guiManager;
 	protected AssetLoader 	 m_assetLoader;

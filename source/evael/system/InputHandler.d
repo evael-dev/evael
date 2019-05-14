@@ -7,7 +7,7 @@ import std.traits : EnumMembers;
 import evael.system.Input;
 
 import evael.core.Game;
-import evael.utils.math;
+import evael.utils.Math;
 
 /**
  * Input handler.

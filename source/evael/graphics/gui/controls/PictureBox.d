@@ -6,7 +6,7 @@ import evael.graphics.gui.controls.TextBlock;
 
 import evael.graphics.Texture;
 
-import evael.utils.math;
+import evael.utils.Math;
 import evael.utils.Size;
 import evael.utils.Color;
 import evael.utils.Rectangle;

@@ -6,7 +6,7 @@ import evael.graphics.GraphicsDevice;
 import evael.graphics.shaders.BasicLightShader;
 import evael.graphics.lights;
 
-import evael.utils.math;
+import evael.utils.Math;
 
 import dnogc.DynamicArray;
 

@@ -3,7 +3,7 @@ module evael.graphics.gui.controls.Button;
 import evael.graphics.gui.controls.Control;
 import evael.graphics.Font;
 
-import evael.utils.math;
+import evael.utils.Math;
 
 import evael.utils.Size;
 

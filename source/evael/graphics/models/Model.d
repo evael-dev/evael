@@ -8,7 +8,7 @@ import evael.graphics.GraphicsDevice;
 import evael.graphics.Vertex;
 import evael.graphics.shaders.Shader;
 
-import evael.utils.math;
+import evael.utils.Math;
 
 /**
  * Model.

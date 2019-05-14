@@ -21,7 +21,7 @@ import evael.graphics.gui.animations.AnimationSet;
 import evael.graphics.Font;
 import evael.graphics.Texture;
 
-import evael.utils.math;
+import evael.utils.Math;
 import evael.utils.Size;
 import evael.utils.Rectangle;
 
