@@ -14,7 +14,7 @@ import evael.utils.Math;
 import evael.utils.Size;
 import evael.utils.Color;
 
-extern (Windows) short GetKeyState(int nVirtKey);
+import core.sys.windows.windows;;
 
 class TextBox : Control
 {
@@ -32,7 +32,7 @@ class TextBox : Control
 	private vec2 m_caretPosition;
 
 	/// Caret index in text
-	private uint m_caretIndex;
+	private size_t m_caretIndex;
 
 	/// Characters limit
 	private uint m_maxCharactersCount;
@@ -206,7 +206,7 @@ class TextBox : Control
 
 			// A
 			case Key.A:
-				if(GetKeyState(0x11) < 0)
+				/*if(GetKeyState(0x11) < 0)
 				{
 					// TODO: 
 					/*this.m_inSelectMode = true;
@@ -218,7 +218,7 @@ class TextBox : Control
 					this.initializeArrayFromColor(data.ptr, Color.red);
 
 					glBufferSubData(GL_ARRAY_BUFFER, 48, data.sizeof, data.ptr);*/
-				}
+				//}
 
 				break;
 			

@@ -1,6 +1,6 @@
 module evael.system.GLContextSettings;
 
-import derelict.glfw3.glfw3;
+import bindbc.glfw;
 
 /**
  * GLContextSettings

@@ -50,7 +50,7 @@ abstract class Control
     public NVGcontext* m_nvg;
 
     /// Control id
-    private uint m_id;
+    private size_t m_id;
 
     /// Control theme
     protected Theme m_theme;
@@ -527,12 +527,12 @@ abstract class Control
             this.m_theme = value;
         }
 
-        public uint id() const nothrow @nogc
+        public size_t id() const nothrow @nogc
         {
             return this.m_id;
         }
 
-        public void id(in uint value) nothrow @nogc
+        public void id(in size_t value) nothrow @nogc
         {
             this.m_id = value;
         }

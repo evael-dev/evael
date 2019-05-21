@@ -2,9 +2,11 @@ module evael.system.Window;
 
 import std.string : toStringz;
 import std.traits : EnumMembers;
+debug import std.experimental.logger;
 
-public import derelict.glfw3.glfw3;
-import derelict.opengl;
+public import bindbc.glfw;
+import bindbc.opengl;
+
 import derelict.nanovg.nanovg;
 
 import evael.system.WindowSettings;
@@ -57,7 +59,7 @@ class Window
 		glfwSwapInterval(settings.vsync);
 		
 		// We have a context now, we can reload gl3
-		DerelictGL3.reload();
+		debug infof("Opengl %s loaded.", loadOpenGL());
 		DerelictNANOVG.load();
 
 		foreach(cursor; [EnumMembers!(Cursor)])

@@ -197,7 +197,7 @@ class Wavefront	: Model
 
 		auto obj = new Wavefront(graphicsDevice);
 		obj.m_texture = texture;
-		obj.m_trianglesNumber = outVertices.length / 3;
+		obj.m_trianglesNumber = cast(uint) (outVertices.length / 3);
 		obj.m_vertexBuffer = graphicsDevice.createVertexBuffer(VertexPositionColorNormalTexture.sizeof * outVertices.length, outVertices.ptr);
 		//obj.m_indexBuffer = graphicsDevice.createIndexBuffer(uint.sizeof * indices.length, indices.ptr);
 		obj.m_shader = AssetLoader.getInstance().load!(BasicLightShader)("textured_primitive_light");

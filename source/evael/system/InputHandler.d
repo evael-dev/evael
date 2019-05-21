@@ -1,6 +1,6 @@
 module evael.system.InputHandler;
 
-public import derelict.glfw3.glfw3;
+public import bindbc.glfw;
 
 import std.traits : EnumMembers;
 

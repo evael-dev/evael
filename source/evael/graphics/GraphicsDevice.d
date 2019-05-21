@@ -339,7 +339,7 @@ class GraphicsDevice
 	 *		usage : usage type
 	 */
 	@nogc
-	public uint createBuffer(BufferType type, in int size, in void* data, BufferUsage usage = BufferUsage.StaticDraw) nothrow
+	public uint createBuffer(BufferType type, in GLsizeiptr size, in void* data, BufferUsage usage = BufferUsage.StaticDraw) nothrow
 	{
 		immutable uint id = this.generateBuffer(type);
 
@@ -373,7 +373,7 @@ class GraphicsDevice
 	 *		usage : usage type
 	 */
 	@nogc
-	public uint createVertexBuffer(in int size, in void* data, BufferUsage usage = BufferUsage.StaticDraw) nothrow
+	public uint createVertexBuffer(in GLsizeiptr size, in void* data, BufferUsage usage = BufferUsage.StaticDraw) nothrow
 	{
 		return this.createBuffer(BufferType.VertexBuffer, size, data, usage);
 	}
@@ -385,7 +385,7 @@ class GraphicsDevice
 	 *		data : data to send
 	 */
 	@nogc
-	public uint createIndexBuffer(in int size, in void* data) nothrow
+	public uint createIndexBuffer(in GLsizeiptr size, in void* data) nothrow
 	{
 		return this.createBuffer(BufferType.IndexBuffer, size, data);
 	}
@@ -416,7 +416,7 @@ class GraphicsDevice
 	 *		data : data to send
 	 */
 	@nogc
-	public uint allocVertexBufferData(in uint id, in int size, in void* data, BufferUsage usage = BufferUsage.StaticDraw) const nothrow
+	public GLsizeiptr allocVertexBufferData(in uint id, in GLsizeiptr size, in void* data, BufferUsage usage = BufferUsage.StaticDraw) const nothrow
 	{
 		this.bindVertexBuffer(id);
 		gl.BufferData(BufferType.VertexBuffer, size, data, usage);
@@ -432,7 +432,7 @@ class GraphicsDevice
 	 *		 data : data to send
 	 */
 	@nogc
-	public uint sendVertexBufferData(in uint id, in uint offset, in uint size, in void* data) const nothrow
+	public GLsizeiptr sendVertexBufferData(in uint id, in GLintptr offset, in GLsizeiptr size, in void* data) const nothrow
 	{
 		this.bindVertexBuffer(id);
 		gl.BufferSubData(BufferType.VertexBuffer, offset, size, data);
@@ -450,7 +450,7 @@ class GraphicsDevice
 	{
 		this.bindVertexBuffer(id);
 
-		enum size = mixin(T.stringof ~ ".sizeof");
+		enum size = cast(int) mixin(T.stringof ~ ".sizeof");
 		
 		T* nullStruct = null;
 
@@ -736,12 +736,12 @@ class GraphicsDevice
 			 U : values types
 			 data : values
 	 */
-	public void setUniform(string T, U)(in int uniformLocation, in U* data, in size_t count, bool normalized = false) const
+	public void setUniform(string T, U)(in int uniformLocation, in U* data, in int count, bool normalized = false) const
 	{
 		mixin("gl.Uniform" ~ T ~ "(uniformLocation, count, normalized, data);");
 	}
 
-	public void setUniform(string T, U)(in int uniformLocation, in U* data, in size_t count = 1) const
+	public void setUniform(string T, U)(in int uniformLocation, in U* data, in int count = 1) const
 	{
 		mixin("gl.Uniform" ~ T ~ "(uniformLocation, count, data);");
 	}
@@ -752,7 +752,7 @@ class GraphicsDevice
 	}
 
 	@nogc
-    public void setMatrix(U)(in int location, in U* data, in size_t count = 1, in bool transposed = false) const nothrow
+    public void setMatrix(U)(in int location, in U* data, in int count = 1, in bool transposed = false) const nothrow
     {
 		gl.UniformMatrix4fv(location, count, transposed, data);
     }

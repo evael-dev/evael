@@ -111,10 +111,11 @@ class Environment
 
 		auto lightShader = cast(BasicLightShader) this.m_graphicsDevice.currentShader;
 
-		gl.Uniform1i(lightShader.pointsLightsNumberLocation, this.m_pointsLights.length);
+		gl.Uniform1i(lightShader.pointsLightsNumberLocation, cast(int) this.m_pointsLights.length);
 		
-		foreach (i, light; this.m_pointsLights)
+		foreach (_i, light; this.m_pointsLights)
 		{
+			int i = cast(int) _i;
 			gl.Uniform3fv(lightShader.pointsLightsLocation + (i * 1), 1, light.position.arrayof.ptr);
 			gl.Uniform3fv(lightShader.pointsLightsLocation + MAX_POINTS_LIGHTS + (i * 1), 1, light.color.arrayof.ptr);
 			gl.Uniform1f(lightShader.pointsLightsLocation + MAX_POINTS_LIGHTS * 2 + (i * 1), light.ambient);		

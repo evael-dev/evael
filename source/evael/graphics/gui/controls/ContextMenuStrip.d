@@ -96,9 +96,9 @@ class ContextMenuStripItem : Control
 	private vec2 m_textPosition;
 
 	/// Item index
-	private int m_index;
+	private size_t m_index;
 
-	public this(in int index, in wstring text, in vec2 position, in Size!int size)
+	public this(in size_t index, in wstring text, in vec2 position, in Size!int size)
 	{
 		super(position, size);
 
@@ -214,7 +214,7 @@ class ContextMenuStripItem : Control
 	 * Properties
 	 */
 	@property
-	public int index() const nothrow @nogc
+	public size_t index() const nothrow @nogc
 	{
 		return this.m_index;
 	}

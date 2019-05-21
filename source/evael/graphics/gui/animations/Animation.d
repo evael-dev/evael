@@ -28,7 +28,7 @@ abstract class Animation
 
 	protected Control m_control;
 
-	private uint m_id;
+	private size_t m_id;
 
 	@nogc @safe
 	public this() pure nothrow
@@ -93,12 +93,12 @@ abstract class Animation
 			this.m_onAnimationEnd = value;
 		}
 
-		package void id(in uint value)
+		package void id(in size_t value)
 		{
 			this.m_id = value;
 		}
 
-		package uint id() const
+		package size_t id() const
 		{
 			return this.m_id;
 		}

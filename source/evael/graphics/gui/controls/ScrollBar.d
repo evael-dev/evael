@@ -32,7 +32,7 @@ class ScrollBar : Container
 	}
 
 	private float m_scrollIncrementation;
-	private uint m_invisibleItemsHeight;
+	private int m_invisibleItemsHeight;
 
 	private Button m_scrollButton;
 	private Button m_scrollBottomButton;
@@ -85,7 +85,7 @@ class ScrollBar : Container
 	 *		 controlHeight : scrollbar's parent control height
 	 *		 itemsHeight : total height of scrollable items in parent control
 	 */
-	public void computeIncrementation(in uint controlHeight, in uint itemsHeight)
+	public void computeIncrementation(in uint controlHeight, in int itemsHeight)
 	{
 		if(itemsHeight <= controlHeight)
 		{

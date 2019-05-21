@@ -56,7 +56,7 @@ class ParticleEmitter : Drawable
 
 		auto particle =  Particle(vec3(0, 10, 0), vec3(0.0f, 0.0001f, 0.0f), vec3(0, 1, 0), 0.0f, 1, 0);
 
-		gl.GenTransformFeedbacks(1, &this.m_transformFeedbackBuffer); 
+		//gl.GenTransformFeedbacks(1, &this.m_transformFeedbackBuffer); 
 		gl.GenQueries(1, &this.m_query); 
 
 		for (int i = 0; i < 2 ; i++) 
@@ -147,7 +147,7 @@ class ParticleEmitter : Drawable
 
 		this.m_graphicsDevice.enable(EnableCap.RasterizeDiscard);
 
-		glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, this.m_transformFeedbackBuffer);
+		//glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, this.m_transformFeedbackBuffer);
 		this.m_graphicsDevice.bindVertexBuffer(this.m_particleBuffer[this.m_currentVertexBuffer]);
 
 		Particle *particle = null;
@@ -170,7 +170,7 @@ class ParticleEmitter : Drawable
 		gl.EndQuery(GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN); 
 		gl.GetQueryObjectiv(this.m_query, GL_QUERY_RESULT, &this.m_particlesNumber); 
 
-		glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, 0); 
+//		glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, 0); 
 
 		this.m_graphicsDevice.disableShader();
 	}

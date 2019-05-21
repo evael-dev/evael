@@ -6,7 +6,7 @@ import std.exception;
 import std.typecons : Flag, Yes, No;
 import core.stdc.string : strlen;
 
-import derelict.freeimage.freeimage;
+import bindbc.freeimage;
 
 import evael.graphics.GL;
 

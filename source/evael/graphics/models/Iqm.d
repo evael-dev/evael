@@ -401,7 +401,7 @@ class Iqm : Model
             
             // We add the joint in the list for attaching weapons to models
             char* joinName = &name[j.name - 1];
-            iqm.m_joints[cast(string)joinName[0..strlen(joinName)]] = i;
+            iqm.m_joints[cast(string)joinName[0..strlen(joinName)]] = cast(int) i;
 		}
 
 		import evael.graphics.Texture;

@@ -51,20 +51,20 @@ class TextureArray
         gl.BindTexture(GL_TEXTURE_2D_ARRAY, id);
 
 		gl.TexImage3D(GL_TEXTURE_2D_ARRAY,
-			0,                 // mipmap level
-			GL_RGBA8,          // gpu texel format
-			size,              // width
-			size,              // height
-			textures.length,   // depth
-			0,                 // border
-			GL_BGRA,      	   // cpu pixel format
-			GL_UNSIGNED_BYTE,  // cpu pixel coord type
-			null);             // pixel data
+			0,                 		   // mipmap level
+			GL_RGBA8,          		   // gpu texel format
+			size,              		   // width
+			size,              		   // height
+			cast(int) textures.length, // depth
+			0,                 		   // border
+			GL_BGRA,      	   		   // cpu pixel format
+			GL_UNSIGNED_BYTE,  		   // cpu pixel coord type
+			null);             		   // pixel data
 		
         foreach (i, texture; textures)
         {
             auto bytes = Texture.loadBytes(texture);
-            gl.TexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, i, size, size, 1, GL_BGRA, GL_UNSIGNED_BYTE, bytes.ptr);
+            gl.TexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, cast(int) i, size, size, 1, GL_BGRA, GL_UNSIGNED_BYTE, bytes.ptr);
         }
 
 		auto minificationFilter = GL_LINEAR;

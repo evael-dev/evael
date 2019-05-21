@@ -109,7 +109,7 @@ class ClientSocket
 	/**
 	 * Receives data.
 	 */
-	public int receive(ubyte[] data)
+	public size_t receive(ubyte[] data)
 	{
 		return this.m_socket.receive(data);
 	}

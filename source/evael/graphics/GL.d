@@ -2,7 +2,7 @@ module evael.graphics.GL;
 
 debug import dnogc.Utils;
 
-public import derelict.opengl;
+public import bindbc.opengl;
 
 struct gl
 {

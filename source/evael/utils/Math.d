@@ -93,7 +93,7 @@ bool isPointInPolygon()(in auto ref vec3 p, in auto ref PolygonDefinition polygo
 	// http://stackoverflow.com/questions/217578/how-can-i-determine-whether-a-2d-point-is-within-a-polygon
     // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
     bool inside = false;
-    for(int i = 0, j = polygon.length - 1 ; i < polygon.length; j = i++)
+    for (size_t i = 0, j = polygon.length - 1 ; i < polygon.length; j = i++)
     {
         if ( ( polygon[ i ].z > p.z ) != ( polygon[ j ].z > p.z ) &&
              p.x < ( polygon[ j ].x - polygon[ i ].x ) * ( p.z - polygon[ i ].z ) / ( polygon[ j ].z - polygon[ i ].z ) + polygon[ i ].x )
@@ -134,9 +134,9 @@ bool intersect()(in auto ref vec3 p1, in auto ref vec3 p2, in auto ref vec3 p3, 
  */
 bool intersectPolygon()(in auto ref vec3 p1, in auto ref vec3 p2, ref PolygonDefinition polygonVertices, out vec3 intersection) nothrow @nogc
 {
-	for(int i = 0; i < polygonVertices.length; i++)
+	for (size_t i = 0; i < polygonVertices.length; i++)
 	{
-		int j = ( i + 1 ) % polygonVertices.length;
+		size_t j = ( i + 1 ) % polygonVertices.length;
 
 		if((polygonVertices[i] == p2 || polygonVertices[j] == p2) || (polygonVertices[i] == p1 || polygonVertices[j] == p1))
 			continue;

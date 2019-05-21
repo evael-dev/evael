@@ -70,7 +70,9 @@ class Model : Drawable, IAsset
 	{
 		assert(index < this.m_instancingBuffers.length, "Invalid instancing buffer index");
 
-		this.m_graphicsDevice.allocVertexBufferData(this.m_instancingBuffers[index], this.m_instancesCount * T.sizeof, data, BufferUsage.DynamicDraw);
+		this.m_graphicsDevice.allocVertexBufferData(
+			this.m_instancingBuffers[index], this.m_instancesCount * T.sizeof, data, BufferUsage.DynamicDraw
+		);
 	}
 
 	/**
@@ -81,7 +83,7 @@ class Model : Drawable, IAsset
 	 *		data : data to send
 	 */
 	@nogc
-	public void updateInstancingBufferData(in int index, in uint offset, in uint size, void* data) nothrow
+	public void updateInstancingBufferData(in int index, in GLintptr offset, in GLsizeiptr size, void* data) nothrow
 	{
 		assert(index < this.m_instancingBuffers.length, "Invalid instancing buffer index");
 

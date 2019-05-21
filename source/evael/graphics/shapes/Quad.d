@@ -62,7 +62,7 @@ class Quad(Type) : Drawable
 
 		this.m_graphicsDevice.bindVAO(0);
 
-		this.m_trianglesNumber = this.m_indices.length / 3;
+		this.m_trianglesNumber = cast(uint) this.m_indices.length / 3;
 	}
 
 	public override void draw(in float deltaTime, mat4 view, mat4 projection)				

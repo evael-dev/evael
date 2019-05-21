@@ -143,7 +143,7 @@ class Terrain : Drawable
         this.m_graphicsDevice.setVertexBuffer!(TerrainVertex)(this.m_vertexBuffer);
         this.m_graphicsDevice.bindVAO(0);
 
-        this.m_trianglesNumber = indices.length / 3;
+        this.m_trianglesNumber = cast(int) (indices.length / 3);
     }
 
     public override void draw(in float deltaTime,  mat4 view, mat4 projection)
@@ -335,7 +335,7 @@ class Terrain : Drawable
 
         this.m_graphicsDevice.bindVAO(0);
 
-        this.m_trianglesNumber = indices.length / 3;
+        this.m_trianglesNumber = cast(int) (indices.length / 3);
     }
 
 	@nogc

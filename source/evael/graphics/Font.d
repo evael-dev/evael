@@ -131,7 +131,7 @@ class Font : IAsset
 	 *		textX : text position
 	 *		text : text
 	 */
-	public NVGglyphPosition getGlyphPosition(in uint index, in float textX, in wstring text, in int fontSize)
+	public NVGglyphPosition getGlyphPosition(in size_t index, in float textX, in wstring text, in int fontSize)
 	{		
 		NVGglyphPosition[1024] glyphs;
 

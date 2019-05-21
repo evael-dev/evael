@@ -51,7 +51,7 @@ class Polygon : Drawable
 
 		this.m_graphicsDevice.setVertexBuffer!(VertexPositionColor!3)(this.m_vertexBuffer);
 
-		this.m_graphicsDevice.drawPrimitives!(PrimitiveType.TriangleFan)(this.m_vertices.length);
+		this.m_graphicsDevice.drawPrimitives!(PrimitiveType.TriangleFan)(cast(int) this.m_vertices.length);
 
 		this.m_graphicsDevice.disableShader();
 	}

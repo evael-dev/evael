@@ -231,11 +231,11 @@ abstract class Container : Control
      * Params:
      *		 id : id
      */
-    public T getControl(T : Control)(in uint id) nothrow @nogc
+    public T getControl(T : Control)(in size_t id) nothrow @nogc
     {
-        foreach(control; this.m_controls)
+        foreach (control; this.m_controls)
         {
-            if(control.id == id)
+            if (control.id == id)
             {
                 return cast(T)control;
             }

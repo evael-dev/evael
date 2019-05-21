@@ -99,7 +99,7 @@ class Sound : IAsset
 
 		// Create the buffer
 		al.GenBuffers(1, &buffer);
-		al.BufferData(buffer, fileFormat, samples.ptr, ushort.sizeof * samples.length, fileInfo.samplerate);
+		al.BufferData(buffer, fileFormat, samples.ptr, cast(int) (samples.length * ushort.sizeof), fileInfo.samplerate);
 
         return new Sound(buffer);
     }

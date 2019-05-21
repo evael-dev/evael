@@ -123,7 +123,7 @@ class ListBox : Container, IScrollable
 
 		this.m_nextItemPosition = vec2(this.m_nextItemPosition.x, this.m_nextItemPosition.y + this.m_itemSize.height);
 
-		immutable uint itemsHeight = this.m_itemSize.height * this.m_controls.length / (this.m_columns.length + 1);
+		immutable uint itemsHeight = cast(uint) (this.m_itemSize.height * this.m_controls.length / (this.m_columns.length + 1));
 
 		if(itemsHeight > this.m_size.height)
 		{
@@ -262,7 +262,7 @@ class ListBox : Container, IScrollable
 	 */
 	public ListBoxItem[] getItems(in uint index)
 	{
-		immutable uint itemIndex = 2 + (this.m_columns.length * (index + 1));
+		immutable size_t itemIndex = 2 + (this.m_columns.length * (index + 1));
 
 		return cast(ListBoxItem[])this.m_controls[itemIndex..itemIndex + this.m_columns.length];
 	}

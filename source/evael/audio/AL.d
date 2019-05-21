@@ -2,7 +2,8 @@ module evael.audio.AL;
 
 debug import dnogc.Utils;
 
-public import derelict.openal.al;
+public import bindbc.openal;
+
 
 struct al
 {
