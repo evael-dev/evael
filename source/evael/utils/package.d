@@ -7,4 +7,5 @@ public
     import evael.utils.Rectangle;
     import evael.utils.Config;
     import evael.utils.Functions;
+    import evael.utils.Math;
 }

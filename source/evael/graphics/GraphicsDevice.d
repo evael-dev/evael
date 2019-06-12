@@ -410,26 +410,57 @@ class GraphicsDevice
 	}
 
 	/**
-	 * Allocates and sends data to a vertex buffer object.
+	 * Allocates and sends data to a buffer object.
 	 * Params:
-	 *		vbo : vertex buffer object
-	 *		data : data to send
+	 *		 id : buffer object
+	 *		 size : size in bytes of the buffer object's new data store
+	 *		 data : pointer to data that will be copied into the data store for initialization, or NULL if no data is to be copied
+	 *		 usage : expected usage pattern of the data store
 	 */
 	@nogc
-	public GLsizeiptr allocVertexBufferData(in uint id, in GLsizeiptr size, in void* data, BufferUsage usage = BufferUsage.StaticDraw) const nothrow
+	public GLsizeiptr allocBufferData(BufferType type)(in uint id, in GLsizeiptr size, in void* data, BufferUsage usage = BufferUsage.StaticDraw) const nothrow
 	{
-		this.bindVertexBuffer(id);
-		gl.BufferData(BufferType.VertexBuffer, size, data, usage);
+		gl.BindBuffer(type, id);
+		gl.BufferData(type, size, data, usage);
 
 		return size;
 	}
 
+	/**
+	 * Allocates and sends data to an vertex buffer object.
+	 * Params:
+	 *		 id : vertex buffer object
+	 *		 size : size in bytes of the buffer object's new data store
+	 *		 data : pointer to data that will be copied into the data store for initialization, or NULL if no data is to be copied
+	 *		 usage : expected usage pattern of the data store
+	 */
+	@nogc
+	public GLsizeiptr allocVertexBufferData(in uint id, in GLsizeiptr size, in void* data, BufferUsage usage = BufferUsage.StaticDraw) const nothrow
+	{
+		return this.allocBufferData!(BufferType.VertexBuffer)(id, size, data, usage);
+	}
 
 	/**
-	 * Sends data to vertex buffer object.
+	 * Allocates and sends data to an index buffer object.
 	 * Params:
-	 *		 vbo : vertex buffer object
-	 *		 data : data to send
+	 *		 id : index buffer object
+	 *		 size : size in bytes of the buffer object's new data store
+	 *		 data : pointer to data that will be copied into the data store for initialization, or NULL if no data is to be copied
+	 *		 usage : expected usage pattern of the data store
+	 */
+	@nogc
+	public GLsizeiptr allocIndexBufferData(in uint id, in GLsizeiptr size, in void* data, BufferUsage usage = BufferUsage.StaticDraw) const nothrow
+	{
+		return this.allocBufferData!(BufferType.IndexBuffer)(id, size, data, usage);
+	}
+
+	/**
+	 * Sends data to a vertex buffer object.
+	 * Params:
+	 *		 id : vertex buffer object
+	 *		 offet : offset
+	 *		 size : size in bytes of the buffer object's new data store
+	 *		 data : pointer to data that will be copied into the data store for initialization, or NULL if no data is to be copied
 	 */
 	@nogc
 	public GLsizeiptr sendVertexBufferData(in uint id, in GLintptr offset, in GLsizeiptr size, in void* data) const nothrow
@@ -441,19 +472,17 @@ class GraphicsDevice
 	}
 
 	/**
-	 * Binds a vertex buffer object for the next drawing operation.
+	 * Binds a vertex buffer object for the next operation.
 	 * Params:
-	 *		vbo : vertex buffer object to bind
+	 *		id : vertex buffer object to bind
 	 */
 	@nogc
 	public void setVertexBuffer(T, int line = __LINE__, string file = __FILE__)(in uint id) const nothrow
 	{
 		this.bindVertexBuffer(id);
 
-		enum size = cast(int) mixin(T.stringof ~ ".sizeof");
+		enum size = cast(GLint) T.sizeof;
 		
-		T* nullStruct = null;
-
 		foreach (i, member; __traits(allMembers, T))
 		{
 			static if (member == "opAssign")
@@ -470,15 +499,15 @@ class GraphicsDevice
 
 				static if(is(typeof(shaderAttribute) : ShaderAttribute))
 				{
-					void* offset = i == 0 ? null : mixin("&nullStruct." ~ member);
-					
+					enum offset = __traits(getMember, T, member).offsetof;
+
 					gl.EnableVertexAttribArray(shaderAttribute.layoutIndex);
 					gl.VertexAttribPointer(
 						shaderAttribute.layoutIndex, 
 						shaderAttribute.size, 
 						shaderAttribute.type, 
 						shaderAttribute.normalized, 
-						size, offset
+						size, cast(void*) offset
 					);
 
 					version(GLDebug) 
@@ -487,7 +516,7 @@ class GraphicsDevice
 							shaderAttribute.size, 
 							shaderAttribute.type, 
 							shaderAttribute.normalized, 
-							size, 0
+							size, offset
 						));
 					}
 				}

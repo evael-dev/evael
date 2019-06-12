@@ -71,9 +71,9 @@ class InputHandler
 				{
 					if (isMouseButtonPressed)
 					{
-						this.m_game.currentGameState.onMouseClick(this.m_mousePosition, e);
+						this.m_game.currentGameState.onMouseClick(e, this.m_mousePosition);
 					}
-					else this.m_game.currentGameState.onMouseUp(this.m_mousePosition, e);
+					else this.m_game.currentGameState.onMouseUp(e,this.m_mousePosition);
 
 					lastMouseButtonsStates[enumIndex] = isMouseButtonPressed;
 				}

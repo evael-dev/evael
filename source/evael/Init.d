@@ -5,6 +5,7 @@ import std.experimental.logger;
 import bindbc.openal;
 import bindbc.glfw;
 import bindbc.freeimage;
+import bindbc.nuklear;
 
 import derelict.util.exception;
 import derelict.nanovg.nanovg;
@@ -18,6 +19,7 @@ void loadExternalLibraries()
     debug infof("GLFW:%d", loadGLFW());
     debug infof("OpenAL:%d", loadOpenAL());
     debug infof("FreeImage:%d", loadFreeImage());
+    debug infof("Nuklear:%d", loadNuklear());
 
 	DerelictSndFile.load();
 

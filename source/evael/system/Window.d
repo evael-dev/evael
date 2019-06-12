@@ -47,7 +47,7 @@ class Window
 	{
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, contextSettings.ver / 10);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, contextSettings.ver % 10);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, contextSettings.profile);
 		glfwWindowHint(GLFW_RESIZABLE, settings.resizable);
 		glfwWindowHint(GLFW_SAMPLES, 4);
 		

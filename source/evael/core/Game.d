@@ -13,6 +13,7 @@ import evael.core.GameState;
 import evael.graphics.GraphicsDevice;
 import evael.graphics.Font;
 import evael.graphics.gui.GuiManager;
+import evael.graphics.gui2.NuklearGLFW;
 
 import evael.audio.AudioDevice;
 
@@ -67,6 +68,8 @@ class Game
 
 	private GameState[string] m_gameStates;
 
+	private NuklearGLFW m_nuklear;
+
 	/**
 	 * Game constructor.
 	 * Params:
@@ -98,6 +101,7 @@ class Game
 		this.m_guiManager = new GuiManager(this.m_graphicsDevice);
 		this.m_audioDevice = new AudioDevice();
 		this.m_entityManager = new EntityManager();
+		this.m_nuklear = new NuklearGLFW(this.m_graphicsDevice, this.m_window.glfwWindow);
 
 		this.m_tickrate = 64.0f;
 		this.m_deltaTime = 1000.0f / this.m_tickrate;
@@ -127,6 +131,7 @@ class Game
 		this.m_audioDevice.dispose();
 		this.m_graphicsDevice.dispose();
 		this.m_guiManager.dispose();
+		this.m_nuklear.dispose();
 
 		unloadExternalLibraries();        
 	}
@@ -426,6 +431,11 @@ class Game
 		public Window window()
 		{
 			return this.m_window;
+		}
+
+		public NuklearGLFW nuklear()
+		{
+			return this.m_nuklear;
 		}
 	}
 }

@@ -79,27 +79,29 @@ abstract class GameState
 	/**
 	 * Event called on mouse button click action.
 	 * Params:
-	 *		position : mouse position
 	 *		mouseButton : clicked mouse button
+	 *		position : mouse position
 	 */
-	public void onMouseClick(in ref vec2 position, in MouseButton mouseButton)
+	public void onMouseClick(in MouseButton mouseButton, in ref vec2 position)
 	{
 		this.m_mouseClicked = true;
 
 		this.m_guiManager.onMouseClick(mouseButton, position);
+		this.m_game.nuklear.onMouseClick(mouseButton, position);
 	}
 
 	/**
 	 * Event called on mouse button release action.
 	 * Params:
-	 *		position : mouse position
 	 *		mouseButton : released mouse button
+	 *		position : mouse position
 	 */
-	public void onMouseUp(in ref vec2 position, in MouseButton mouseButton)
+	public void onMouseUp(in MouseButton mouseButton, in ref vec2 position)
 	{
 		this.m_mouseClicked = false;
 
 		this.m_guiManager.onMouseUp(mouseButton);
+		this.m_game.nuklear.onMouseUp(mouseButton, position);	
 	}
 
 	/**

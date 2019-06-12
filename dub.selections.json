@@ -5,7 +5,7 @@
 		"bindbc-freetype": "0.1.0",
 		"bindbc-glfw": "0.5.0",
 		"bindbc-loader": "0.2.1",
-		"bindbc-nuklear": "0.1.1",
+		"bindbc-nuklear": "0.1.2",
 		"bindbc-openal": "0.2.0",
 		"bindbc-opengl": "0.8.0",
 		"ctini": "0.2.1",

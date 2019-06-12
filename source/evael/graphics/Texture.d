@@ -272,6 +272,20 @@ class Texture : IAsset
 	}
 
 	/**
+	 * Generates a texture from memory data.
+	 */
+	public static Texture fromMemory(in int width, in int height, const(void*) data,
+		in uint minFilter = GL_NEAREST, in uint magFilter = GL_NEAREST)
+	{
+		auto texture = Texture.generateEmptyTexture();
+		gl.BindTexture(GL_TEXTURE_2D, texture.id);
+		gl.TexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter);
+        gl.TexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magFilter);
+        gl.TexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, cast(GLsizei) width, cast(GLsizei) height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		return texture;
+	}
+
+	/**
 	 * Properties
 	 */
 	@nogc

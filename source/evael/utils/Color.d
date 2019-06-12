@@ -42,6 +42,15 @@ struct Color
 		this.m_values = [r, g, b, a];
 	}
 
+	/**
+	 * Color constructor (float).
+	 */
+	@nogc @safe
+	public this(in float r, in float g, in float b, in float a = 1.0f) pure nothrow
+	{
+		this.m_values = [cast(ubyte) (r * 255), cast(ubyte) (g * 255), cast(ubyte) (b * 255), cast(ubyte) (a * 255)];
+	}
+
 	@nogc @safe
 	public bool opEquals()(in ref Color c) const pure nothrow
 	{
@@ -49,7 +58,7 @@ struct Color
 	}
 
 	@nogc @safe
-	@property nothrow
+	@property pure nothrow
 	{
 		public ubyte r() const
 		{
@@ -76,16 +85,17 @@ struct Color
 			this.m_values[3] = value;
 		}
 		
-		@trusted
-		public NVGcolor asNvg() const
-		{
-			return nvgRGBA(this.m_values[0], this.m_values[1], this.m_values[2], this.m_values[3]);
-		}
-
 		public float[4] asFloat() const
 		{
 			return [this.m_values[0] / 255.0f, this.m_values[1] / 255.0f, this.m_values[2] / 255.0f, this.m_values[3] / 255.0f];
 		}
+	}
+
+	@trusted
+	@property
+	public NVGcolor asNvg() const
+	{
+		return nvgRGBA(this.m_values[0], this.m_values[1], this.m_values[2], this.m_values[3]);
 	}
 
 	@nogc

@@ -23,5 +23,12 @@
 	"targetType": "library",
 	"copyFiles-windows-x86": ["dist/x86/*.dll"],
 	"copyFiles-windows-x86_64": ["dist/x64/*.dll"],
-	"versions":["GL_33", "GLFW_31", "FI_318", "NanovgGL3"]
+	"versions":
+	[
+		"GL_33", "GLFW_31", "FI_318", "NanovgGL3",
+		"NK_INCLUDE_FONT_BAKING", 
+		"NK_INCLUDE_VERTEX_BUFFER_OUTPUT", 
+		"NK_INCLUDE_DEFAULT_ALLOCATOR", 
+		"NK_INCLUDE_STANDARD_IO"
+	]
 }

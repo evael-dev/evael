@@ -5,6 +5,9 @@ struct Size(T)
 	public T[2] values;
 	public T halfWidth, halfHeight;
 	
+	public alias x = width;
+	public alias y = height;
+	
 	@nogc
 	public this(in T width, in T height) nothrow
 	{

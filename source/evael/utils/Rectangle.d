@@ -3,64 +3,53 @@ module evael.utils.Rectangle;
 import evael.utils.Size;
 import evael.utils.Math;
 
+alias rectf = Rectangle!float;
+
 /**
  * Rectangle.
  */
 struct Rectangle(T = float, S = int)
 {
-	/// Rectangle bounds
 	public T left, right, bottom, top;
 	
-	/// Rectangle size
-	private Size!S m_size;
+	public Size!S size;
 	
-	public this(in T left, in T bottom, in S width, in S height)
+	@nogc @safe
+	public this(in T left, in T bottom, in S width, in S height) pure nothrow
 	{
 		this(Vector!(T, 2)(left, bottom), Size!S(width, height));
 	}
 
-	public this()(in T left, in T bottom, in auto ref Size!S size)
+	@nogc @safe
+	public this()(in T left, in T bottom, in auto ref Size!S size) pure nothrow
 	{
 		this(Vector!(T, 2)(left, bottom), size);
 	}
 
-	public this()(in auto ref Vector!(T, 2) position, in auto ref Size!S size)
+	@nogc @safe
+	public this()(in auto ref Vector!(T, 2) position, in auto ref Size!S size) pure nothrow
 	{
 		this.left = position.x;
 		this.bottom = position.y;
 
-		this.m_size = size;
+		this.size = size;
 
-		this.right = this.left + this.m_size.width;
-		this.top = this.bottom + this.m_size.height;
+		this.right = this.left + this.size.width;
+		this.top = this.bottom + this.size.height;
 	}
  	
-	@nogc
-	public bool isIn()(in auto ref ivec2 position) const nothrow
+	@nogc @safe
+	public bool isIn()(in auto ref ivec2 position) const pure nothrow
 	{
 		return position.x >= this.left && position.x <= this.right && 
 		   position.y >= this.bottom && position.y <= this.top;
 	}
 
-	@nogc
-	public bool isIn()(in auto ref vec2 position) const nothrow
+	@nogc @safe
+	public bool isIn()(in auto ref vec2 position) const pure nothrow
 	{
 		return position.x >= this.left && position.x <= this.right && 
 		   position.y >= this.bottom && position.y <= this.top;
-	}
-
-	@nogc
-	@property nothrow
-	{
-		public ref const(Size!S) size() const
-		{
-			return this.m_size;
-		}
-	
-		public void size()(in auto ref Size!S value)
-		{
-			this.m_size = value;
-		}
 	}
 }
 

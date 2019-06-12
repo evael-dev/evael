@@ -70,7 +70,7 @@ class Model : Drawable, IAsset
 	{
 		assert(index < this.m_instancingBuffers.length, "Invalid instancing buffer index");
 
-		this.m_graphicsDevice.allocVertexBufferData(
+		this.m_graphicsDevice.allocData!(BufferType.VertexBuffer)(
 			this.m_instancingBuffers[index], this.m_instancesCount * T.sizeof, data, BufferUsage.DynamicDraw
 		);
 	}

@@ -2,7 +2,7 @@ module evael.graphics.shaders.Shader;
 
 import std.experimental.logger : errorf;
 import std.exception : enforce;
-import std.string : format, toStringz;
+import std.string : format;
 
 import evael.graphics.GL;
 
@@ -83,7 +83,7 @@ class Shader : IAsset
 	 */
 	protected int getUniformLocation(in string uniformName)
 	{
-		return gl.GetUniformLocation(this.m_programID, uniformName.toStringz());
+		return gl.GetUniformLocation(this.m_programID, cast(char*) uniformName.ptr);
 	}
 	
 	/**
