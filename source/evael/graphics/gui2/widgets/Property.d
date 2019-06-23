@@ -14,8 +14,8 @@ class Property(T) if(isAllowedType!T()) : Widget
         enum NuklearPropertyFunction = "nk_property_" ~ T.stringof ~ "(" ~ params ~ ");";
     }
 
-	private alias OnSelectEvent = void delegate(in T value);
-	private OnSelectEvent m_onSelectEvent;
+	private alias OnChangeEvent = void delegate(in T value);
+	private OnChangeEvent m_onChangeEvent;
 
 	private string m_text;
 
@@ -35,14 +35,16 @@ class Property(T) if(isAllowedType!T()) : Widget
 	{
 		this.applyLayout();
 
-        mixin(NuklearPropertyFunction!("this.nuklear.context, cast(char*) this.m_text.ptr, this.m_min, &this.m_value, this.m_max, this.m_step, 1"));
+        mixin(NuklearPropertyFunction!(
+			q{this.nuklear.context, cast(char*) this.m_text.ptr, this.m_min, &this.m_value, this.m_max, this.m_step, 1}
+		));
 
         static T lastValue;
 
-        if (this.m_value != lastValue && this.m_onSelectEvent !is null)
+        if (this.m_value != lastValue && this.m_onChangeEvent !is null)
         {
             lastValue = this.m_value;
-            this.m_onSelectEvent(this.m_value);
+            this.m_onChangeEvent(this.m_value);
         }
 	}
 
@@ -84,9 +86,9 @@ class Property(T) if(isAllowedType!T()) : Widget
 			return this;
 		}
 
-        public Property!T onSelect(OnSelectEvent value)
+        public Property!T onChange(OnChangeEvent value)
 		{
-			this.m_onSelectEvent = value;
+			this.m_onChangeEvent = value;
 			return this;
 		}
 	}

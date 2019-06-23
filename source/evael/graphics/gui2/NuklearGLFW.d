@@ -60,6 +60,9 @@ class NuklearGLFW
 		NK_VERTEX_LAYOUT_END
 	];
 
+	private uint[] m_text;
+	private int m_textLength;
+
 	public this(GraphicsDevice graphicsDevice, GLFWwindow* window)
 	{
 		this.m_graphicsDevice = graphicsDevice;
@@ -67,7 +70,8 @@ class NuklearGLFW
 		this.m_lastButtonClick = 0;
 		this.m_isDoubleClickDown = nk_false;
 		this.m_doubleClickPos = vec2(0, 0);
-
+		this.m_text = new uint[256];
+		
 		nk_init_default(&this.m_nuklearContext, null);
 		nk_buffer_init_default(&this.m_commands);
 
@@ -214,10 +218,10 @@ class NuklearGLFW
 		);
 
 		nk_input_begin(&this.m_nuklearContext);
-		/*for (int i = 0; i < glfw.text_len; ++i)
+		for (int i = 0; i < this.m_textLength; i++)
 		{
-			nk_input_unicode(&this.m_nuklearContext, glfw.text[i]);
-		}*/
+			nk_input_unicode(&this.m_nuklearContext, this.m_text[i]);
+		}
 
 		/* optional grabbing behavior */
 	    if (this.m_nuklearContext.input.mouse.grab)
@@ -285,6 +289,7 @@ class NuklearGLFW
 
 		//nk_input_scroll(&this.m_nuklearContext, glfw.scroll);
 		nk_input_end(&this.m_nuklearContext);
+		this.m_textLength = 0;
 		/*glfw.text_len = 0;
 		glfw.scroll = nk_vec2(0,0);*/
 	}
@@ -332,6 +337,17 @@ class NuklearGLFW
 	public void onMouseUp(in MouseButton mouseButton, in ref vec2 position)
 	{
 		this.m_isDoubleClickDown = nk_false;
+	}
+
+	/**
+	 * Event called on character input.
+	 * Params:
+	 *		text : 
+	 */
+	public void onText(in int text)
+	{
+		info("textt");
+		this.m_text[this.m_textLength++] = text;
 	}
 }
 

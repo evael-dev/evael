@@ -5,18 +5,18 @@ import bindbc.nuklear : nk_layout_row_dynamic, nk_layout_row_static;
 import evael.graphics.gui2.layouts.ILayout;
 import evael.graphics.gui2.layouts.LayoutParams;
 
-alias DynamicLayout = Layout!(Layout.Type.Dynamic);
-alias StaticLayout = Layout!(Layout.Type.Static);
+alias DynamicLayout = Layout!(LayoutType.Dynamic);
+alias StaticLayout = Layout!(LayoutType.Static);
 
-class Layout(Layout.Type T) : ILayout
+/// Layout type
+enum LayoutType
 {
-	/// Layout type
-	public enum Type
-	{
-		Dynamic,
-		Static
-	}
+	Dynamic,
+	Static
+}
 
+class Layout(LayoutType T) : ILayout
+{
 	/// Layout params
 	private LayoutParams m_params;
 
@@ -30,7 +30,7 @@ class Layout(Layout.Type T) : ILayout
 	public void apply(NuklearGLFW nuklear) nothrow
 	{
 		// We could use nk_layout_row to avoid static if, but its not present in bindbc-nuklear
-		static if (T == Layout.Type.Dynamic)
+		static if (T == LayoutType.Dynamic)
 		{
 			nk_layout_row_dynamic(nuklear.context, this.m_params.height, this.m_params.columns);
 		}

@@ -131,6 +131,7 @@ abstract class GameState
 	 */
 	public void onText(in int text)
 	{
+		this.m_game.nuklear.onText(text);
 		this.m_guiManager.onText(text);
 	}
 
