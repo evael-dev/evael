@@ -12,7 +12,7 @@ class Button : Widget
 	public override void draw()
 	{
 		this.applyLayout();
-		if (nk_button_label(this.nuklear.context, cast(const(char)*) this.m_text.ptr))
+		if (nk_button_label(this.nuklearContext, cast(const(char)*) this.m_text.ptr))
 		{
 			if (this.m_onClickEvent !is null)
 			{

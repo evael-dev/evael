@@ -1,9 +1,9 @@
 module evael.graphics.gui2.layouts.ILayout;
 
-public import evael.graphics.gui2.NuklearGLFW : NuklearGLFW;
+import bindbc.nuklear : nk_context;
 
 interface ILayout
 {
 	@nogc
-	public void apply(NuklearGLFW nuklear) nothrow; 
+	public void apply(nk_context* nuklear) nothrow; 
 }

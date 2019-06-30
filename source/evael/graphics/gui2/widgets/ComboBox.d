@@ -28,7 +28,7 @@ class ComboBox : Widget
 	{
 		this.applyLayout();
 		this.m_selectedEntry = nk_combo_string(
-			this.nuklear.context, cast(char*) this.m_entries.ptr, this.m_selectedEntry, this.m_entriesCount, this.m_entryHeight, nk_vec2(200,200)
+			this.nuklearContext, cast(char*) this.m_entries.ptr, this.m_selectedEntry, this.m_entriesCount, this.m_entryHeight, nk_vec2(200,200)
 		);
 
 		static int lastSelectedEntry;

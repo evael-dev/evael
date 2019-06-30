@@ -12,6 +12,7 @@ import evael.utils.Math;
 /**
  * Input handler.
  * Handle mouse movements and mouse buttons / keys states.
+ * TODO: this class shouldnt have couple with game class
  */
 class InputHandler
 {

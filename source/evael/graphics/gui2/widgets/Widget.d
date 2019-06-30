@@ -1,12 +1,12 @@
 module evael.graphics.gui2.widgets.Widget;
 
-public import evael.graphics.gui2.NuklearGLFW;
+public import bindbc.nuklear;
 
 import evael.graphics.gui2.layouts.ILayout;
 
 abstract class Widget
 {
-	public NuklearGLFW nuklear;
+	public nk_context* nuklearContext;
 
 	/// Widget layout (dynamic or static)
 	protected ILayout m_layout;
@@ -23,7 +23,7 @@ abstract class Widget
 	{
 		if (this.m_layout !is null)
 		{
-			this.m_layout.apply(this.nuklear);
+			this.m_layout.apply(nuklearContext);
 		}
 	}
 

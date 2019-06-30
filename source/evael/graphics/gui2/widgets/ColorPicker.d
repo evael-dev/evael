@@ -21,15 +21,15 @@ class ColorPicker : Widget
 	public override void draw()
 	{
 		this.applyLayout();
-		if (nk_combo_begin_color(this.nuklear.context, nk_rgb_cf(this.m_color), nk_vec2(nk_widget_width(this.nuklear.context), 400))) {
-			nk_layout_row_dynamic(this.nuklear.context, 120, 1);
-			this.m_color = nk_color_picker(this.nuklear.context, this.m_color, NK_RGBA);
-			nk_layout_row_dynamic(this.nuklear.context, 25, 1);
-			this.m_color.r = nk_propertyf(this.nuklear.context, "#R:", 0, this.m_color.r, 1.0f, 0.01f,0.005f);
-			this.m_color.g = nk_propertyf(this.nuklear.context, "#G:", 0, this.m_color.g, 1.0f, 0.01f,0.005f);
-			this.m_color.b = nk_propertyf(this.nuklear.context, "#B:", 0, this.m_color.b, 1.0f, 0.01f,0.005f);
-			this.m_color.a = nk_propertyf(this.nuklear.context, "#A:", 0, this.m_color.a, 1.0f, 0.01f,0.005f);
-			nk_combo_end(this.nuklear.context);
+		if (nk_combo_begin_color(this.nuklearContext, nk_rgb_cf(this.m_color), nk_vec2(nk_widget_width(this.nuklearContext), 400))) {
+			nk_layout_row_dynamic(this.nuklearContext, 120, 1);
+			this.m_color = nk_color_picker(this.nuklearContext, this.m_color, NK_RGBA);
+			nk_layout_row_dynamic(this.nuklearContext, 25, 1);
+			this.m_color.r = nk_propertyf(this.nuklearContext, "#R:", 0, this.m_color.r, 1.0f, 0.01f,0.005f);
+			this.m_color.g = nk_propertyf(this.nuklearContext, "#G:", 0, this.m_color.g, 1.0f, 0.01f,0.005f);
+			this.m_color.b = nk_propertyf(this.nuklearContext, "#B:", 0, this.m_color.b, 1.0f, 0.01f,0.005f);
+			this.m_color.a = nk_propertyf(this.nuklearContext, "#A:", 0, this.m_color.a, 1.0f, 0.01f,0.005f);
+			nk_combo_end(this.nuklearContext);
 
 			static nk_colorf lastColor;
 

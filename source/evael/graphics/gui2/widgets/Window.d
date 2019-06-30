@@ -5,18 +5,24 @@ import evael.graphics.gui2.layouts.ILayout;
 
 import evael.utils.Rectangle;
 
+/**
+ * Window flags.
+ */
+enum WindowFlags
+{
+	Title = nk_panel_flags.NK_WINDOW_TITLE,
+	Resizable = nk_panel_flags.NK_WINDOW_SCALABLE,
+	Movable = nk_panel_flags.NK_WINDOW_MOVABLE,
+	Minimizable = nk_panel_flags.NK_WINDOW_MINIMIZABLE,
+	Border = nk_panel_flags.NK_WINDOW_BORDER,
+	Background = nk_panel_flags.NK_WINDOW_BACKGROUND
+}
+
+/**
+ * Window.
+ */
 class Window : Widget
 {
-	public enum Flags
-	{
-		Title = nk_panel_flags.NK_WINDOW_TITLE,
-		Resizable = nk_panel_flags.NK_WINDOW_SCALABLE,
-		Movable = nk_panel_flags.NK_WINDOW_MOVABLE,
-		Minimizable = nk_panel_flags.NK_WINDOW_MINIMIZABLE,
-		Border = nk_panel_flags.NK_WINDOW_BORDER,
-		Background = nk_panel_flags.NK_WINDOW_BACKGROUND
-	}
-
 	/// Window title
 	private string m_title;
 
@@ -31,23 +37,21 @@ class Window : Widget
 
 	public override void draw()
 	{
-		this.nuklear.prepareNewFrame();
-
-		if (nk_begin(this.nuklear.context, cast(char*) this.m_title.ptr, this.m_rect, this.m_flags))
+		if (nk_begin(this.nuklearContext, cast(char*) this.m_title.ptr, this.m_rect, this.m_flags))
 		{
 			foreach (widget; this.m_widgets)
 			{
 				widget.draw();
 			}
 		}
-		nk_end(this.nuklear.context);
+		nk_end(this.nuklearContext);
 	}
 
 	public void add(Widget widget)
 	{
 		this.m_widgets ~= widget;
 
-		widget.nuklear = this.nuklear;
+		widget.nuklearContext = this.nuklearContext;
 	}
 
 	@nogc @safe
@@ -60,7 +64,7 @@ class Window : Widget
 			return this;
 		}
 
-		public Window flags(in Flags value)
+		public Window flags(in WindowFlags value)
 		{
 			this.m_flags = value;
 			return this;
@@ -68,25 +72,25 @@ class Window : Widget
 
 		public Window border(in bool value = true)
 		{
-			this.updateFlag(Flags.Background, value);
+			this.updateFlag(WindowFlags.Background, value);
 			return this;
 		}
 
 		public Window minimizable(in bool value = true)
 		{
-			this.updateFlag(Flags.Minimizable, value);
+			this.updateFlag(WindowFlags.Minimizable, value);
 			return this;
 		}
 
 		public Window movable(in bool value = true)
 		{
-			this.updateFlag(Flags.Movable, value);
+			this.updateFlag(WindowFlags.Movable, value);
 			return this;
 		}
 
 		public Window resizable(in bool value = true)
 		{
-			this.updateFlag(Flags.Resizable, value);
+			this.updateFlag(WindowFlags.Resizable, value);
 			return this;
 		}
 

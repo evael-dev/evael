@@ -26,7 +26,7 @@ class Slider : Widget
 	{
 		this.applyLayout();
 
-        nk_slider_float(this.nuklear.context, this.m_min, &this.m_value, this.m_max, this.m_step);
+        nk_slider_float(this.nuklearContext, this.m_min, &this.m_value, this.m_max, this.m_step);
 
         static float lastValue;
 

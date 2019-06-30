@@ -14,7 +14,7 @@ class CheckBox : Widget
 	public override void draw()
 	{
 		this.applyLayout();
-		if (nk_checkbox_label(this.nuklear.context, cast(char*) this.m_text.ptr, &this.m_checked))
+		if (nk_checkbox_label(this.nuklearContext, cast(char*) this.m_text.ptr, &this.m_checked))
 		{
 			if (this.m_onChangeEvent !is null)
 			{

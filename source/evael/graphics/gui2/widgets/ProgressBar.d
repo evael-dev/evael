@@ -31,7 +31,7 @@ class ProgressBar : Widget
 	{
 		this.applyLayout();
 
-        if (nk_progress(this.nuklear.context, &this.m_value, this.m_max, this.m_type))
+        if (nk_progress(this.nuklearContext, &this.m_value, this.m_max, this.m_type))
         {
             if (this.m_onChangeEvent !is null)
             {

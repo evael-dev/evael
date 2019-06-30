@@ -6,7 +6,7 @@ import evael.core.Game;
 
 import evael.graphics.GraphicsDevice;
 import evael.graphics.Drawable;
-import evael.graphics.gui.GuiManager;
+import evael.graphics.gui2.GuiManager;
 
 import evael.system.Input;
 import evael.system.AssetLoader;
@@ -87,7 +87,6 @@ abstract class GameState
 		this.m_mouseClicked = true;
 
 		this.m_guiManager.onMouseClick(mouseButton, position);
-		this.m_game.nuklear.onMouseClick(mouseButton, position);
 	}
 
 	/**
@@ -101,7 +100,6 @@ abstract class GameState
 		this.m_mouseClicked = false;
 
 		this.m_guiManager.onMouseUp(mouseButton);
-		this.m_game.nuklear.onMouseUp(mouseButton, position);	
 	}
 
 	/**
@@ -131,7 +129,6 @@ abstract class GameState
 	 */
 	public void onText(in int text)
 	{
-		this.m_game.nuklear.onText(text);
 		this.m_guiManager.onText(text);
 	}
 

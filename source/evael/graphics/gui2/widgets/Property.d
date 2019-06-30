@@ -36,7 +36,7 @@ class Property(T) if(isAllowedType!T()) : Widget
 		this.applyLayout();
 
         mixin(NuklearPropertyFunction!(
-			q{this.nuklear.context, cast(char*) this.m_text.ptr, this.m_min, &this.m_value, this.m_max, this.m_step, 1}
+			q{this.nuklearContext, cast(char*) this.m_text.ptr, this.m_min, &this.m_value, this.m_max, this.m_step, 1}
 		));
 
         static T lastValue;

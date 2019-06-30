@@ -41,7 +41,7 @@ class Input(InputType T) : Widget
 	public override void draw()
 	{
 		this.applyLayout();
-        nk_edit_string_zero_terminated(this.nuklear.context, NK_EDIT_FIELD, cast(char*) this.m_value.ptr, 256, this.m_filter);
+        nk_edit_string_zero_terminated(this.nuklearContext, NK_EDIT_FIELD, cast(char*) this.m_value.ptr, 256, this.m_filter);
 	}
 
 	@nogc @safe

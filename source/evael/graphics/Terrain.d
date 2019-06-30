@@ -16,19 +16,19 @@ import evael.utils.Math;
 import evael.utils.Color;
 import evael.utils.Size;
 
+struct TerrainHeader
+{
+    public Size!int size;
+    public int      textureSplatting;
+    public int      XZworldScaleFactor;
+    public float    YworldScaleFactor;
+}
+
 /**
- * Terrain
+ * Terrain.
  */
 class Terrain : Drawable
 {
-    struct TerrainHeader
-    {
-        public Size!int size;
-        public int      textureSplatting;
-        public int      XZworldScaleFactor;
-        public float    YworldScaleFactor;
-    }
-
     /// Terrain configuration
     private TerrainHeader m_header;
 

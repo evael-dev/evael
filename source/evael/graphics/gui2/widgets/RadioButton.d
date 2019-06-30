@@ -22,7 +22,7 @@ class RadioButton : Widget
 		this.applyLayout();
 
 		immutable bool condition = this.m_condition();
-		if (nk_option_label(this.nuklear.context, cast(char*) this.m_text.ptr, condition))
+		if (nk_option_label(this.nuklearContext, cast(char*) this.m_text.ptr, condition))
 		{
 			// RadioButton has been clicked.
 			// If RadioButton is not selected, we trigger a select event

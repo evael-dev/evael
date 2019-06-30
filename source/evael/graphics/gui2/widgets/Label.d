@@ -25,7 +25,7 @@ class Label : Widget
 	public override void draw()
 	{
 		this.applyLayout();
-		nk_label(this.nuklear.context, cast(char*) this.m_text.ptr, this.m_alignment);
+		nk_label(this.nuklearContext, cast(char*) this.m_text.ptr, this.m_alignment);
 	}
 
 	@nogc @safe
