@@ -62,7 +62,7 @@ struct TranslationNode
 
 			immutable type = jsonValue.type();
 
-			if(type == JSON_TYPE.STRING || type == JSON_TYPE.OBJECT)
+			if(type == JSONType.string || type == JSONType.object)
 			{
 				return TranslationNode(jsonValue);
 			}
@@ -78,7 +78,7 @@ struct TranslationNode
 		{
 			immutable type = this.m_jsonValue.type();
 
-			if(type == JSON_TYPE.STRING)
+			if(type == JSONType.string)
 			{
 				return this.m_jsonValue.str.to!wstring;
 			}
