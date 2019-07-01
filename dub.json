@@ -18,7 +18,8 @@
 		"dnogc": "~master",
 		"decs": "~>1.0.3",
 		"ctini": "~>0.2.1",
-		"dlib": "~>0.16.0"
+		"dlib": "~>0.16.0",
+		"tanya:middle": "~>0.16.1"
 	},
 	"targetType": "library",
 	"copyFiles-windows-x86": ["dist/x86/*.dll"],

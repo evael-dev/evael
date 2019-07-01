@@ -9,6 +9,7 @@ import evael.graphics.lights;
 import evael.utils.Math;
 
 import dnogc.DynamicArray;
+import tanya.memory;
 
 /**
  * Environment.
@@ -42,6 +43,16 @@ class Environment
 		this.m_graphicsDevice = graphics;
 
 		this.m_sunProjection = orthoMatrix(-300.0f, 300.0f, -300.0f, 300.0f, -300.0f, 300.0f);
+
+	import tanya.memory;
+	
+		this.m_ambientLight = defaultAllocator.make!AmbientLight(vec3(1.0, 1.0, 1.0));
+
+		this.m_sun = defaultAllocator.make!DirectionalLight();
+		this.m_sun.direction = vec3(1.0, 1.0, 1.0);
+		this.m_sun.ambient = vec3(1.0, 1.0, 1.0);
+		this.m_sun.diffuse = vec3(1.0, 1.0, 1.0);
+		this.m_sun.specular = vec3(1.0, 1.0, 1.0);
 	}
 
 	/**
@@ -49,6 +60,9 @@ class Environment
 	 */
 	public void dispose()
 	{
+		defaultAllocator.dispose(this.m_ambientLight);
+		defaultAllocator.dispose(this.m_sun);
+		
 		this.m_pointsLights.dispose();
 	}
 

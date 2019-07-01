@@ -11,12 +11,14 @@ class DirectionalLight : Light
 	public vec3 diffuse;
 	public vec3 specular;
 	
-	public this()
+	@nogc @safe
+	public this() pure nothrow
 	{
 
 	}
 	
-	public this(in vec3 direction, in vec3 ambient, in vec3 diffuse, in vec3 specular)
+	@nogc @safe
+	public this(in vec3 direction, in vec3 ambient, in vec3 diffuse, in vec3 specular) pure nothrow
 	{
 		this.direction = direction;
 		this.ambient = ambient;

@@ -8,7 +8,8 @@ class AmbientLight : Light
 {
 	public vec3 value;
 	
-	public this(in vec3 value)
+	@nogc @safe
+	public this(in vec3 value) pure nothrow
 	{
 		this.value = value;
 	}    
