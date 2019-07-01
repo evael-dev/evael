@@ -21,4 +21,5 @@ docs/
 
 # Code coverage
 *.lst
-./*.dll
+*.dll
+!dist/*/*.dll
