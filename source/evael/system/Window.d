@@ -1,17 +1,17 @@
-module evael.system.Window;
+module evael.system.window;
 
 import std.string : toStringz;
 import std.traits : EnumMembers;
-debug import std.experimental.logger;
+import std.experimental.logger;
 
 public import bindbc.glfw;
 import bindbc.opengl;
 
 import derelict.nanovg.nanovg;
 
-import evael.system.WindowSettings;
-import evael.system.GLContextSettings;
-import evael.system.Cursor;
+import evael.system.window_settings;
+import evael.system.gl_context_settings;
+import evael.system.cursor;
 
 /**
  * Window.
@@ -59,7 +59,7 @@ class Window
 		glfwSwapInterval(settings.vsync);
 		
 		// We have a context now, we can reload gl3
-		debug infof("Opengl %s loaded.", loadOpenGL());
+		infof("Opengl %s loaded.", loadOpenGL());
 		DerelictNANOVG.load();
 
 		foreach(cursor; [EnumMembers!(Cursor)])
@@ -124,8 +124,8 @@ class Window
 		glfwSetInputMode(this.m_glfwWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	}
 
-	@nogc @safe
-	@property pure nothrow
+	@nogc
+	@property nothrow
 	{
 		GLFWwindow* glfwWindow() 
 		{

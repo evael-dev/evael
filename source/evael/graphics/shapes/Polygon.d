@@ -1,14 +1,14 @@
-module evael.graphics.shapes.Polygon;
+module evael.graphics.shapes.polygon;
 
-import evael.graphics.GraphicsDevice;
-import evael.graphics.Drawable;
-import evael.graphics.shaders.Shader;
-import evael.graphics.Vertex;
-import evael.graphics.Texture;
+import evael.graphics.graphics_device;
+import evael.graphics.drawable;
+import evael.graphics.shaders.shader;
+import evael.graphics.vertex;
+import evael.graphics.texture;
 
-import evael.utils.Math;
-import evael.utils.Color;
-import evael.utils.Size;
+import evael.utils.math;
+import evael.utils.color;
+import evael.utils.size;
 
 /**
  * Polygon.
@@ -22,8 +22,8 @@ class Polygon : Drawable
 	 * Params:
 	 *		graphicsDevice : graphics device
 	 */
-	@nogc @safe
-	public this()(GraphicsDevice graphicsDevice) pure nothrow
+	@nogc
+	public this()(GraphicsDevice graphicsDevice) nothrow
 	{
 		super(0, 0, 0, Size!int(0, 0));
 
@@ -61,8 +61,8 @@ class Polygon : Drawable
 		this.draw(deltaTime, this.m_graphicsDevice.viewMatrix, this.m_graphicsDevice.projectionMatrix);
 	}
 
-	@nogc @safe
-	@property pure nothrow
+	@nogc
+	@property nothrow
 	{
 		public void vertices(VertexPositionColor!3[] value) 
 		{

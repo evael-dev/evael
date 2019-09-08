@@ -1,14 +1,14 @@
-module evael.graphics.shapes.Shape;
+module evael.graphics.shapes.shape;
 
-import evael.graphics.GraphicsDevice;
-import evael.graphics.Drawable;
-import evael.graphics.shaders.Shader;
-import evael.graphics.Vertex;
-import evael.graphics.Texture;
+import evael.graphics.graphics_device;
+import evael.graphics.drawable;
+import evael.graphics.shaders.shader;
+import evael.graphics.vertex;
+import evael.graphics.texture;
 
-import evael.utils.Math;
-import evael.utils.Color;
-import evael.utils.Size;
+import evael.utils.math;
+import evael.utils.color;
+import evael.utils.size;
 
 /**
  * Shape.
@@ -92,8 +92,8 @@ class Shape(Type) : Drawable
 		this.draw(deltaTime, this.m_graphicsDevice.viewMatrix, this.m_graphicsDevice.projectionMatrix);
 	}
 
-	@nogc @safe
-	@property pure nothrow
+	@nogc
+	@property nothrow
 	{
 		public Type[] vertices()
 		{

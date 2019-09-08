@@ -1,14 +1,14 @@
-module evael.graphics.models.Model;
+module evael.graphics.models.model;
 
-import evael.system.Asset;
+import evael.system.asset;
 
-import evael.graphics.Drawable;
-import evael.graphics.models.BoundingBox;
-import evael.graphics.GraphicsDevice;
-import evael.graphics.Vertex;
-import evael.graphics.shaders.Shader;
+import evael.graphics.drawable;
+import evael.graphics.models.bounding_box;
+import evael.graphics.graphics_device;
+import evael.graphics.vertex;
+import evael.graphics.shaders.shader;
 
-import evael.utils.Math;
+import evael.utils.math;
 
 /**
  * Model.

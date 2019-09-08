@@ -1,11 +1,11 @@
-module evael.audio.Source;
+module evael.audio.source;
 
-import evael.audio.AL;
-import evael.audio.AudioException;
+import evael.audio.al;
+import evael.audio.audio_exception;
 
-import evael.utils.Math;
+import evael.utils.math;
 
-import evael.system.Asset;
+import evael.system.asset;
 
 /**
  * Source.

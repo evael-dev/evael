@@ -1,6 +1,6 @@
-module evael.graphics.gui2.widgets.Slider;
+module evael.graphics.gui2.widgets.slider;
 
-import evael.graphics.gui2.widgets.Widget;
+import evael.graphics.gui2.widgets.widget;
 
 class Slider : Widget
 {
@@ -12,8 +12,8 @@ class Slider : Widget
     private float m_max;
     private float m_step;
 
-    @nogc @safe
-    public this() pure nothrow
+    @nogc
+    public this() nothrow
     {
         super();
         this.m_value = 0.0f;
@@ -37,8 +37,8 @@ class Slider : Widget
         }
 	}
 
-	@nogc @safe
-	@property pure nothrow
+	@nogc
+	@property nothrow
 	{
 		public Slider value(in float value)
 		{

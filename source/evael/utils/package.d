@@ -2,10 +2,9 @@ module evael.utils;
 
 public
 {
-    import evael.utils.Color;
-    import evael.utils.Size;
-    import evael.utils.Rectangle;
-    import evael.utils.Config;
-    import evael.utils.Functions;
-    import evael.utils.Math;
+    import evael.utils.color;
+    import evael.utils.size;
+    import evael.utils.rectangle;
+    import evael.utils.functions;
+    import evael.utils.math;
 }

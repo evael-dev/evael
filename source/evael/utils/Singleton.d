@@ -1,4 +1,4 @@
-module evael.utils.Singleton;
+module evael.utils.singleton;
 
 /**
  * Singleton.

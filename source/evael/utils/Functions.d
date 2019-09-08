@@ -1,4 +1,4 @@
-module evael.utils.Functions;
+module evael.utils.functions;
 
 import std.parallelism;
 import std.datetime;

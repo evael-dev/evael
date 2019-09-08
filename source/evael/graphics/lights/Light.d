@@ -1,6 +1,6 @@
-module evael.graphics.lights.Light;
+module evael.graphics.lights.light;
 
-import evael.utils.Math;
+import evael.utils.math;
 
 abstract class Light
 {

@@ -1,8 +1,7 @@
-module evael.graphics.particles.Particle;
+module evael.graphics.particles.particle;
 
-import evael.utils.Math;
-
-import evael.utils.Color;
+import evael.utils.math;
+import evael.utils.color;
 
 struct Particle
 {

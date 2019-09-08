@@ -2,7 +2,7 @@ module evael.audio;
 
 public
 {
-	import evael.audio.Sound;
-	import evael.audio.Source;    
+	import evael.audio.sound;
+	import evael.audio.source;    
 }
 

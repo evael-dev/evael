@@ -2,8 +2,8 @@ module evael.graphics.lights;
 
 public
 {
-	import evael.graphics.lights.Light;	
-	import evael.graphics.lights.AmbientLight;
-	import evael.graphics.lights.DirectionalLight;
-	import evael.graphics.lights.PointLight;
+	import evael.graphics.lights.light;	
+	import evael.graphics.lights.ambient_light;
+	import evael.graphics.lights.directional_light;
+	import evael.graphics.lights.point_light;
 }

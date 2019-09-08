@@ -1,4 +1,4 @@
-module evael.graphics.Texture;
+module evael.graphics.texture;
 
 import std.file : exists;
 import std.string : lastIndexOf, format, toStringz;
@@ -8,12 +8,10 @@ import core.stdc.string : strlen;
 
 import bindbc.freeimage;
 
-import evael.graphics.GL;
-
-import evael.system.Asset;
-
-import evael.utils.Config;
-import evael.utils.Size;
+import evael.graphics.gl;
+import evael.core.game_config;
+import evael.system.asset;
+import evael.utils.size;
 
 /**
  * Texture.
@@ -67,7 +65,9 @@ class Texture : IAsset
 	 */
 	public static Texture load(in string textureName, in bool flipTexture = true)
 	{
-		immutable fileName = toStringz(Config.Paths.textures!string ~ textureName);
+		import evael.core.game_config;
+
+		immutable fileName = toStringz(GameConfig.paths.textures ~ textureName);
 
 		// Determine the format of the image
 		FREE_IMAGE_FORMAT fiFormat = FreeImage_GetFileType(fileName , 0);
@@ -185,8 +185,10 @@ class Texture : IAsset
 	 */
 	public static ubyte[] loadBytes(in string textureName, in Flag!"flipTexture" flipTexture = Yes.flipTexture)
 	{
+		import evael.core.game_config;
+
 		// Texture name without path and extension
-		immutable fileName = toStringz(Config.Paths.textures!string ~ textureName);
+		immutable fileName = toStringz(GameConfig.paths.textures ~ textureName);
 
 		// Determine the format of the image
 		FREE_IMAGE_FORMAT fiFormat = FreeImage_GetFileType(fileName , 0);

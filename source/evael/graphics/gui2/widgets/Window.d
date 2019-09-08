@@ -1,9 +1,8 @@
-module evael.graphics.gui2.widgets.Window;
+module evael.graphics.gui2.widgets.window;
 
-import evael.graphics.gui2.widgets.Widget;
-import evael.graphics.gui2.layouts.ILayout;
+import evael.graphics.gui2.widgets.widget;
 
-import evael.utils.Rectangle;
+import evael.utils.rectangle;
 
 /**
  * Window flags.
@@ -54,8 +53,8 @@ class Window : Widget
 		widget.nuklearContext = this.nuklearContext;
 	}
 
-	@nogc @safe
-	@property pure nothrow
+	@nogc
+	@property nothrow
 	{
 		public Window title(in string value)
 		{
@@ -101,8 +100,8 @@ class Window : Widget
 		}
 	}
 
-	@nogc @safe
-	public void updateFlag(in nk_flags flag, in bool value) pure nothrow
+	@nogc
+	public void updateFlag(in nk_flags flag, in bool value) nothrow
 	{
 		this.m_flags = (value ? (this.m_flags | flag) : (this.m_flags & ~flag));
 	}

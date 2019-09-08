@@ -1,4 +1,4 @@
-module evael.system.I18n;
+module evael.system.i18n;
 
 import std.json;
 import std.conv;

@@ -1,4 +1,4 @@
-module evael.graphics.models.Animation;
+module evael.graphics.models.animation;
 
 struct Animation
 {

@@ -1,12 +1,12 @@
-module evael.graphics.Drawable;
+module evael.graphics.drawable;
 
-import evael.graphics.GraphicsDevice;
-import evael.graphics.Texture;
-import evael.graphics.shaders.Shader;
+import evael.graphics.graphics_device;
+import evael.graphics.texture;
+import evael.graphics.shaders.shader;
 
-import evael.utils.Math;
-import evael.utils.Size;
-import evael.utils.Rectangle;
+import evael.utils.math;
+import evael.utils.size;
+import evael.utils.rectangle;
 
 abstract class Drawable
 {	
@@ -24,8 +24,8 @@ abstract class Drawable
 	/**
 	 * Drawable constructor.
 	 */
-	@nogc @safe
-	public this(GraphicsDevice graphicsDevice) pure nothrow
+	@nogc
+	public this(GraphicsDevice graphicsDevice) nothrow
 	{
 		this.m_graphicsDevice = graphicsDevice;
 
@@ -35,8 +35,8 @@ abstract class Drawable
 		this.m_isVisible = true;
 	}
 
-	@nogc @safe
-	public this(in float x = 0.0f, in float y = 0.0f, in float z = 0.0f) pure nothrow
+	@nogc
+	public this(in float x = 0.0f, in float y = 0.0f, in float z = 0.0f) nothrow
 	{
 		auto position = vec3(x, y, z);
 		auto size = Size!int();
@@ -44,15 +44,15 @@ abstract class Drawable
 		this(position, size);
 	}
 
-	@nogc @safe
-	public this(in float x, in float y, in float z, in Size!int size) pure nothrow
+	@nogc
+	public this(in float x, in float y, in float z, in Size!int size) nothrow
 	{
 		vec3 position = vec3(x, y, z);
 		this(position, size);
 	}
 
-	@nogc @safe
-	public this()(in ref vec3 position, in Size!int size) pure nothrow
+	@nogc
+	public this()(in ref vec3 position, in Size!int size) nothrow
 	{
 		this.m_position = position;
 		this.m_size = size;

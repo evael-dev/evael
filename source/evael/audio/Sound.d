@@ -1,14 +1,14 @@
-module evael.audio.Sound;
+module evael.audio.sound;
 
 import derelict.sndfile.sndfile;
 
-import evael.audio.AL;
-import evael.audio.Source;
-import evael.audio.AudioException;
+import evael.audio.al;
+import evael.audio.source;
+import evael.audio.audio_exception;
 
-import evael.system.Asset;
+import evael.system.asset;
 
-import evael.utils.Config;
+import evael.core.game_config;
 
 import dnogc.DynamicArray;
 
@@ -70,7 +70,7 @@ class Sound : IAsset
     {
         import std.string : format, toStringz;
         
-		auto fileName = toStringz(Config.Paths.sounds!string ~ soundName);
+		auto fileName = toStringz(GameConfig.paths.sounds ~ soundName);
 
 		SF_INFO fileInfo;
 

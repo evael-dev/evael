@@ -1,8 +1,8 @@
-module evael.graphics.gui2.widgets.Widget;
+module evael.graphics.gui2.widgets.widget;
 
 public import bindbc.nuklear;
 
-import evael.graphics.gui2.layouts.ILayout;
+import evael.graphics.gui2.layouts.layout_interface;
 
 abstract class Widget
 {
@@ -11,9 +11,10 @@ abstract class Widget
 	/// Widget layout (dynamic or static)
 	protected ILayout m_layout;
 
-    @nogc @safe
-    public this() pure nothrow
+    @nogc
+    public this() nothrow
 	{
+		//this.m_layout = new 
 	}
 
 	public void draw();
@@ -27,8 +28,8 @@ abstract class Widget
 		}
 	}
 
-	@nogc @safe
-	@property pure nothrow
+	@nogc
+	@property nothrow
 	{
 		public auto layout(ILayout value)
 		{

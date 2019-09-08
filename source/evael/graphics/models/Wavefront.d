@@ -1,4 +1,4 @@
-module evael.graphics.models.Wavefront;
+module evael.graphics.models.wavefront;
 
 import std.stdio;
 import std.array : split;
@@ -8,19 +8,19 @@ import std.conv : to;
 
 import dnogc.DynamicArray;
 
-import evael.graphics.Drawable;
-import evael.graphics.GraphicsDevice;
-import evael.graphics.shaders.BasicLightShader;
-import evael.graphics.Vertex;
-import evael.graphics.Texture;
-import evael.graphics.models.Model;
-import evael.graphics.models.BoundingBox;
+import evael.graphics.drawable;
+import evael.graphics.graphics_device;
+import evael.graphics.shaders.basic_light_shader;
+import evael.graphics.vertex;
+import evael.graphics.texture;
+import evael.graphics.models.model;
+import evael.graphics.models.bounding_box;
 
-import evael.system.Asset;
-import evael.system.AssetLoader;
+import evael.system.asset;
+import evael.system.asset_loader;
 
-import evael.utils.Math;
-import evael.utils.Color;
+import evael.utils.math;
+import evael.utils.color;
 
 class Wavefront	: Model
 {
@@ -106,9 +106,9 @@ class Wavefront	: Model
 
 	static Wavefront load(in string fileName)
 	{
-		import evael.utils.Config;
+		import evael.core.game_config;
 
-		File file = File(Config.Paths.models!string ~ fileName);
+		File file = File(GameConfig.paths.models ~ fileName);
 		scope(exit) file.close;
 
 		vec3[] vertices;
@@ -122,7 +122,7 @@ class Wavefront	: Model
 		Material defaultMaterial = Material(MaterialType.Color, Color.White, null);
 		Material currentMaterial = defaultMaterial;
 
-		auto materials = loadMaterials(Config.Paths.models!string ~ fileName[0 .. $ - 3] ~ "mtl");
+		auto materials = loadMaterials(GameConfig.paths.models ~ fileName[0 .. $ - 3] ~ "mtl");
 
 		Texture texture;
 
@@ -216,7 +216,7 @@ class Wavefront	: Model
 
 		auto boundingBox = BoundingBox(vec3(minX.x, minY.y, minZ.z), vec3(maxX.x, maxY.y, maxZ.z));
 		obj.m_currentBoundingBox = boundingBox;
-		obj.m_navPolygon = loadNavPolygon(Config.Paths.models!string ~ fileName[0.. $ - 3] ~ "nav", boundingBox);
+		obj.m_navPolygon = loadNavPolygon(GameConfig.paths.models ~ fileName[0.. $ - 3] ~ "nav", boundingBox);
 
 		return obj;
 	}
@@ -322,8 +322,8 @@ class Wavefront	: Model
 		return materials;
 	}
 
-	@nogc @safe
-	@property pure nothrow
+	@nogc
+	@property nothrow
 	{
 
 		public BoundingBox currentBoundingBox() const

@@ -1,11 +1,11 @@
-module evael.graphics.Vertex;
+module evael.graphics.vertex;
 
 import std.conv : to;
 
-import evael.graphics.GL;
+import evael.graphics.gl;
 
-import evael.utils.Math;
-import evael.utils.Color;
+import evael.utils.math;
+import evael.utils.color;
 
 alias Vertex2PositionColor = VertexPositionColor!2;
 alias Vertex2PositionColorTexture = VertexPositionColorTexture!2;

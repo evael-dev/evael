@@ -1,4 +1,4 @@
-module evael.system.Cursor;
+module evael.system.cursor;
 
 import bindbc.glfw;
 

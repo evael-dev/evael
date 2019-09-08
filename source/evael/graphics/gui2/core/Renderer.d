@@ -1,17 +1,17 @@
-module evael.graphics.gui2.core.Renderer;
+module evael.graphics.gui2.core.renderer;
 
 import bindbc.nuklear;
 import bindbc.glfw;
 
-import evael.graphics.GraphicsDevice;
-import evael.graphics.GL;
-import evael.graphics.Texture;
-import evael.graphics.shaders.Shader;
-import evael.graphics.Vertex;
+import evael.graphics.graphics_device;
+import evael.graphics.gl;
+import evael.graphics.texture;
+import evael.graphics.shaders.shader;
+import evael.graphics.vertex;
 
-import evael.system.AssetLoader;
+import evael.system.asset_loader;
 
-import evael.utils.Size;
+import evael.utils.size;
 
 alias NuklearVertex = Vertex2PositionColorTexture;
 
@@ -29,6 +29,7 @@ class Renderer
 	private nk_draw_null_texture m_nullTexture;
 
 	private nk_buffer m_commands;
+	private nk_draw_index* m_drawOffset;
 
 	private NuklearShader m_nuklearShader;
 
@@ -133,22 +134,10 @@ class Renderer
 			gl.UnmapBuffer(GL_ARRAY_BUFFER);
 			gl.UnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
 
-			nk_draw_index *offset = null;
+			this.m_drawOffset = null;
 
 			/* iterate over and execute each draw command */
-			nk_draw_foreach(this.m_nuklearContext, &this.m_commands, (cmd)
-			{
-				if (!cmd.elem_count) return;
-				// gl.BindTexture(GL_TEXTURE_2D, cast(GLuint) cmd.texture.id);
-				gl.Scissor(
-					cast(GLint)(cmd.clip_rect.x * this.m_frameBufferScale.x),
-					cast(GLint)((this.m_windowSize.height - cast(GLint) (cmd.clip_rect.y + cmd.clip_rect.h)) * this.m_frameBufferScale.y),
-					cast(GLint)(cmd.clip_rect.w * this.m_frameBufferScale.x),
-					cast(GLint)(cmd.clip_rect.h * this.m_frameBufferScale.y)
-				);
-				gl.DrawElements(GL_TRIANGLES, cast(GLsizei) cmd.elem_count, GL_UNSIGNED_SHORT, offset);
-				offset += cmd.elem_count;
-			});
+			nk_draw_foreach(this.m_nuklearContext, &this.m_commands, &this.drawElement);
 			nk_clear(this.m_nuklearContext);
 		}
 
@@ -159,6 +148,21 @@ class Renderer
 		gl.BindVertexArray(0);
 		gl.Disable(GL_BLEND);
 		gl.Disable(GL_SCISSOR_TEST);
+	}
+
+	@nogc
+	private void drawElement(const(nk_draw_command)* cmd) nothrow
+	{
+		if (!cmd.elem_count) return;
+		// gl.BindTexture(GL_TEXTURE_2D, cast(GLuint) cmd.texture.id);
+		gl.Scissor(
+			cast(GLint)(cmd.clip_rect.x * this.m_frameBufferScale.x),
+			cast(GLint)((this.m_windowSize.height - cast(GLint) (cmd.clip_rect.y + cmd.clip_rect.h)) * this.m_frameBufferScale.y),
+			cast(GLint)(cmd.clip_rect.w * this.m_frameBufferScale.x),
+			cast(GLint)(cmd.clip_rect.h * this.m_frameBufferScale.y)
+		);
+		gl.DrawElements(GL_TRIANGLES, cast(GLsizei) cmd.elem_count, GL_UNSIGNED_SHORT, this.m_drawOffset);
+		this.m_drawOffset += cmd.elem_count;
 	}
 
 	public void prepareNewFrame()

@@ -1,6 +1,6 @@
-module evael.graphics.gui2.widgets.Input;
+module evael.graphics.gui2.widgets.input;
 
-import evael.graphics.gui2.widgets.Widget;
+import evael.graphics.gui2.widgets.widget;
 
 enum InputType
 {
@@ -44,8 +44,8 @@ class Input(InputType T) : Widget
         nk_edit_string_zero_terminated(this.nuklearContext, NK_EDIT_FIELD, cast(char*) this.m_value.ptr, 256, this.m_filter);
 	}
 
-	@nogc @safe
-	@property pure nothrow
+	@nogc
+	@property nothrow
 	{
 		public Input text(in string value)
 		{

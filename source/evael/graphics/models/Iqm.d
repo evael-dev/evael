@@ -1,4 +1,4 @@
-module evael.graphics.models.Iqm;
+module evael.graphics.models.iqm;
 
 import std.stdio;
 import std.math;
@@ -9,18 +9,18 @@ import std.conv : to;
 import core.stdc.string : memcpy;
 import core.stdc.string : strlen;
 
-import evael.graphics.GraphicsDevice;
-import evael.graphics.shaders.IqmShader;
-import evael.graphics.Vertex;
-import evael.graphics.models.Model;
-import evael.graphics.models.Animation;
-import evael.graphics.models.BoundingBox;
+import evael.graphics.graphics_device;
+import evael.graphics.shaders.iqm_shader;
+import evael.graphics.vertex;
+import evael.graphics.models.model;
+import evael.graphics.models.animation;
+import evael.graphics.models.bounding_box;
 
-import evael.system.Asset;
-import evael.system.AssetLoader;
+import evael.system.asset;
+import evael.system.asset_loader;
 
-import evael.utils.Math;
-import evael.utils.Color;
+import evael.utils.math;
+import evael.utils.color;
 
 class Iqm : Model
 {
@@ -271,9 +271,9 @@ class Iqm : Model
 	 */
 	static Iqm load(in string fileName)
 	{
-		import evael.utils.Config;
+		import evael.core.game_config;
 
-		auto file = File(Config.Paths.models!string ~ fileName);
+		auto file = File(GameConfig.paths.models ~ fileName);
 		scope(exit) file.close();
 
 		auto iqm = new Iqm(GraphicsDevice.getInstance());
@@ -404,7 +404,7 @@ class Iqm : Model
             iqm.m_joints[cast(string)joinName[0..strlen(joinName)]] = cast(int) i;
 		}
 
-		import evael.graphics.Texture;
+		import evael.graphics.texture;
 
 		for(size_t i = 0; i < iqm.m_header.num_meshes; i++)
 		{

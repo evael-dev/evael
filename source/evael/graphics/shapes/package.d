@@ -2,8 +2,8 @@ module evael.graphics.shapes;
 
 public
 {
-	import evael.graphics.shapes.Quad;
-	import evael.graphics.shapes.Circle;
-	import evael.graphics.shapes.Triangle;
-	import evael.graphics.shapes.Polygon;	
+	import evael.graphics.shapes.quad;
+	import evael.graphics.shapes.circle;
+	import evael.graphics.shapes.triangle;
+	import evael.graphics.shapes.polygon;	
 }

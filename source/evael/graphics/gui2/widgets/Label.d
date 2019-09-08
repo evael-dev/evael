@@ -1,6 +1,6 @@
-module evael.graphics.gui2.widgets.Label;
+module evael.graphics.gui2.widgets.label;
 
-import evael.graphics.gui2.widgets.Widget;
+import evael.graphics.gui2.widgets.widget;
 
 class Label : Widget
 {
@@ -15,8 +15,8 @@ class Label : Widget
 
 	private Alignment m_alignment;
 
-	@nogc @safe
-	public this() pure nothrow
+	@nogc
+	public this() nothrow
 	{
 		super();
 		this.m_alignment = Alignment.Left;
@@ -28,8 +28,8 @@ class Label : Widget
 		nk_label(this.nuklearContext, cast(char*) this.m_text.ptr, this.m_alignment);
 	}
 
-	@nogc @safe
-	@property pure nothrow
+	@nogc
+	@property nothrow
 	{
 		public Label text(in string value)
 		{

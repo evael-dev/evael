@@ -1,6 +1,6 @@
-module evael.graphics.gui2.widgets.Property;
+module evael.graphics.gui2.widgets.property;
 
-import evael.graphics.gui2.widgets.Widget;
+import evael.graphics.gui2.widgets.widget;
 
 bool isAllowedType(T)()
 {
@@ -24,8 +24,8 @@ class Property(T) if(isAllowedType!T()) : Widget
     private T m_max;
     private T m_step;
 
-    @nogc @safe
-    public this() pure nothrow
+    @nogc
+    public this() nothrow
     {
         super();
         this.m_value = T.init;
@@ -48,8 +48,8 @@ class Property(T) if(isAllowedType!T()) : Widget
         }
 	}
 
-	@nogc @safe
-	@property pure nothrow
+	@nogc
+	@property nothrow
 	{
         public Property!T text(in string value)
         {

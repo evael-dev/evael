@@ -1,4 +1,4 @@
-module evael.graphics.GL;
+module evael.graphics.gl;
 
 debug import dnogc.Utils;
 

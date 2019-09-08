@@ -1,4 +1,4 @@
-module evael.network.Packet;
+module evael.network.packet;
 
 import dnogc.DynamicArray;
 

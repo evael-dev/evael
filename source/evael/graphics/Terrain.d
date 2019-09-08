@@ -1,20 +1,20 @@
-module evael.graphics.Terrain;
+module evael.graphics.terrain;
 
 import std.exception : enforce;
 import std.random : uniform;
 import std.math;
 
-import evael.graphics.GraphicsDevice;
-import evael.graphics.Drawable;
-import evael.graphics.shaders.BasicTerrainShader;
-import evael.graphics.Vertex;
-import evael.graphics.Texture;
-import evael.graphics.TextureArray;
+import evael.graphics.graphics_device;
+import evael.graphics.drawable;
+import evael.graphics.shaders.basic_terrain_shader;
+import evael.graphics.vertex;
+import evael.graphics.texture;
+import evael.graphics.texture_array;
 import evael.graphics.lights;
 
-import evael.utils.Math;
-import evael.utils.Color;
-import evael.utils.Size;
+import evael.utils.math;
+import evael.utils.color;
+import evael.utils.size;
 
 struct TerrainHeader
 {

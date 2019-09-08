@@ -1,6 +1,6 @@
-module evael.graphics.gui2.widgets.Button;
+module evael.graphics.gui2.widgets.button;
 
-import evael.graphics.gui2.widgets.Widget;
+import evael.graphics.gui2.widgets.widget;
 
 class Button : Widget
 {
@@ -21,8 +21,8 @@ class Button : Widget
 		}
 	}
 
-	@nogc @safe
-	@property pure nothrow
+	@nogc
+	@property nothrow
 	{
 		public Button text(in string value)
 		{

@@ -1,4 +1,4 @@
-module evael.utils.Size;
+module evael.utils.size;
 
 struct Size(T)
 {

@@ -1,6 +1,7 @@
-module evael.utils.Math;
+module evael.utils.math;
 
 import std.math;
+
 import dnogc.DynamicArray;
 
 alias ubvec4 = Vector!(ubyte, 4);

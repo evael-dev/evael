@@ -1,14 +1,14 @@
-module evael.graphics.shaders.Shader;
+module evael.graphics.shaders.shader;
 
 import std.experimental.logger : errorf;
 import std.exception : enforce;
 import std.string : format;
 
-import evael.graphics.GL;
+import evael.graphics.gl;
 
-import evael.system.Asset;
+import evael.system.asset;
 
-import evael.utils.Functions;
+import evael.utils.functions;
 
 /**
  * Shader.
@@ -93,9 +93,9 @@ class Shader : IAsset
 	 */
     public static Shader load(in string shaderName, in bool linkProgram = true)
     {
-		import evael.utils.Config;
+		import evael.core.game_config;
 
-		immutable string path = Config.Paths.shaders!string ~ shaderName;
+		immutable string path = GameConfig.paths.shaders ~ shaderName;
 
 		immutable uint programId = gl.CreateProgram();
 

@@ -1,4 +1,4 @@
-module evael.core.Game;
+module evael.core.game;
 
 import std.array : split;
 import std.conv;
@@ -8,30 +8,18 @@ public import decs;
 
 import dnogc.DynamicArray;
 
-import evael.core.GameState;
+import evael.core.game_state;
+import evael.core.game_config;
 
-import evael.graphics.GraphicsDevice;
-import evael.graphics.Font;
-import evael.graphics.gui2.GuiManager;
+import evael.graphics.graphics_device;
+import evael.graphics.font;
+import evael.graphics.gui2.gui_manager;
 
-import evael.audio.AudioDevice;
+import evael.audio.audio_device;
 
-import evael.system.AssetLoader;
-import evael.system.InputHandler;
-import evael.system.Input;
-import evael.system.I18n;
-import evael.system.Window;
-import evael.system.WindowSettings;
-import evael.system.GLContextSettings;
-import evael.system.Cursor;
-
-import evael.utils.Math;
-import evael.utils.Singleton;
-import evael.utils.Size;
-import evael.utils.Config;
-import evael.utils.Functions;
-
-import evael.Init;
+import evael.system;
+import evael.utils;
+import evael.init;
 
 /**
  * Game
@@ -77,7 +65,7 @@ class Game
 	{
 		loadExternalLibraries();
 			   
-		Config.load("./config.ini");
+		GameConfig.load("./config.ini");
 
 		this.m_window = new Window(settings, contextSettings);
 		this.m_window.setWindowCloseCallback(bindDelegate(&this.onWindowClose));
@@ -91,8 +79,9 @@ class Game
 		this.m_window.setCursorPosCallback(bindDelegate(&this.m_inputHandler.onMouseMove));
 		this.m_window.setMouseButtonCallback(bindDelegate(&this.m_inputHandler.onMouseClick));
 
-		this.m_graphicsDevice = GraphicsDevice.getInstance();
 		this.m_assetLoader = AssetLoader.getInstance();
+
+		this.m_graphicsDevice = GraphicsDevice.getInstance();
 		this.m_graphicsDevice.defaultFont = this.m_assetLoader.load!(Font)("Roboto-Regular.ttf", this.m_graphicsDevice.nvgContext);
 		this.m_graphicsDevice.resolution = settings.resolution;
 		this.m_guiManager = new GuiManager(this.m_graphicsDevice, this.m_window.glfwWindow);
@@ -359,8 +348,8 @@ class Game
 	/**
 	 * Properties.
 	 */
-	@nogc @safe
-	@property pure nothrow
+	@nogc
+	@property nothrow
 	{
 		public GraphicsDevice graphicsDevice()
 		{

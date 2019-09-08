@@ -1,14 +1,14 @@
-module evael.graphics.shapes.Quad;
+module evael.graphics.shapes.quad;
 
-import evael.graphics.GraphicsDevice;
-import evael.graphics.Drawable;
-import evael.graphics.shaders.Shader;
-import evael.graphics.Vertex;
-import evael.graphics.Texture;
+import evael.graphics.graphics_device;
+import evael.graphics.drawable;
+import evael.graphics.shaders.shader;
+import evael.graphics.vertex;
+import evael.graphics.texture;
 
-import evael.utils.Math;
-import evael.utils.Color;
-import evael.utils.Size;
+import evael.utils.math;
+import evael.utils.color;
+import evael.utils.size;
 
 /**
  * Quad.

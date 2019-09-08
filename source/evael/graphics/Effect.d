@@ -1,10 +1,10 @@
-module evael.graphics.Effect;
+module evael.graphics.effect;
 
-import evael.graphics.Drawable;
-import evael.graphics.particles.ParticleEmitter;
+import evael.graphics.drawable;
+import evael.graphics.particles.particle_emitter;
 
-import evael.utils.Math;
-import evael.utils.Size;
+import evael.utils.math;
+import evael.utils.size;
 
 /**
  * Effect.

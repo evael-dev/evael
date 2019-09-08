@@ -1,4 +1,4 @@
-module evael.Init;
+module evael.init;
 
 import std.experimental.logger;
 
@@ -16,10 +16,10 @@ import derelict.sndfile.sndfile;
  */
 void loadExternalLibraries()
 {
-    debug infof("GLFW:%d", loadGLFW());
-    debug infof("OpenAL:%d", loadOpenAL());
-    debug infof("FreeImage:%d", loadFreeImage());
-    debug infof("Nuklear:%d", loadNuklear());
+    infof("GLFW:%d", loadGLFW());
+    infof("OpenAL:%d", loadOpenAL());
+    infof("FreeImage:%d", loadFreeImage());
+    infof("Nuklear:%d", loadNuklear());
 
 	DerelictSndFile.load();
 
@@ -36,4 +36,12 @@ void unloadExternalLibraries()
 	DerelictSndFile.unload();
 
     glfwTerminate();
+
+    debug
+    {
+        import evael.memory;
+        import std.stdio;
+        defaultAllocator.reportStatistics(stdout);
+        defaultAllocator.reportPerCallStatistics(stdout);
+    }
 }

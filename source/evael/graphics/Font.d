@@ -1,4 +1,4 @@
-module evael.graphics.Font;
+module evael.graphics.font;
 
 import std.conv : to;
 import std.string;
@@ -6,35 +6,31 @@ import std.experimental.logger;
 
 import derelict.nanovg.nanovg;
 
-import evael.graphics.GraphicsDevice;
-import evael.graphics.Texture;
-import evael.graphics.shaders.Shader;
-import evael.graphics.Vertex;
-import evael.system.Asset;
+import evael.graphics.graphics_device;
+import evael.graphics.texture;
+import evael.graphics.shaders.shader;
+import evael.graphics.vertex;
+import evael.system.asset;
 
-import evael.utils.Color;
-import evael.utils.Math;
-
-import jsonizer;
+import evael.utils.color;
+import evael.utils.math;
 
 /**
  * Font. Using NanoVG.
  */
 class Font : IAsset
 {
-	mixin JsonizeMe;
-
 	/// Font size
 	private ushort m_size;
 
 	private int m_fontId;
 
-	@jsonize("path") private string m_fontName;
+	private string m_fontName;
 	
 	private NVGcontext* m_nvg;
 	
-	@nogc @safe
-	public this() pure nothrow
+	@nogc
+	public this() nothrow
 	{
 
 	}
@@ -46,16 +42,16 @@ class Font : IAsset
 	 *		fontId : font id
 	 *		fontName : font name
 	 */
-	@nogc @safe
-	public this(NVGcontext* nvgContext, in int fontId, in string fontName) pure nothrow
+	@nogc
+	public this(NVGcontext* nvgContext, in int fontId, in string fontName) nothrow
 	{
 		this.m_nvg = nvgContext;
 		this.m_fontId = fontId;
 		this.m_fontName = fontName;
 	}
 	
-	@nogc @safe
-	public void dispose() const pure nothrow
+	@nogc
+	public void dispose() const nothrow
 	{
 
 	}
@@ -163,8 +159,8 @@ class Font : IAsset
 	 * Params:
 	 *		text : text
 	 */
-	@nogc @safe
-	public uint getTextHeight(in wstring text) pure nothrow
+	@nogc
+	public uint getTextHeight(in wstring text) nothrow
 	{
 		return 0;
 	}
@@ -201,11 +197,11 @@ class Font : IAsset
 	 */
 	public static Font load(in string fileName, NVGcontext* nvg)
 	{
-		import evael.utils.Config;
+		import evael.core.game_config;
 		import std.file : exists;
 		import std.path : baseName;
 
-		string file = Config.Paths.fonts!string ~ fileName;
+		string file = GameConfig.paths.fonts ~ fileName;
 		string fontShortName = fileName;
 
 		if (!file.exists())
@@ -234,8 +230,8 @@ class Font : IAsset
 	/**
 	 * Properties
 	 */
-	@nogc @safe
-	@property pure nothrow
+	@nogc
+	@property nothrow
 	{
 		public ushort size() const
 		{

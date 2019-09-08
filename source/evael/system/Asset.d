@@ -1,4 +1,4 @@
-module evael.system.Asset;
+module evael.system.asset;
 
 /**
  * Base interface for an asset

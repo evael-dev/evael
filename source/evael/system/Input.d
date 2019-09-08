@@ -1,4 +1,4 @@
-module evael.system.Input;
+module evael.system.input;
 
 /**
  * Mouse buttons

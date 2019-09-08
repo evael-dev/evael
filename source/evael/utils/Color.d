@@ -1,19 +1,15 @@
-module evael.utils.Color;
+module evael.utils.color;
 
 import derelict.nanovg.types : NVGcolor;
 import derelict.nanovg.funcs : nvgRGBA;
-
-import jsonizer;
 
 /**
  * Color.
  */
 struct Color
 {
-	mixin JsonizeMe;
-
 	/// Color's values
-	@jsonize("rgba") private ubyte[4] m_values;
+	private ubyte[4] m_values;
 
 	/// Predefined colors
 	public static Color White = Color(255, 255, 255),
@@ -36,8 +32,8 @@ struct Color
 	 *		b : b
 	 *		a : a
 	 */
-	@nogc @safe
-	public this(in ubyte r, in ubyte g, in ubyte b, in ubyte a = 255) pure nothrow
+	@nogc
+	public this(in ubyte r, in ubyte g, in ubyte b, in ubyte a = 255) nothrow
 	{
 		this.m_values = [r, g, b, a];
 	}
@@ -45,20 +41,20 @@ struct Color
 	/**
 	 * Color constructor (float).
 	 */
-	@nogc @safe
-	public this(in float r, in float g, in float b, in float a = 1.0f) pure nothrow
+	@nogc
+	public this(in float r, in float g, in float b, in float a = 1.0f) nothrow
 	{
 		this.m_values = [cast(ubyte) (r * 255), cast(ubyte) (g * 255), cast(ubyte) (b * 255), cast(ubyte) (a * 255)];
 	}
 
-	@nogc @safe
-	public bool opEquals()(in ref Color c) const pure nothrow
+	@nogc
+	public bool opEquals()(in ref Color c) const nothrow
 	{
 		return this.m_values[] == c.m_values[];
 	}
 
-	@nogc @safe
-	@property pure nothrow
+	@nogc
+	@property nothrow
 	{
 		public ubyte r() const
 		{
@@ -100,7 +96,7 @@ struct Color
 
 	@nogc
 	@property
-	public auto ptr() pure nothrow
+	public auto ptr() nothrow
 	{
 		return this.m_values.ptr;
 	}

@@ -1,15 +1,16 @@
-module evael.graphics.Environment;
+module evael.graphics.environment;
 
-import evael.graphics.GL;
+import evael.graphics.gl;
 
-import evael.graphics.GraphicsDevice;
-import evael.graphics.shaders.BasicLightShader;
+import evael.graphics.graphics_device;
+import evael.graphics.shaders.basic_light_shader;
 import evael.graphics.lights;
 
-import evael.utils.Math;
+import evael.utils.math;
+
+import evael.memory;
 
 import dnogc.DynamicArray;
-import tanya.memory;
 
 /**
  * Environment.
@@ -37,18 +38,16 @@ class Environment
 	 * Params:
 	 *      graphics : graphics device
 	 */
-	@nogc @safe
-	public this(GraphicsDevice graphics) pure nothrow
+	@nogc
+	public this(GraphicsDevice graphics) nothrow
 	{
 		this.m_graphicsDevice = graphics;
 
 		this.m_sunProjection = orthoMatrix(-300.0f, 300.0f, -300.0f, 300.0f, -300.0f, 300.0f);
 
-	import tanya.memory;
-	
-		this.m_ambientLight = defaultAllocator.make!AmbientLight(vec3(1.0, 1.0, 1.0));
+		this.m_ambientLight = New!AmbientLight(vec3(1.0, 1.0, 1.0));
 
-		this.m_sun = defaultAllocator.make!DirectionalLight();
+		this.m_sun = New!DirectionalLight();
 		this.m_sun.direction = vec3(1.0, 1.0, 1.0);
 		this.m_sun.ambient = vec3(1.0, 1.0, 1.0);
 		this.m_sun.diffuse = vec3(1.0, 1.0, 1.0);
@@ -60,8 +59,8 @@ class Environment
 	 */
 	public void dispose()
 	{
-		defaultAllocator.dispose(this.m_ambientLight);
-		defaultAllocator.dispose(this.m_sun);
+		Delete(this.m_ambientLight);
+		Delete(this.m_sun);
 		
 		this.m_pointsLights.dispose();
 	}
@@ -71,8 +70,8 @@ class Environment
 	 * Params:
 	 *		light : point light
 	 */
-	@nogc @safe
-	public void addPointLight(PointLight light) pure nothrow
+	@nogc
+	public void addPointLight(PointLight light) nothrow
 	{
 		this.m_pointsLights ~= light;
 	}
@@ -140,8 +139,8 @@ class Environment
 		}
 	}
 
-	@nogc @safe
-	@property pure nothrow
+	@nogc
+	@property nothrow
 	{
 		public void sun(DirectionalLight value)
 		{

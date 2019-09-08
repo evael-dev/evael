@@ -1,4 +1,4 @@
-module evael.audio.AL;
+module evael.audio.al;
 
 debug import dnogc.Utils;
 
