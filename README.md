@@ -1,4 +1,4 @@
-evael
+evael 0.0.2
 ===========
 
 Evael is a small 2D/3D game engine written in the D programming language. It is based on OpenGL 3.3.
@@ -12,7 +12,7 @@ It implements the following features:
 - Shadow support
 - Instancing (for OBJ models atm)
 - Integrated custom GUI based on NanoVG (support multiple basic controls, theming, fonts...)
-- GUI animations
+- GUI with [Nuklear](https://github.com/vurtun/nuklear/)
 - Input handling as event mode or immediate mode (onMouseAction() or isMouseButtonClicked())
 - Entity Component System with [decs](https://github.com/aldocd4/decs)
 
@@ -27,7 +27,6 @@ It implements the following features:
 
 Some part of the code are old. They need to be updated:
  - Shaders sources
- - GUI (new theme system, clean drag and drop handling, clean controls code)
  - Models (write better loader and clean the code)
  - probably other parts...
 
