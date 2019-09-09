@@ -1,6 +1,6 @@
-module evael.graphics.gui2.widgets.window;
+module evael.graphics.gui.widgets.window;
 
-import evael.graphics.gui2.widgets.widget;
+import evael.graphics.gui.widgets.widget;
 
 import evael.utils.rectangle;
 

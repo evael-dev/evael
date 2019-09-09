@@ -1,4 +1,4 @@
-module evael.graphics.gui2.gui_manager;
+module evael.graphics.gui.gui_manager;
 
 import core.stdc.string : memcpy, memset;
 import core.stdc.stdlib : free, malloc;
@@ -7,12 +7,12 @@ import std.stdio;
 import bindbc.glfw;
 import bindbc.nuklear;
 
-import evael.graphics.gui2.style;
+import evael.graphics.gui.style;
 
-import evael.graphics.gui2.core.renderer;
-import evael.graphics.gui2.core.input_handler;
+import evael.graphics.gui.core.renderer;
+import evael.graphics.gui.core.input_handler;
 
-import evael.graphics.gui2.widgets.window;
+import evael.graphics.gui.widgets.window;
 
 import evael.graphics.graphics_device;
 import evael.graphics.texture;

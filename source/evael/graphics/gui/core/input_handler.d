@@ -1,4 +1,4 @@
-module evael.graphics.gui2.core.input_handler;
+module evael.graphics.gui.core.input_handler;
 
 import bindbc.nuklear;
 import bindbc.glfw;

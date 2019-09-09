@@ -36,12 +36,4 @@ void unloadExternalLibraries()
 	DerelictSndFile.unload();
 
     glfwTerminate();
-
-    debug
-    {
-        import evael.memory;
-        import std.stdio;
-        defaultAllocator.reportStatistics(stdout);
-        defaultAllocator.reportPerCallStatistics(stdout);
-    }
 }

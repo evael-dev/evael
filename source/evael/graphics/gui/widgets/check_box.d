@@ -1,6 +1,6 @@
-module evael.graphics.gui2.widgets.check_box;
+module evael.graphics.gui.widgets.check_box;
 
-import evael.graphics.gui2.widgets.widget;
+import evael.graphics.gui.widgets.widget;
 
 class CheckBox : Widget
 {

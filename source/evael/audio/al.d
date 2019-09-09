@@ -4,7 +4,6 @@ debug import dnogc.Utils;
 
 public import bindbc.openal;
 
-
 struct al
 {
 	static string file = __FILE__;

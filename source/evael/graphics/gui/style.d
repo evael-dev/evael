@@ -1,4 +1,4 @@
-module evael.graphics.gui2.style;
+module evael.graphics.gui.style;
 
 import bindbc.nuklear : nk_style_colors, nk_color;
 

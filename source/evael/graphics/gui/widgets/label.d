@@ -1,6 +1,6 @@
-module evael.graphics.gui2.widgets.label;
+module evael.graphics.gui.widgets.label;
 
-import evael.graphics.gui2.widgets.widget;
+import evael.graphics.gui.widgets.widget;
 
 class Label : Widget
 {

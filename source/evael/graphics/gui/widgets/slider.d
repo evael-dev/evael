@@ -1,6 +1,6 @@
-module evael.graphics.gui2.widgets.slider;
+module evael.graphics.gui.widgets.slider;
 
-import evael.graphics.gui2.widgets.widget;
+import evael.graphics.gui.widgets.widget;
 
 class Slider : Widget
 {

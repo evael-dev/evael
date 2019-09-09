@@ -1,6 +1,6 @@
-module evael.graphics.gui2.widgets.button;
+module evael.graphics.gui.widgets.button;
 
-import evael.graphics.gui2.widgets.widget;
+import evael.graphics.gui.widgets.widget;
 
 class Button : Widget
 {

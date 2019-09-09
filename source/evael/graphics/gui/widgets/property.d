@@ -1,6 +1,6 @@
-module evael.graphics.gui2.widgets.property;
+module evael.graphics.gui.widgets.property;
 
-import evael.graphics.gui2.widgets.widget;
+import evael.graphics.gui.widgets.widget;
 
 bool isAllowedType(T)()
 {

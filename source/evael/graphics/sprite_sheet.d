@@ -16,9 +16,6 @@ import evael.utils.color;
 import evael.utils.size;
 import evael.utils.rectangle;
 
-import dnogc.DynamicArray;
-import dnogc.Utils;
-
 /**
  * Spritesheet
  * Draw animated sprite.

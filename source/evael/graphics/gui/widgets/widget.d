@@ -1,8 +1,8 @@
-module evael.graphics.gui2.widgets.widget;
+module evael.graphics.gui.widgets.widget;
 
 public import bindbc.nuklear;
 
-import evael.graphics.gui2.layouts.layout_interface;
+import evael.graphics.gui.layouts.layout_interface;
 
 abstract class Widget
 {

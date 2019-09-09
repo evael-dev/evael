@@ -1,8 +1,9 @@
-module evael.graphics.gui2.layouts.layout;
+module evael.graphics.gui.layouts.layout;
 
 import bindbc.nuklear : nk_context, nk_layout_row_dynamic, nk_layout_row_static;
 
-import evael.graphics.gui2.layouts.layout_params;
+import evael.graphics.gui.layouts.layout_params;
+import evael.graphics.gui.layouts.layout_interface;
 
 alias DynamicLayout = Layout!(LayoutType.Dynamic);
 alias StaticLayout = Layout!(LayoutType.Static);
@@ -43,13 +44,4 @@ class Layout(LayoutType T) : ILayout
 			nk_layout_row_static(nuklearContext, this.m_params.height, this.m_params.columns, this.m_params.width);
 		}
 	}
-}
-
-/**
- * Layout interface.
- */
-interface ILayout
-{
-	@nogc
-	public void apply(nk_context* nuklear) nothrow; 
 }

@@ -1,4 +1,4 @@
-module evael.graphics.gui2.layouts.layout_interface;
+module evael.graphics.gui.layouts.layout_interface;
 
 import bindbc.nuklear : nk_context;
 

@@ -2,31 +2,18 @@
 	"fileVersion": 1,
 	"versions": {
 		"bindbc-freeimage": "0.1.1",
-		"bindbc-freetype": "0.1.0",
 		"bindbc-glfw": "0.5.0",
 		"bindbc-loader": "0.2.1",
 		"bindbc-nuklear": "0.1.4",
 		"bindbc-openal": "0.2.0",
 		"bindbc-opengl": "0.8.0",
-		"ctini": "0.2.1",
 		"decs": "1.0.3",
-		"derelict-al": "2.0.0-beta.2",
-		"derelict-fi": "3.0.0-beta.1",
-		"derelict-ft": "1.0.2",
-		"derelict-gl3": "2.0.0-beta.8",
-		"derelict-glfw3": "4.0.0-beta.1",
 		"derelict-nanovg": "1.1.0",
 		"derelict-util": "3.0.0-beta.2",
 		"derelict_extras-sndfile": "3.1.0",
 		"dlib": "0.16.0",
 		"dnogc": "~master",
-		"evael-lib": "0.0.1",
 		"inifiled": "1.3.1",
-		"jsonizer": "0.7.6",
-		"mir-linux-kernel": "1.0.1",
-		"msgpack-d": "1.0.1",
-		"pegged": "~master",
-		"tanya": "0.16.1",
-		"unit-threaded": "0.10.3"
+		"msgpack-d": "1.0.1"
 	}
 }

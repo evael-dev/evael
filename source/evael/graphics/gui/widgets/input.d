@@ -1,6 +1,6 @@
-module evael.graphics.gui2.widgets.input;
+module evael.graphics.gui.widgets.input;
 
-import evael.graphics.gui2.widgets.widget;
+import evael.graphics.gui.widgets.widget;
 
 enum InputType
 {

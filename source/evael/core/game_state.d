@@ -6,7 +6,7 @@ import evael.core.game;
 
 import evael.graphics.graphics_device;
 import evael.graphics.drawable;
-import evael.graphics.gui2.gui_manager;
+import evael.graphics.gui.gui_manager;
 
 import evael.system.input;
 import evael.system.asset_loader;

@@ -8,8 +8,6 @@ import evael.graphics.lights;
 
 import evael.utils.math;
 
-import evael.memory;
-
 import dnogc.DynamicArray;
 
 /**
@@ -38,16 +36,15 @@ class Environment
 	 * Params:
 	 *      graphics : graphics device
 	 */
-	@nogc
 	public this(GraphicsDevice graphics) nothrow
 	{
 		this.m_graphicsDevice = graphics;
 
 		this.m_sunProjection = orthoMatrix(-300.0f, 300.0f, -300.0f, 300.0f, -300.0f, 300.0f);
 
-		this.m_ambientLight = New!AmbientLight(vec3(1.0, 1.0, 1.0));
+		this.m_ambientLight = new AmbientLight(vec3(1.0, 1.0, 1.0));
 
-		this.m_sun = New!DirectionalLight();
+		this.m_sun = new DirectionalLight();
 		this.m_sun.direction = vec3(1.0, 1.0, 1.0);
 		this.m_sun.ambient = vec3(1.0, 1.0, 1.0);
 		this.m_sun.diffuse = vec3(1.0, 1.0, 1.0);
@@ -59,9 +56,6 @@ class Environment
 	 */
 	public void dispose()
 	{
-		Delete(this.m_ambientLight);
-		Delete(this.m_sun);
-		
 		this.m_pointsLights.dispose();
 	}
 

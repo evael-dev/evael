@@ -1,4 +1,4 @@
-module evael.graphics.gui2.core.renderer;
+module evael.graphics.gui.core.renderer;
 
 import bindbc.nuklear;
 import bindbc.glfw;

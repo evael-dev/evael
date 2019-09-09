@@ -1,6 +1,6 @@
-module evael.graphics.gui2.widgets.color_picker;
+module evael.graphics.gui.widgets.color_picker;
 
-import evael.graphics.gui2.widgets.widget;
+import evael.graphics.gui.widgets.widget;
 
 import evael.utils.color;
 

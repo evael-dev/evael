@@ -1,6 +1,6 @@
-module evael.graphics.gui2.widgets.radio_button;
+module evael.graphics.gui.widgets.radio_button;
 
-import evael.graphics.gui2.widgets.widget;
+import evael.graphics.gui.widgets.widget;
 
 class RadioButton : Widget
 {

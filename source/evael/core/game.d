@@ -13,7 +13,7 @@ import evael.core.game_config;
 
 import evael.graphics.graphics_device;
 import evael.graphics.font;
-import evael.graphics.gui2.gui_manager;
+import evael.graphics.gui.gui_manager;
 
 import evael.audio.audio_device;
 

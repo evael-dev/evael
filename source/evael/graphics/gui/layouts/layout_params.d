@@ -1,4 +1,4 @@
-module evael.graphics.gui2.layouts.layout_params;
+module evael.graphics.gui.layouts.layout_params;
 
 struct LayoutParams
 {

@@ -1,6 +1,6 @@
-module evael.graphics.gui2.widgets.progress_bar;
+module evael.graphics.gui.widgets.progress_bar;
 
-import evael.graphics.gui2.widgets.widget;
+import evael.graphics.gui.widgets.widget;
 
 enum ProgressBarType
 {
