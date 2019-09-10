@@ -1,11 +1,9 @@
-module evael.graphics.GUI;
+module evael.graphics.gui;
 
-public
+public 
 {
-	import evael.graphics.gui.GuiManager;
-	import evael.graphics.gui.Theme;
-	import evael.graphics.gui.State;
-	import evael.graphics.gui.Icons;
-	import evael.graphics.gui.animations;
-	import evael.graphics.gui.controls;    
+    import evael.graphics.gui.gui_manager;
+    import evael.graphics.gui.style;
+    import evael.graphics.gui.widgets;
+    import evael.graphics.gui.layouts;
 }

@@ -5,7 +5,6 @@
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
 
 # Compiled Static libraries
 *.a
@@ -22,3 +21,5 @@ docs/
 
 # Code coverage
 *.lst
+*.dll
+!dist/*/*.dll
