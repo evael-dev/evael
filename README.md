@@ -1,5 +1,16 @@
-evael 0.0.2
-===========
+<!-- LOGO -->
+<p align="center">
+  <h2 align="center">evael</h2>
+  <p align="center">
+    <a href="https://github.com/evael-dev/evael/actions">
+        <img src="https://github.com/evael-dev/evael/workflows/Build/badge.svg">
+    </a>
+    <img src="https://img.shields.io/github/license/evael-dev/evael">
+    <br />
+  </p>
+</p>
+
+- - -
 
 Evael is a small 2D/3D game engine written in the D programming language. It is based on OpenGL 3.3.
 
@@ -11,10 +22,9 @@ Evael is a small 2D/3D game engine written in the D programming language. It is 
 - Basic lighting support (directional light, point light)
 - Shadow support
 - Instancing (for OBJ models atm)
-- Integrated custom GUI based on NanoVG (support multiple basic controls, theming, fonts...)
 - GUI with [Nuklear](https://github.com/vurtun/nuklear/)
 - Input handling as event mode or immediate mode (onMouseAction() or isMouseButtonClicked())
-- Entity Component System with [decs](https://github.com/aldocd4/decs)
+- Entity Component System with [evael-ecs](https://github.com/evael-dev/evael-ecs)
 
 ### Planned features
 
@@ -40,13 +50,7 @@ Some part of the code are old. They need to be updated:
 
 You have to use [dub](https://code.dlang.org/download) to build the project.
 
-Add this project as a dependency to your **dub.json**:
-
-```json
-"dependencies": {
-    "evael": "~>0.0.1"
-}
-```
+Add this project as a dependency to your **dub.json**: `dub add evael`
 
 Documentation
 ===========
@@ -59,8 +63,3 @@ Screenshots
 ===========
 
 ![Game](https://pbs.twimg.com/media/Czla-BXWQAAGSxH.jpg)
-
-License
-===========
-
-Boost Software License - Version 1.0
