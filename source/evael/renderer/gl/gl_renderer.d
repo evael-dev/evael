@@ -1,8 +1,8 @@
-module evael.renderer.vulkan.vk_renderer;
+module evael.renderer.gl.gl_renderer;
 
 import evael.renderer.renderer;
 
-class VulkanRenderer : Renderer
+class GLRenderer : Renderer
 {
     public this()
     {

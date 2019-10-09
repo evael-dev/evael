@@ -1,8 +1,8 @@
-module evael.renderer.opengl.gl_command;
+module evael.renderer.vk.vk_command;
 
 import evael.renderer.graphics_command;
 
-class GLCommand : GraphicsCommand
+class VKCommand : GraphicsCommand
 {
     public this()
     {

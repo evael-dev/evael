@@ -1,8 +1,8 @@
-module evael.renderer.opengl.gl_renderer;
+module evael.renderer.vk.vk_renderer;
 
 import evael.renderer.renderer;
 
-class GLRenderer : Renderer
+class VKRenderer : Renderer
 {
     public this()
     {

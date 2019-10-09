@@ -45,10 +45,10 @@ class GraphicsDevice
 	private NVGcontext* m_nvg;
 
 	private Size!int m_viewportSize;
-    
-    /// Game resolution
-    private Size!int m_resolution;
-    
+	
+	/// Game resolution
+	private Size!int m_resolution;
+	
 	/// Matrixes
 	private mat4 m_viewMatrix, m_projectionMatrix;
 	private mat4 m_2DprojectionMatrix;
@@ -64,9 +64,9 @@ class GraphicsDevice
 	/// Projection type
 	private ProjectionType m_projectionType;
 
-    /// List of VAOs
-    private DynamicArray!uint m_vaos;
-    
+	/// List of VAOs
+	private DynamicArray!uint m_vaos;
+	
 	/// List of generated buffers
 	private DynamicArray!uint m_buffers;	
 
@@ -149,7 +149,7 @@ class GraphicsDevice
    	 	gl.ClearDepth(1.0f);
 
    		gl.Enable(GL_BLEND);
-        gl.Enable(GL_DEPTH_TEST);
+		gl.Enable(GL_DEPTH_TEST);
 		gl.Enable(GL_MULTISAMPLE); 
             
 		gl.BlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -277,9 +277,9 @@ class GraphicsDevice
 		this.drawIndexedPrimitives!(type)(count, cast(void*)offset);
 	}
 
-    /**
-     * Generates a vertex array object.
-     */
+	/**
+	 * Generates a vertex array object.
+	 */
 	@nogc
     public uint generateVAO() nothrow
     {
@@ -591,7 +591,7 @@ class GraphicsDevice
 	@nogc
 	public void enableShader(Shader shader) nothrow
 	{
-        gl.UseProgram(shader.programID);
+		gl.UseProgram(shader.programID);
 		this.m_currentShader = shader;
 	}
 
@@ -601,7 +601,7 @@ class GraphicsDevice
 	@nogc
 	public void disableShader() const nothrow
 	{
-        gl.UseProgram(0);
+		gl.UseProgram(0);
 	}
 	
 	/**
@@ -740,8 +740,8 @@ class GraphicsDevice
 		auto pos = position * this.m_viewMatrix;
 		pos = pos * this.m_projectionMatrix;
 		
-      	pos.x = this.m_viewportSize.width * (pos.x + 1.0) / 2.0;
-        pos.y = this.m_viewportSize.height * (1.0 - ( (pos.y + 1.0) / 2.0) );
+	  	pos.x = this.m_viewportSize.width * (pos.x + 1.0) / 2.0;
+		pos.y = this.m_viewportSize.height * (1.0 - ( (pos.y + 1.0) / 2.0) );
 
 		return vec2(pos.x, pos.y);
 	}
@@ -781,10 +781,10 @@ class GraphicsDevice
 	}
 
 	@nogc
-    public void setMatrix(U)(in int location, in U* data, in int count = 1, in bool transposed = false) const nothrow
-    {
+	public void setMatrix(U)(in int location, in U* data, in int count = 1, in bool transposed = false) const nothrow
+	{
 		gl.UniformMatrix4fv(location, count, transposed, data);
-    }
+	}
 	
 	/**
 	 * Sets default projection matrix.
@@ -807,7 +807,7 @@ class GraphicsDevice
 	{
 		gl.Viewport(0, 0, width, height);
 	}
-    
+	
 	/**
 	 * Sets viewport.
 	 * Params:
