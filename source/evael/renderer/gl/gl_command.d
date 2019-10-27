@@ -1,7 +1,11 @@
 module evael.renderer.gl.gl_command;
 
-import evael.renderer.graphics_command;
-import evael.graphics.gl;
+
+public 
+{
+	import evael.renderer.graphics_command;
+	import evael.graphics.gl;
+}
 
 class GLCommand : GraphicsCommand
 {
@@ -45,19 +49,20 @@ class GLCommand : GraphicsCommand
 	@nogc
 	public override void draw(in int first, in int count) const nothrow
 	{
-		gl.DrawArrays(mode, first, count);
+		gl.DrawArrays(this.m_pipeline.primitiveType, first, count);
 	}
     
 	/**
 	 * Renders indexed primitives.
 	 * Params:
 	 * 		count : number of elements to be rendered
+	 * 		type : the type of the values in indices
      *      indices : pointer to the location where the indices are stored
 	 */
 	@nogc
-	public override void drawIndexed(in int count, in void* indices) const nothrow
+	public override void drawIndexed(in int count, in IndexBufferType type, in void* indices) const nothrow
 	{
-		gl.DrawElements(mode, count, type, indices);
+		gl.DrawElements(this.m_pipeline.primitiveType, count, type, indices);
 	}
 
 	/**

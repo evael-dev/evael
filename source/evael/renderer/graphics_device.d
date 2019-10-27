@@ -1,13 +1,19 @@
 module evael.renderer.graphics_device;
 
-import evael.renderer.buffer;
-import evael.renderer.graphics_command;
+import evael.lib.memory.no_gc_class;
 
-abstract class GraphicsDevice
+public 
+{
+	import evael.renderer.graphics_buffer;
+	import evael.renderer.graphics_command;
+}
+
+abstract class GraphicsDevice : NoGCClass
 {
 	/**
 	 * GraphicsDevice constructor.
 	 */
+	@nogc
 	public this()
 	{
 	}
@@ -15,6 +21,7 @@ abstract class GraphicsDevice
 	/**
 	 * GraphicsDevice destructor.
 	 */
+	@nogc
 	public ~this()
 	{
 
@@ -31,7 +38,7 @@ abstract class GraphicsDevice
 	 *		usage : usage type
 	 */
 	@nogc
-	public abstract uint createVertexBuffer(in ptrdiff_t size, in void* data, in uint usage) nothrow;
+	public abstract GraphicsBuffer createVertexBuffer(in ptrdiff_t size, in void* data, in uint usage) nothrow;
 
 	/**
 	 * Creates an index buffer object.
@@ -41,24 +48,24 @@ abstract class GraphicsDevice
 	 *		usage : usage type
 	 */
 	@nogc
-	public abstract uint createIndexBuffer(in ptrdiff_t size, in void* data, in uint usage) nothrow;
+	public abstract GraphicsBuffer createIndexBuffer(in ptrdiff_t size, in void* data, in uint usage) nothrow;
 
 	/**
 	 * Deletes a buffer object.
 	 * Params:
-	 *		id : buffer id
+	 *		buffer : buffer
 	 */
 	@nogc
-	public abstract void deleteBuffer(in uint id) nothrow;
+	public abstract void deleteBuffer(in GraphicsBuffer buffer);
 
 	/**
 	 * Updates a subset of a buffer object's data store.
 	 * Params:
-	 *		 id : buffer object
+	 *		 buffer : buffer
 	 *		 offet : offset into the buffer object's data store where data replacement will begin, measured in bytes
 	 *		 size : size in bytes of the data store region being replaced
 	 *		 data : pointer to the new data that will be copied into the data store
 	 */
 	@nogc
-	public abstract void updateBuffer(in uint id, in long offset, in ptrdiff_t size, in void* data) const nothrow;
+	public abstract void updateBuffer(in GraphicsBuffer buffer, in long offset, in ptrdiff_t size, in void* data) const nothrow;
 } 

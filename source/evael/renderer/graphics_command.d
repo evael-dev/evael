@@ -4,6 +4,8 @@ public
 {
 	import evael.utils.color;
 	import evael.graphics.texture;
+	import evael.renderer.enums;
+	import evael.renderer.graphics_pipeline;
 }
 
 import evael.lib.memory;
@@ -13,6 +15,8 @@ import evael.lib.memory;
  */
 abstract class GraphicsCommand : NoGCClass
 {
+	protected GraphicsPipeline m_pipeline;
+
 	/**
 	 * GraphicsCommand constructor.
 	 */
@@ -51,10 +55,11 @@ abstract class GraphicsCommand : NoGCClass
 	 * Renders indexed primitives.
 	 * Params:
 	 * 		count : number of elements to be rendered
+	 * 		type : the type of the values in indices
      *      indices : pointer to the location where the indices are stored
 	 */
 	@nogc
-	public void drawIndexed(in int count, in void* indices) const nothrow;
+	public void drawIndexed(in int count, in IndexBufferType type, in void* indices) const nothrow;
 
 
 	/**
@@ -64,4 +69,16 @@ abstract class GraphicsCommand : NoGCClass
 	 */
 	@nogc
 	public void setTexture(Texture texture) const nothrow;
+
+	/**
+	 * Properties.
+	 */
+	@nogc
+	@property nothrow
+	{
+		public void pipeline(GraphicsPipeline pipeline) 
+		{
+			this.m_pipeline = pipeline;
+		}
+	}
 } 

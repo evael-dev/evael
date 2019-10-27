@@ -32,7 +32,7 @@ abstract class GameState
 	 * GameState constructor.
 	 */
 	@nogc
-	public this() nothrow
+	public this()
 	{
 
 	}

@@ -1,11 +1,76 @@
 module evael.renderer.vk.vk_command;
 
-import evael.renderer.graphics_command;
 
-class VKCommand : GraphicsCommand
+public 
 {
-    public this()
+	import evael.renderer.graphics_command;
+}
+
+class VkCommand : GraphicsCommand
+{
+    /**
+	 * VkCommand constructor.
+	 */
+	@nogc
+	public this()
+	{
+	}
+
+	/**
+	 * VkCommand destructor.
+	 */
+	@nogc
+	public ~this()
+	{
+
+	}
+
+    /**
+	 * Specifies clear values for the color buffers.
+	 * Params:
+	 *		color : clear color
+	 */
+	@nogc
+	public override void clearColor(in Color color = Color.Black) const nothrow
+	{
+		auto colorf = color.asFloat();
+
+
+	}
+
+    /**
+	 * Renders primitives.
+	 * Params:
+	 * 		first : starting index in the enabled arrays
+	 * 		count : number of indices to be rendered
+	 */
+	@nogc
+	public override void draw(in int first, in int count) const nothrow
+	{
+
+	}
+    
+	/**
+	 * Renders indexed primitives.
+	 * Params:
+	 * 		count : number of elements to be rendered
+	 * 		type : the type of the values in indices
+     *      indices : pointer to the location where the indices are stored
+	 */
+	@nogc
+	public override void drawIndexed(in int count, in IndexBufferType type, in void* indices) const nothrow
+	{
+
+	}
+
+	/**
+	 * Binds a named texture to a texturing target.
+	 * Params:
+	 *		texture : texture
+	 */
+	@nogc
+	public override void setTexture(Texture texture) const nothrow
     {
-        
+
     }
 }
