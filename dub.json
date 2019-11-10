@@ -1,35 +1,43 @@
 {
-	"name": "evael",
+	"authors": [
+		"Robert Georges"
+	],
 	"description": "Small game engine written in D.",
-	"copyright": "Copyright 2015-2019, Robert Georges",
 	"license": "BSL-1.0",
-	"authors": ["Robert Georges"],
+	"name": "evael",
+	"targetType": "library",
 	"version": "0.0.2",
+	"copyright": "Copyright 2015-2019, Robert Georges",
 	"dependencies": {
-		"bindbc-opengl": "~>0.8.0",
-		"bindbc-openal": "~>0.2.0",
-		"bindbc-glfw": "~>0.5.0",
 		"bindbc-freeimage": "~>0.1.1",
+		"bindbc-glfw": "~>0.5.0",
 		"bindbc-nuklear": "~>0.1.1",
+		"bindbc-openal": "~>0.2.0",
+		"bindbc-opengl": "~>0.8.0",
+		"decs": "~>1.0.3",
 		"derelict-nanovg": "~>1.1.0",
 		"derelict_extras-sndfile": "~>3.1.0",
-        "msgpack-d": "~>1.0.0-beta.6",
-		"dnogc": "~master",
-		"decs": "~>1.0.3",
-		"inifiled": "~>1.3.1",
 		"dlib": "~>0.16.0",
-		"evael-lib": "~>0.0.2"
-
+		"dnogc": "~master",
+		"erupted": "~>2.0.45",
+		"evael-lib": "~>0.0.2",
+		"inifiled": "~>1.3.1",
+		"msgpack-d": ">=1.0.0-beta.6 <1.1.0-0"
 	},
-	"targetType": "library",
-	"copyFiles-windows-x86": ["dist/x86/*.dll"],
-	"copyFiles-windows-x86_64": ["dist/x64/*.dll"],
-	"versions":
-	[
-		"GL_33", "GLFW_31", "FI_318", "NanovgGL3",
-		"NK_INCLUDE_FONT_BAKING", 
-		"NK_INCLUDE_VERTEX_BUFFER_OUTPUT", 
-		"NK_INCLUDE_DEFAULT_ALLOCATOR", 
+	"versions": [
+		"GL_33",
+		"GLFW_31",
+		"FI_318",
+		"NanovgGL3",
+		"NK_INCLUDE_FONT_BAKING",
+		"NK_INCLUDE_VERTEX_BUFFER_OUTPUT",
+		"NK_INCLUDE_DEFAULT_ALLOCATOR",
 		"NK_INCLUDE_STANDARD_IO"
+	],
+	"copyFiles-windows-x86": [
+		"dist/x86/*.dll"
+	],
+	"copyFiles-windows-x86_64": [
+		"dist/x64/*.dll"
 	]
 }

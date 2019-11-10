@@ -82,7 +82,7 @@ class Game
 		this.m_assetLoader = AssetLoader.getInstance();
 
 		this.m_graphicsDevice = GraphicsDevice.getInstance();
-		this.m_graphicsDevice.defaultFont = this.m_assetLoader.load!(Font)("Roboto-Regular.ttf", this.m_graphicsDevice.nvgContext);
+		this.m_graphicsDevice.defaultFont = this.m_assetLoader.load!Font("Roboto-Regular.ttf", this.m_graphicsDevice.nvgContext);
 		this.m_graphicsDevice.resolution = settings.resolution;
 		this.m_guiManager = new GuiManager(this.m_graphicsDevice, this.m_window.glfwWindow);
 		this.m_audioDevice = new AudioDevice();
@@ -142,7 +142,7 @@ class Game
                 loops++;               
             }
 
-            immutable interpolation = cast(float)(currentTick + this.m_deltaTime - nextGameTick) / cast(float) this.m_deltaTime;
+            immutable interpolation = cast(float) (currentTick + this.m_deltaTime - nextGameTick) / cast(float) this.m_deltaTime;
 
 			this.update(interpolation);    
             this.pollEvents();

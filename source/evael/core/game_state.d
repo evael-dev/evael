@@ -34,7 +34,7 @@ abstract class GameState
 	@nogc
 	public this()
 	{
-
+		
 	}
 
 	/**

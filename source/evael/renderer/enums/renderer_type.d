@@ -1,4 +1,4 @@
-module evael.renderer.renderer_type;
+module evael.renderer.enums.renderer_type;
 
 enum RendererType
 {

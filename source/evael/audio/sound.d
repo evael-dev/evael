@@ -92,7 +92,8 @@ class Sound : IAsset
 
 		if (fileFormat == 0)
 		{
-			throw new AudioUnsupportedChannelsException(format("Can't open file %s, unsupported number of channels %d", soundName, fileInfo.channels));
+			throw new AudioUnsupportedChannelsException(
+				"Can't open file %s, unsupported number of channels %d".format(soundName, fileInfo.channels));
 		}
 
 		uint buffer;

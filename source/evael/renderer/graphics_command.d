@@ -2,10 +2,12 @@ module evael.renderer.graphics_command;
 
 public
 {
+	import evael.renderer.graphics_buffer;
+	import evael.renderer.graphics_pipeline;
+	import evael.renderer.enums;
+
 	import evael.utils.color;
 	import evael.graphics.texture;
-	import evael.renderer.enums;
-	import evael.renderer.graphics_pipeline;
 }
 
 import evael.lib.memory;
@@ -16,6 +18,9 @@ import evael.lib.memory;
 abstract class GraphicsCommand : NoGCClass
 {
 	protected GraphicsPipeline m_pipeline;
+
+	protected GraphicsBuffer m_vertexBuffer;
+	protected GraphicsBuffer m_indexBuffer;
 
 	/**
 	 * GraphicsCommand constructor.
@@ -69,16 +74,26 @@ abstract class GraphicsCommand : NoGCClass
 	 */
 	@nogc
 	public void setTexture(Texture texture) const nothrow;
-
+	
 	/**
 	 * Properties.
 	 */
 	@nogc
 	@property nothrow
 	{
-		public void pipeline(GraphicsPipeline pipeline) 
+		public void pipeline(GraphicsPipeline value) 
 		{
-			this.m_pipeline = pipeline;
+			this.m_pipeline = value;
+		}
+
+		public void vertexBuffer(in ref GraphicsBuffer value)
+		{
+			this.m_vertexBuffer = value;
+		}
+
+		public void indexBuffer(in ref GraphicsBuffer value)
+		{
+			this.m_indexBuffer = value;
 		}
 	}
 } 

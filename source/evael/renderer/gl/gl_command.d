@@ -4,8 +4,9 @@ module evael.renderer.gl.gl_command;
 public 
 {
 	import evael.renderer.graphics_command;
-	import evael.graphics.gl;
 }
+
+import evael.graphics.gl;
 
 class GLCommand : GraphicsCommand
 {
@@ -49,6 +50,8 @@ class GLCommand : GraphicsCommand
 	@nogc
 	public override void draw(in int first, in int count) const nothrow
 	{
+		this.prepareDraw();
+
 		gl.DrawArrays(this.m_pipeline.primitiveType, first, count);
 	}
     
@@ -62,6 +65,8 @@ class GLCommand : GraphicsCommand
 	@nogc
 	public override void drawIndexed(in int count, in IndexBufferType type, in void* indices) const nothrow
 	{
+		this.prepareDraw();
+
 		gl.DrawElements(this.m_pipeline.primitiveType, count, type, indices);
 	}
 
@@ -77,4 +82,61 @@ class GLCommand : GraphicsCommand
 		// TODO: texture
 		// gl.Uniform1i
     }
+
+	@nogc
+	private void prepareDraw() const nothrow
+	{
+		gl.UseProgram(this.m_pipeline.shader.programId);
+		gl.BindBuffer(this.m_vertexBuffer.type, this.m_vertexBuffer.id);
+
+		/*enum size = cast(GLint) T.sizeof;
+		debug 
+		{
+			import std.stdio;
+			writeln("lol");
+		}		
+		foreach (i, member; __traits(allMembers, T))
+		{
+			static if (member == "opAssign")
+			{
+				continue;
+			}
+			else
+			{
+				enum UDAs = __traits(getAttributes, mixin(T.stringof ~ "." ~ member));
+
+				static assert(UDAs.length > 0, "You need to specify UDA for member " ~ T.stringof ~ "." ~ member);
+
+				enum shaderAttribute = UDAs[0];
+
+				static if(is(typeof(shaderAttribute) : ShaderAttribute))
+				{
+					enum offset = __traits(getMember, T, member).offsetof;
+
+					gl.EnableVertexAttribArray(shaderAttribute.layoutIndex);
+					gl.VertexAttribPointer(
+						shaderAttribute.layoutIndex, 
+						shaderAttribute.size, 
+						shaderAttribute.type, 
+						shaderAttribute.normalized, 
+						size, cast(void*) offset
+					);
+
+					version(GLDebug) 
+					{
+						pragma(msg, "%s:%d : gl.VertexAttribPointer(%d, %d, %d, %d, %d, %d);".format(file, line, shaderAttribute.layoutIndex,
+							shaderAttribute.size, 
+							shaderAttribute.type, 
+							shaderAttribute.normalized, 
+							size, offset
+						));
+					}
+				}
+				else 
+				{
+					static assert(false, "UDA defined member " ~ T.stringof ~ "." ~ member ~ " but is not of the good type.");
+				}
+			}
+		}*/
+	}
 }

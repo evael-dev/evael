@@ -21,7 +21,8 @@ class ColorPicker : Widget
 	public override void draw()
 	{
 		this.applyLayout();
-		if (nk_combo_begin_color(this.nuklearContext, nk_rgb_cf(this.m_color), nk_vec2(nk_widget_width(this.nuklearContext), 400))) {
+		if (nk_combo_begin_color(this.nuklearContext, nk_rgb_cf(this.m_color), nk_vec2(nk_widget_width(this.nuklearContext), 400))) 
+		{
 			nk_layout_row_dynamic(this.nuklearContext, 120, 1);
 			this.m_color = nk_color_picker(this.nuklearContext, this.m_color, NK_RGBA);
 			nk_layout_row_dynamic(this.nuklearContext, 25, 1);

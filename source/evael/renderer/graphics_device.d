@@ -6,6 +6,9 @@ public
 {
 	import evael.renderer.graphics_buffer;
 	import evael.renderer.graphics_command;
+	import evael.renderer.shader;
+
+	import evael.renderer.enums.buffer_type;
 }
 
 abstract class GraphicsDevice : NoGCClass
@@ -31,24 +34,14 @@ abstract class GraphicsDevice : NoGCClass
 	public abstract GraphicsCommand createCommand();
 	
 	/**
-	 * Create a vertex buffer object.
+	 * Create a buffer object.
 	 * Params:
+	 *		type : buffer type
 	 *		size : buffer object size
 	 *		data : data to send
-	 *		usage : usage type
 	 */
 	@nogc
-	public abstract GraphicsBuffer createVertexBuffer(in ptrdiff_t size, in void* data, in uint usage) nothrow;
-
-	/**
-	 * Creates an index buffer object.
-	 * Params:
-	 *		size : buffer object size
-	 *		data : data to send
-	 *		usage : usage type
-	 */
-	@nogc
-	public abstract GraphicsBuffer createIndexBuffer(in ptrdiff_t size, in void* data, in uint usage) nothrow;
+	public abstract GraphicsBuffer createBuffer(BufferType type, in ptrdiff_t size, in void* data = null) nothrow;
 
 	/**
 	 * Deletes a buffer object.
@@ -67,5 +60,7 @@ abstract class GraphicsDevice : NoGCClass
 	 *		 data : pointer to the new data that will be copied into the data store
 	 */
 	@nogc
-	public abstract void updateBuffer(in GraphicsBuffer buffer, in long offset, in ptrdiff_t size, in void* data) const nothrow;
+	public abstract void updateBuffer(ref GraphicsBuffer buffer, in long offset, in ptrdiff_t size, in void* data) const nothrow;
+
+	public abstract Shader createShader(in string vertexSource, in string fragmentSource) const;
 } 

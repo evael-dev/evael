@@ -1,13 +1,14 @@
 module evael.renderer.graphics_device_factory;
 
 import evael.renderer.gl.gl_graphics_device;
+import evael.renderer.vk.vk_graphics_device;
 
 import evael.lib.memory;
 
 public 
 {
     import evael.renderer.graphics_device;
-    import evael.renderer.renderer_type;
+    import evael.renderer.enums.renderer_type;
 }
 
 static class GraphicsDeviceFactory
@@ -18,7 +19,7 @@ static class GraphicsDeviceFactory
         final switch(rendererType)
         {
             case RendererType.OpenGL: return MemoryHelper.create!GLGraphicsDevice();
-            case RendererType.Vulkan: return null;
+            case RendererType.Vulkan: return MemoryHelper.create!VkGraphicsDevice();
         }
     }
 }

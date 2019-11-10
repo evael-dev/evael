@@ -13,6 +13,7 @@ class VkGraphicsDevice : GraphicsDevice
 	/**
 	 * VkGraphicsDevice constructor.
 	 */
+	@nogc
 	public this()
 	{
 	}
@@ -20,6 +21,7 @@ class VkGraphicsDevice : GraphicsDevice
 	/**
 	 * VkGraphicsDevice destructor.
 	 */
+	@nogc
 	public ~this()
 	{
 		foreach (buffer; this.m_buffers)
@@ -36,29 +38,16 @@ class VkGraphicsDevice : GraphicsDevice
 	}
 
 	/**
-	 * Create a vertex buffer object.
+	 * Create a buffer object.
 	 * Params:
+	 *		type : buffer type
 	 *		size : buffer object size
 	 *		data : data to send
-	 *		usage : usage type
 	 */
 	@nogc
-	public override GraphicsBuffer createVertexBuffer(in ptrdiff_t size, in void* data, in uint usage) nothrow
+	public override GraphicsBuffer createBuffer(BufferType type, in ptrdiff_t size, in void* data) nothrow
 	{
         return GraphicsBuffer();
-	}
-
-	/**
-	 * Creates an index buffer object.
-	 * Params:
-	 *		size : buffer object size
-	 *		data : data to send
-	 *		usage : usage type
-	 */
-	@nogc
-	public override GraphicsBuffer createIndexBuffer(in ptrdiff_t size, in void* data, in uint usage) nothrow
-	{
-		return GraphicsBuffer();
 	}
 
 	/**
@@ -88,9 +77,14 @@ class VkGraphicsDevice : GraphicsDevice
 	 *		 data : pointer to the new data that will be copied into the data store
 	 */
 	@nogc
-	public override void updateBuffer(in GraphicsBuffer buffer, in long offset, in ptrdiff_t size, in void* data) const nothrow
+	public override void updateBuffer(ref GraphicsBuffer buffer, in long offset, in ptrdiff_t size, in void* data) const nothrow
 	{
 
+	}
+
+	public override Shader createShader(in string vertexSource, in string fragmentSource) const
+	{
+		throw new Exception("createShader not implemented for vulkan device.");
 	}
 
 	/**
