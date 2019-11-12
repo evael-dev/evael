@@ -30,9 +30,6 @@ abstract class GraphicsDevice : NoGCClass
 
 	}
 
-	@nogc
-	public abstract GraphicsCommand createCommand();
-	
 	/**
 	 * Create a buffer object.
 	 * Params:

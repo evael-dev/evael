@@ -1,9 +1,12 @@
 module evael.renderer.gl.gl_command;
 
+import evael.renderer.graphics_command;
 
 public 
 {
-	import evael.renderer.graphics_command;
+	import evael.utils.color;
+	import evael.graphics.texture;
+	import evael.renderer.shader;
 }
 
 import evael.graphics.gl;
@@ -48,9 +51,9 @@ class GLCommand : GraphicsCommand
 	 * 		count : number of indices to be rendered
 	 */
 	@nogc
-	public override void draw(in int first, in int count) const nothrow
+	public void draw(T)(in int first, in int count) const nothrow
 	{
-		this.prepareDraw();
+		this.prepareDraw!T();
 
 		gl.DrawArrays(this.m_pipeline.primitiveType, first, count);
 	}
@@ -63,9 +66,9 @@ class GLCommand : GraphicsCommand
      *      indices : pointer to the location where the indices are stored
 	 */
 	@nogc
-	public override void drawIndexed(in int count, in IndexBufferType type, in void* indices) const nothrow
+	public void drawIndexed(T)(in int count, in IndexBufferType type, in void* indices) const nothrow
 	{
-		this.prepareDraw();
+		this.prepareDraw!T();
 
 		gl.DrawElements(this.m_pipeline.primitiveType, count, type, indices);
 	}
@@ -84,59 +87,49 @@ class GLCommand : GraphicsCommand
     }
 
 	@nogc
-	private void prepareDraw() const nothrow
+	private void prepareDraw(T, string file = __FILE__, int line = __LINE__)() const nothrow
 	{
 		gl.UseProgram(this.m_pipeline.shader.programId);
 		gl.BindBuffer(this.m_vertexBuffer.type, this.m_vertexBuffer.id);
 
-		/*enum size = cast(GLint) T.sizeof;
-		debug 
-		{
-			import std.stdio;
-			writeln("lol");
-		}		
+		enum size = cast(GLint) T.sizeof;
+
 		foreach (i, member; __traits(allMembers, T))
 		{
-			static if (member == "opAssign")
+			enum UDAs = __traits(getAttributes, __traits(getMember, T, member));
+
+			static assert(UDAs.length > 0, "You need to specify UDA for member " ~ T.stringof ~ "." ~ member);
+
+			enum shaderAttribute = UDAs[0];
+
+			static if(is(typeof(shaderAttribute) : ShaderAttribute))
 			{
-				continue;
-			}
-			else
-			{
-				enum UDAs = __traits(getAttributes, mixin(T.stringof ~ "." ~ member));
+				enum offset = __traits(getMember, T, member).offsetof;
 
-				static assert(UDAs.length > 0, "You need to specify UDA for member " ~ T.stringof ~ "." ~ member);
+				gl.EnableVertexAttribArray(shaderAttribute.layoutIndex);
+				gl.VertexAttribPointer(
+					shaderAttribute.layoutIndex, 
+					shaderAttribute.size, 
+					shaderAttribute.type,  
+					shaderAttribute.normalized, 
+					size, cast(void*) offset
+				);
 
-				enum shaderAttribute = UDAs[0];
-
-				static if(is(typeof(shaderAttribute) : ShaderAttribute))
+				version(GL_DEBUG) 
 				{
-					enum offset = __traits(getMember, T, member).offsetof;
-
-					gl.EnableVertexAttribArray(shaderAttribute.layoutIndex);
-					gl.VertexAttribPointer(
-						shaderAttribute.layoutIndex, 
+					import std.string : format;
+					pragma(msg, "%s:%d : gl.VertexAttribPointer(%d, %d, %d, %d, %d, %d);".format(file, line, shaderAttribute.layoutIndex,
 						shaderAttribute.size, 
 						shaderAttribute.type, 
 						shaderAttribute.normalized, 
-						size, cast(void*) offset
-					);
-
-					version(GLDebug) 
-					{
-						pragma(msg, "%s:%d : gl.VertexAttribPointer(%d, %d, %d, %d, %d, %d);".format(file, line, shaderAttribute.layoutIndex,
-							shaderAttribute.size, 
-							shaderAttribute.type, 
-							shaderAttribute.normalized, 
-							size, offset
-						));
-					}
-				}
-				else 
-				{
-					static assert(false, "UDA defined member " ~ T.stringof ~ "." ~ member ~ " but is not of the good type.");
+						size, offset
+					));
 				}
 			}
-		}*/
+			else 
+			{
+				static assert(false, "UDA defined for member " ~ T.stringof ~ "." ~ member ~ " but is not a valid ShaderAttribute.");
+			}
+		}
 	}
 }

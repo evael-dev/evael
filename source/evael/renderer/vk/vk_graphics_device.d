@@ -32,7 +32,7 @@ class VkGraphicsDevice : GraphicsDevice
 	}
 	
 	@nogc
-	public override GraphicsCommand createCommand()
+	public VkCommand createCommand()
 	{
 		return MemoryHelper.create!VkCommand();
 	}

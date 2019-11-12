@@ -8,3 +8,11 @@ struct Shader
     public uint vertexShaderId;
     public uint fragmentShaderId;
 }
+
+struct ShaderAttribute
+{
+	int layoutIndex;
+	int type;
+	int size;
+	bool normalized;
+}

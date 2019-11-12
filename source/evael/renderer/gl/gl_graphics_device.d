@@ -32,7 +32,7 @@ class GLGraphicsDevice : GraphicsDevice
 	}
 	
 	@nogc
-	public override GraphicsCommand createCommand()
+	public GLCommand createCommand()
 	{
 		return MemoryHelper.create!GLCommand();
 	}

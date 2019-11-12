@@ -1,9 +1,11 @@
 module evael.renderer.vk.vk_command;
 
+import evael.renderer.graphics_command;
 
 public 
 {
-	import evael.renderer.graphics_command;
+	import evael.utils.color;
+	import evael.graphics.texture;
 }
 
 class VkCommand : GraphicsCommand
@@ -45,7 +47,7 @@ class VkCommand : GraphicsCommand
 	 * 		count : number of indices to be rendered
 	 */
 	@nogc
-	public override void draw(in int first, in int count) const nothrow
+	public void draw(in int first, in int count) const nothrow
 	{
 
 	}
@@ -58,7 +60,7 @@ class VkCommand : GraphicsCommand
      *      indices : pointer to the location where the indices are stored
 	 */
 	@nogc
-	public override void drawIndexed(in int count, in IndexBufferType type, in void* indices) const nothrow
+	public void drawIndexed(in int count, in IndexBufferType type, in void* indices) const nothrow
 	{
 
 	}
