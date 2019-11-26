@@ -7,6 +7,7 @@ public
 	import evael.renderer.graphics_buffer;
 	import evael.renderer.graphics_command;
 	import evael.renderer.shader;
+	import evael.renderer.texture;
 
 	import evael.renderer.enums.buffer_type;
 }
@@ -60,4 +61,9 @@ abstract class GraphicsDevice : NoGCClass
 	public abstract void updateBuffer(ref GraphicsBuffer buffer, in long offset, in ptrdiff_t size, in void* data) const nothrow;
 
 	public abstract Shader createShader(in string vertexSource, in string fragmentSource) const;
+
+	@nogc
+	public abstract Texture createTexture() const;
+
+	public abstract Texture createTexture(in string name) const;
 } 

@@ -10,5 +10,5 @@ enum PrimitiveType
     LineLoop,
     Unfilled,
     Circle,
-    Points
+    Point
 }

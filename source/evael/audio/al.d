@@ -1,7 +1,5 @@
 module evael.audio.al;
 
-debug import dnogc.Utils;
-
 public import bindbc.openal;
 
 struct al
@@ -14,13 +12,15 @@ struct al
 	{ 
 		debug
 		{
+			import dnogc.Utils : dln;
+			import std.experimental.logger : error;
 			scope (exit)
 			{
-				immutable uint error = alGetError();
+				immutable uint alError = alGetError();
 
-				if (error != AL_NO_ERROR)
+				if (alError != AL_NO_ERROR)
 				{
-					dln(file, ", ", line, " , gl", name, " : ", error);
+					dln(file, ", ", line, " , al", name, " : ", alError);
 				}
 			}
 		}

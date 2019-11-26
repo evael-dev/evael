@@ -1,15 +1,17 @@
 module evael.renderer.gl.gl_command;
 
+import evael.graphics.gl;
 import evael.renderer.graphics_command;
+import evael.renderer.gl.gl_enum_converter;
+import evael.renderer.gl.gl_shader;
+import evael.renderer.gl.gl_texture;
 
 public 
 {
 	import evael.utils.color;
-	import evael.graphics.texture;
+	import evael.renderer.texture;
 	import evael.renderer.shader;
 }
-
-import evael.graphics.gl;
 
 class GLCommand : GraphicsCommand
 {
@@ -55,7 +57,9 @@ class GLCommand : GraphicsCommand
 	{
 		this.prepareDraw!T();
 
-		gl.DrawArrays(this.m_pipeline.primitiveType, first, count);
+		gl.DrawArrays(GL_TRIANGLES, first, count);
+
+		this.postDraw();
 	}
     
 	/**
@@ -73,24 +77,43 @@ class GLCommand : GraphicsCommand
 		gl.DrawElements(this.m_pipeline.primitiveType, count, type, indices);
 	}
 
-	/**
-	 * Binds a named texture to a texturing target.
-	 * Params:
-	 *		texture : texture
-	 */
-	@nogc
-	public override void setTexture(Texture texture) const nothrow
-    {
-		gl.BindTexture(GL_TEXTURE_2D, texture.id);
-		// TODO: texture
-		// gl.Uniform1i
-    }
-
 	@nogc
 	private void prepareDraw(T, string file = __FILE__, int line = __LINE__)() const nothrow
 	{
-		gl.UseProgram(this.m_pipeline.shader.programId);
 		gl.BindBuffer(this.m_vertexBuffer.type, this.m_vertexBuffer.id);
+
+		this.applyTexture();
+		this.applyVertexAttributes!(T, file, line)();
+
+		gl.BindBuffer(this.m_vertexBuffer.type, 0);
+	}
+	
+	@nogc
+	private void postDraw() const nothrow
+	{
+		if (this.m_pipeline.texture !is null)
+		{
+			gl.BindTexture(GL_TEXTURE_2D, 0);
+		}
+	}
+	
+	@nogc
+	private void applyTexture() const nothrow
+	{
+		if (this.m_pipeline.texture is null)
+		{
+			return;
+		}
+
+		gl.BindTexture(GL_TEXTURE_2D, (cast(GLTexture) this.m_pipeline.texture).id);
+	}
+
+	@nogc
+	private void applyVertexAttributes(T, string file = __FILE__, int line = __LINE__)() const nothrow
+	{
+		auto glShader = cast(GLShader) this.m_pipeline.shader;
+
+		gl.UseProgram(glShader.programId);
 
 		enum size = cast(GLint) T.sizeof;
 
@@ -106,11 +129,13 @@ class GLCommand : GraphicsCommand
 			{
 				enum offset = __traits(getMember, T, member).offsetof;
 
+				enum glBufferType = GLEnumConverter.attributeType(shaderAttribute.type);
+
 				gl.EnableVertexAttribArray(shaderAttribute.layoutIndex);
 				gl.VertexAttribPointer(
 					shaderAttribute.layoutIndex, 
 					shaderAttribute.size, 
-					shaderAttribute.type,  
+					glBufferType,  
 					shaderAttribute.normalized, 
 					size, cast(void*) offset
 				);

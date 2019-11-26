@@ -1,18 +1,26 @@
 module evael.renderer.shader;
 
 import evael.renderer.enums.shader_type;
+import evael.renderer.enums.attribute_type;
+import evael.lib.memory;
 
-struct Shader
+public import std.typecons : Flag, Yes, No;
+
+abstract class Shader : NoGCClass
 {
-    public uint programId;
-    public uint vertexShaderId;
-    public uint fragmentShaderId;
+    /**
+     * Shader constructor.
+     */
+    @nogc
+    public this()
+    {
+    }
 }
 
 struct ShaderAttribute
 {
-	int layoutIndex;
-	int type;
-	int size;
-	bool normalized;
+	public int layoutIndex;
+	public AttributeType type;
+	public int size;
+	public Flag!"normalized" normalized;
 }

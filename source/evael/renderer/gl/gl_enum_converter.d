@@ -25,4 +25,14 @@ static class GLEnumConverter
             case ShaderType.Geometry: return GL_GEOMETRY_SHADER;
         }
     }
+
+    @nogc
+    public static GLenum attributeType(AttributeType type) nothrow
+    {
+        final switch(type)
+        {
+            case AttributeType.Float: return GL_FLOAT;
+            case AttributeType.UByte: return GL_UNSIGNED_BYTE;
+        }
+    }
 }

@@ -5,7 +5,7 @@ import evael.renderer.graphics_command;
 public 
 {
 	import evael.utils.color;
-	import evael.graphics.texture;
+	import evael.renderer.texture;
 }
 
 class VkCommand : GraphicsCommand
@@ -64,15 +64,4 @@ class VkCommand : GraphicsCommand
 	{
 
 	}
-
-	/**
-	 * Binds a named texture to a texturing target.
-	 * Params:
-	 *		texture : texture
-	 */
-	@nogc
-	public override void setTexture(Texture texture) const nothrow
-    {
-
-    }
 }

@@ -4,11 +4,11 @@ public
 {
 	import evael.renderer.graphics_buffer;
 	import evael.renderer.graphics_pipeline;
+	import evael.renderer.texture;
 	import evael.renderer.enums;
 }
 
 import evael.utils.color;
-import evael.graphics.texture;
 import evael.lib.memory;
 
 /**
@@ -45,14 +45,6 @@ abstract class GraphicsCommand : NoGCClass
 	 */
 	@nogc
 	public void clearColor(in Color color = Color.Black) const nothrow;
-
-	/**
-	 * Binds a named texture to a texturing target.
-	 * Params:
-	 *		texture : texture
-	 */
-	@nogc
-	public void setTexture(Texture texture) const nothrow;
 	
 	/**
 	 * Properties.
