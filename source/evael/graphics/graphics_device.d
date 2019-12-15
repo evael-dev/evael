@@ -96,9 +96,9 @@ class GraphicsDevice
 		this.m_polygonMode = PolygonMode.Fill;
 		this.resolution = Size!int(1024, 768);
 
-		this.initializeOpenGL();
-		this.initialize2DProjection(this.m_viewportSize);
-		this.initializePerspectiveProjection(60.0f);
+		//this.initializeOpenGL();
+		//this.initialize2DProjection(this.m_viewportSize);
+		//this.initializePerspectiveProjection(60.0f);
 
 		this.m_environment = new Environment(this);
 

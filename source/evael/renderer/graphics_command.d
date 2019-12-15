@@ -25,8 +25,11 @@ abstract class GraphicsCommand : NoGCClass
 	 * GraphicsCommand constructor.
 	 */
 	@nogc
-	public this()
+	public this(GraphicsPipeline pipeline)
 	{
+		this.m_pipeline = pipeline;
+
+		this.verifyPipeline();
 	}
 
 	/**
@@ -46,6 +49,12 @@ abstract class GraphicsCommand : NoGCClass
 	@nogc
 	public void clearColor(in Color color = Color.Black) const nothrow;
 	
+	@nogc
+	protected void verifyPipeline() const
+	{
+		assert(this.m_pipeline.shader !is null);
+	}
+
 	/**
 	 * Properties.
 	 */

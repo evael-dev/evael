@@ -2,7 +2,9 @@ module evael.renderer.texture;
 
 import evael.lib.memory;
 
-abstract class Texture : NoGCClass
+import evael.system.asset;
+
+abstract class Texture : NoGCClass, IAsset
 {
     /**
      * Texture constructor.

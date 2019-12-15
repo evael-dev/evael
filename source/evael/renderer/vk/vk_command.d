@@ -14,8 +14,9 @@ class VkCommand : GraphicsCommand
 	 * VkCommand constructor.
 	 */
 	@nogc
-	public this()
+	public this(GraphicsPipeline pipeline)
 	{
+		super(pipeline);
 	}
 
 	/**

@@ -10,6 +10,8 @@ public
 	import evael.renderer.texture;
 
 	import evael.renderer.enums.buffer_type;
+
+	import evael.utils.color;
 }
 
 abstract class GraphicsDevice : NoGCClass
@@ -30,6 +32,12 @@ abstract class GraphicsDevice : NoGCClass
 	{
 
 	}
+
+	@nogc
+	public abstract void beginFrame(in Color color = Color.Blue);
+
+	@nogc
+	public abstract void endFrame();
 
 	/**
 	 * Create a buffer object.
@@ -59,11 +67,4 @@ abstract class GraphicsDevice : NoGCClass
 	 */
 	@nogc
 	public abstract void updateBuffer(ref GraphicsBuffer buffer, in long offset, in ptrdiff_t size, in void* data) const nothrow;
-
-	public abstract Shader createShader(in string vertexSource, in string fragmentSource) const;
-
-	@nogc
-	public abstract Texture createTexture() const;
-
-	public abstract Texture createTexture(in string name) const;
 } 

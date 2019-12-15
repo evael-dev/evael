@@ -35,4 +35,35 @@ static class GLEnumConverter
             case AttributeType.UByte: return GL_UNSIGNED_BYTE;
         }
     }
+
+    @nogc
+    public static GLenum blendFactor(BlendFactor blendFactor) nothrow
+    {
+        final switch(blendFactor)
+        {
+            case BlendFactor.Zero                    : return GL_ZERO;
+            case BlendFactor.One                     : return GL_ONE;
+            case BlendFactor.SourceColor             : return GL_SRC_COLOR;
+            case BlendFactor.InverseSourceColor      : return GL_ONE_MINUS_SRC_COLOR;
+            case BlendFactor.DestinationColor        : return GL_DST_COLOR;
+            case BlendFactor.InverseDestinationColor : return GL_ONE_MINUS_DST_COLOR;
+            case BlendFactor.SourceAlpha             : return GL_SRC_ALPHA;
+            case BlendFactor.InverseSourceAlpha      : return GL_ONE_MINUS_SRC_ALPHA;
+            case BlendFactor.DestinationAlpha        : return GL_DST_ALPHA;
+            case BlendFactor.InverseDestinationAlpha : return GL_ONE_MINUS_DST_ALPHA;
+        }
+    }
+
+    @nogc
+    public static GLenum blendFunction(BlendFunction blendFunction) nothrow
+    {
+        final switch(blendFunction)
+        {
+            case BlendFunction.Add             : return GL_FUNC_ADD;
+            case BlendFunction.Subtract        : return GL_FUNC_SUBTRACT;
+            case BlendFunction.ReverseSubtract : return GL_FUNC_REVERSE_SUBTRACT;
+            case BlendFunction.Minimum         : return GL_MIN;
+            case BlendFunction.Maximum         : return GL_MAX;
+        }
+    }
 }

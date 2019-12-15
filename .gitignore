@@ -27,3 +27,4 @@ dub.selections.json
 !dist/*/*.dll
 .history
 .vscode
+dls.log

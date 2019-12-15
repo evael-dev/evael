@@ -32,9 +32,15 @@ class VkGraphicsDevice : GraphicsDevice
 	}
 	
 	@nogc
-	public VkCommand createCommand()
+	public override void beginFrame(in Color color = Color.LightGrey)
 	{
-		return MemoryHelper.create!VkCommand();
+
+	}
+
+	@nogc
+	public override void endFrame()
+	{
+
 	}
 
 	/**
@@ -80,11 +86,6 @@ class VkGraphicsDevice : GraphicsDevice
 	public override void updateBuffer(ref GraphicsBuffer buffer, in long offset, in ptrdiff_t size, in void* data) const nothrow
 	{
 
-	}
-
-	public override Shader createShader(in string vertexSource, in string fragmentSource) const
-	{
-		throw new Exception("createShader not implemented for vulkan device.");
 	}
 
 	/**

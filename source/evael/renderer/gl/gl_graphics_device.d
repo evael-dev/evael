@@ -1,7 +1,7 @@
 module evael.renderer.gl.gl_graphics_device;
 
 import evael.renderer.graphics_device;
-import evael.renderer.gl.gl_command;
+import evael.renderer.gl.gl_wrapper;
 import evael.renderer.gl.gl_enum_converter;
 import evael.renderer.gl.gl_shader;
 import evael.renderer.gl.gl_texture;
@@ -45,9 +45,18 @@ class GLGraphicsDevice : GraphicsDevice
 	}
 
 	@nogc
-	public GLCommand createCommand()
+	public override void beginFrame(in Color color = Color.LightGrey)
 	{
-		return MemoryHelper.create!GLCommand();
+		auto colorf = color.asFloat();
+
+		gl.Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		gl.ClearColor(colorf[0], colorf[1], colorf[2], 1.0f); 
+	}
+
+	@nogc
+	public override void endFrame()
+	{
+
 	}
 
 	/**
@@ -112,75 +121,6 @@ class GLGraphicsDevice : GraphicsDevice
 		}
 	}
 
-	public override Shader createShader(in string vertexSource, in string fragmentSource) const
-	{
-		immutable uint programId = gl.CreateProgram();
-		
-		immutable uint vertexShaderId = this.compileShader(vertexSource, ShaderType.Vertex);
-		immutable uint fragmentShaderId = this.compileShader(fragmentSource, ShaderType.Fragment);
-
-		gl.AttachShader(programId, vertexShaderId);
-		gl.AttachShader(programId, fragmentShaderId);
-
-		gl.LinkProgram(programId);
-
-		return MemoryHelper.create!GLShader(programId, vertexShaderId, fragmentShaderId);
-	}
-
-	@nogc
-	public override Texture createTexture() const
-	{
-		uint id;
-		gl.GenTextures(1, &id);
-
-		return MemoryHelper.create!GLTexture(id);
-	}
-
-	public override Texture createTexture(in string name) const
-	{
-		auto texture = cast(GLTexture) this.createTexture();
-
-		auto image = Image.fromFile(name);
-
-		gl.BindTexture(GL_TEXTURE_2D, texture.id);
-		gl.TexImage2D(GL_TEXTURE_2D,
-					0,                // Mipmap level (0 being the top level i.e. full size)
-					GL_RGBA,          // Internal format
-					image.width,       // Width of the texture
-					image.height,      // Height of the texture,
-					0,                // Border in pixels
-					GL_BGRA,          // Data format
-					GL_UNSIGNED_BYTE, // Type of texture data
-					image.bytes);     // The image data to use for this texture
-	
-		MemoryHelper.dispose(image);
-		
-		auto minificationFilter = GL_LINEAR;
-		auto magnificationFilter = GL_LINEAR;
-
-		// Anisotropic filter
-		float fLargest;
-		gl.GetFloatv(0x84FF, &fLargest);
-		gl.TexParameterf(GL_TEXTURE_2D, 0x84FE, fLargest);
-
-		// Specify our minification and magnification filters
-		gl.TexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minificationFilter);
-		gl.TexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magnificationFilter);
-	
-		// If we're using MipMaps, then we'll generate them here.
-		// Note: The glGenerateMipmap call requires OpenGL 3.0 as a minimum.
-		if (minificationFilter == GL_LINEAR_MIPMAP_LINEAR   ||
-			minificationFilter == GL_LINEAR_MIPMAP_NEAREST  ||
-			minificationFilter == GL_NEAREST_MIPMAP_LINEAR  ||
-			minificationFilter == GL_NEAREST_MIPMAP_NEAREST)
-		{
-			gl.GenerateMipmap(GL_TEXTURE_2D);
-		}
-	
-		return texture;
-	}
-
-
 	/**
 	 * Generates a buffer object.
 	 * Params:
@@ -212,67 +152,4 @@ class GLGraphicsDevice : GraphicsDevice
 		gl.BufferData(buffer.type, size, data, GL_DYNAMIC_DRAW);
 		buffer.size = size;
 	}
-
-	private uint compileShader(in string sourceCode, in ShaderType type) const
-	{
-		import std.string : format;
-		import std.exception : enforce;
-
-		immutable uint shader = gl.CreateShader(GLEnumConverter.shaderType(type));
-
-		assert(sourceCode.length);
-
-		char* source = cast(char*) sourceCode.ptr;
-
-		// Shader compilation
-		gl.ShaderSource(shader, 1, &source, [cast(int) sourceCode.length].ptr);
-		gl.CompileShader(shader);
-
-		int compilationStatus;
-		gl.GetShaderiv(shader, GL_COMPILE_STATUS, &compilationStatus);
-
-		// We check for compilation errors
-		if (compilationStatus == false)
-		{
-			// Compilation failed, we retrieve error logs
-			gl.GetShaderiv(shader, GL_INFO_LOG_LENGTH, &compilationStatus);
-
-			char[] errors = new char[compilationStatus];
-
-			gl.GetShaderInfoLog(shader, compilationStatus, &compilationStatus, errors.ptr);
-
-			throw new Exception("Shader %s can't be compiled :\n %s.".format(sourceCode, errors));
-		}
-
-		return shader;
-	}
 } 
-
-import bindbc.opengl;
-
-struct gl
-{
-	static string file = __FILE__;
-	static int line = __LINE__;
-
-	@nogc
-	static auto ref opDispatch(string name, Args...)(Args args) nothrow
-	{ 
-		debug
-		{
-			import dnogc.Utils : dln;
-			import std.experimental.logger : error;
-			scope (exit)
-			{
-				immutable uint glError = glGetError();
-
-				if (glError != GL_NO_ERROR)
-				{
-					dln(file, ", ", line, " , gl", name, " : ", glError);
-				}
-			}
-		}
-
-		return mixin("gl" ~ name ~ "(args)");
-	}
-}
