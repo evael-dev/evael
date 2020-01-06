@@ -2,8 +2,10 @@ module evael.renderer.enums.uniform_type;
 
 enum UniformType
 {
+    Int,
+    Bool,
 	Float,
 	Double,
-    Int,
-    Vec2
+    Vec2,
+    Mat4,
 }

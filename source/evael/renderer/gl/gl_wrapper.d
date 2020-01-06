@@ -4,11 +4,8 @@ public import bindbc.opengl;
 
 struct gl
 {
-	static string file = __FILE__;
-	static int line = __LINE__;
-
 	@nogc
-	static auto ref opDispatch(string name, Args...)(Args args) nothrow
+	static auto ref opDispatch(string name, Args...)(Args args, string file = __FILE__, int line = __LINE__) nothrow
 	{ 
 		debug
 		{

@@ -10,8 +10,9 @@ static class GLEnumConverter
     {
         final switch(type)
         {
-            case BufferType.Vertex: return GL_ARRAY_BUFFER;
-            case BufferType.Index: return GL_ELEMENT_ARRAY_BUFFER;
+            case BufferType.Vertex:  return GL_ARRAY_BUFFER;
+            case BufferType.Index:   return GL_ELEMENT_ARRAY_BUFFER;
+            case BufferType.Uniform: return GL_UNIFORM_BUFFER;
         }
     }
 
@@ -20,7 +21,7 @@ static class GLEnumConverter
     {
         final switch(type)
         {
-            case ShaderType.Vertex: return GL_VERTEX_SHADER;
+            case ShaderType.Vertex:   return GL_VERTEX_SHADER;
             case ShaderType.Fragment: return GL_FRAGMENT_SHADER;
             case ShaderType.Geometry: return GL_GEOMETRY_SHADER;
         }

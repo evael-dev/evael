@@ -1,6 +1,6 @@
 module evael.renderer.vk.vk_command;
 
-import evael.renderer.graphics_command;
+import evael.renderer.command;
 
 public 
 {
@@ -8,13 +8,13 @@ public
 	import evael.renderer.texture;
 }
 
-class VkCommand : GraphicsCommand
+class VkCommand : Command
 {
     /**
 	 * VkCommand constructor.
 	 */
 	@nogc
-	public this(GraphicsPipeline pipeline)
+	public this(Pipeline pipeline)
 	{
 		super(pipeline);
 	}

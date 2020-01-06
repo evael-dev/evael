@@ -1,9 +1,9 @@
-module evael.renderer.graphics_command;
+module evael.renderer.command;
 
 public
 {
-	import evael.renderer.graphics_buffer;
-	import evael.renderer.graphics_pipeline;
+	import evael.renderer.buffer;
+	import evael.renderer.pipeline;
 	import evael.renderer.texture;
 	import evael.renderer.enums;
 }
@@ -12,20 +12,20 @@ import evael.utils.color;
 import evael.lib.memory;
 
 /**
- * GraphicsCommand is the base class for all the API commands.
+ * Command is the base class for all the API commands.
  */
-abstract class GraphicsCommand : NoGCClass
+abstract class Command : NoGCClass
 {
-	protected GraphicsPipeline m_pipeline;
+	protected Pipeline m_pipeline;
 
-	protected GraphicsBuffer m_vertexBuffer;
-	protected GraphicsBuffer m_indexBuffer;
+	protected VertexBuffer m_vertexBuffer;
+	protected IndexBuffer m_indexBuffer;
 
 	/**
-	 * GraphicsCommand constructor.
+	 * Command constructor.
 	 */
 	@nogc
-	public this(GraphicsPipeline pipeline)
+	public this(Pipeline pipeline)
 	{
 		this.m_pipeline = pipeline;
 
@@ -33,12 +33,11 @@ abstract class GraphicsCommand : NoGCClass
 	}
 
 	/**
-	 * GraphicsCommand destructor.
+	 * Command destructor.
 	 */
 	@nogc
 	public ~this()
 	{
-
 	}
 
 	/**
@@ -61,17 +60,17 @@ abstract class GraphicsCommand : NoGCClass
 	@nogc
 	@property nothrow
 	{
-		public void pipeline(GraphicsPipeline value) 
+		public void pipeline(Pipeline value) 
 		{
 			this.m_pipeline = value;
 		}
 
-		public void vertexBuffer(in ref GraphicsBuffer value)
+		public void vertexBuffer(VertexBuffer value)
 		{
 			this.m_vertexBuffer = value;
 		}
 
-		public void indexBuffer(in ref GraphicsBuffer value)
+		public void indexBuffer(IndexBuffer value)
 		{
 			this.m_indexBuffer = value;
 		}

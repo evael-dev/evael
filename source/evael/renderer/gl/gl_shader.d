@@ -1,8 +1,8 @@
 module evael.renderer.gl.gl_shader;
 
-import evael.renderer.shader;
 import evael.renderer.gl.gl_wrapper;
 import evael.renderer.gl.gl_enum_converter;
+import evael.renderer.shader;
 import evael.renderer.enums.shader_type;
 
 import evael.lib.memory;

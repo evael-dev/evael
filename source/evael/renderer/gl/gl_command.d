@@ -1,19 +1,21 @@
 module evael.renderer.gl.gl_command;
 
-import evael.lib.containers.array;
-
-import evael.graphics.gl;
-import evael.renderer.graphics_command;
+import evael.renderer.gl.gl_wrapper;
 import evael.renderer.gl.gl_enum_converter;
 import evael.renderer.gl.gl_shader;
 import evael.renderer.gl.gl_texture;
+
+import evael.renderer.command;
+import evael.renderer.resources;
+
+import evael.lib.containers.array;
 
 public 
 {
 	import evael.utils.color;
 }
 
-class GLCommand : GraphicsCommand
+class GLCommand : Command
 {
 	private GLShader m_shader;
 
@@ -21,11 +23,12 @@ class GLCommand : GraphicsCommand
 	 * GLCommand constructor.
 	 */
 	@nogc
-	public this(GraphicsPipeline pipeline)
+	public this(Pipeline pipeline)
 	{
 		super(pipeline);
 
 		this.m_shader = cast(GLShader) pipeline.shader;
+		this.m_uniforms = Dictionary!(string, int)(32);
 	}
 
 	/**
@@ -82,6 +85,10 @@ class GLCommand : GraphicsCommand
 		gl.DrawElements(this.m_pipeline.primitiveType, count, type, indices);
 	}
 
+	import evael.lib.containers.dictionary;
+
+	private Dictionary!(string, int) m_uniforms;
+
 	/**
 	 * Sets a specific shader uniform variable.
 	 * Params:
@@ -90,24 +97,36 @@ class GLCommand : GraphicsCommand
 	 */
 	@nogc
 	@property
-	public void setShaderParam(T)(in string param, T value)
+	public void setShaderParam(string param, T)(T value)
 	{
-		static bool initialized = false;
-		static int location;
+		import evael.utils.math : mat4;
 
-		if (!initialized)
+		int location = this.m_uniforms.get(param, -1);
+
+		debug
+		{
+			import std.stdio;
+			writeln(param, " : ", location);
+		}
+		
+		if (location == -1)
 		{
         	location = gl.GetUniformLocation(this.m_shader.programId, cast(char*) param);
-			initialized = true;
+			this.m_uniforms[param] = location;
 		}
 
-  		static if ( is(T == int))
+  		static if ( is(T == int) )
         {
             gl.Uniform1i(location, value);
         }
+		else static if ( is(T == mat4) )
+        {
+
+            gl.UniformMatrix4fv(location, 1, false, value.arrayof.ptr);
+        }
         else
         {
-            static assert(false, "Invalid uniform type: " ~ typeof(T));
+            static assert(false, "Invalid uniform type: " ~ T.stringof);
         }
 	}
 
@@ -117,39 +136,60 @@ class GLCommand : GraphicsCommand
 	@nogc
 	private void prepareDraw(T, string file = __FILE__, int line = __LINE__)() nothrow
 	{
-		gl.BindBuffer(this.m_vertexBuffer.type, this.m_vertexBuffer.id);
-
 		gl.UseProgram(this.m_shader.programId);
 		
-		this.setBlending();
-		this.setTexture();
-		this.setVertexAttributes!(T, file, line)();
+		this.setDepthState();
+		this.setBlendState();
+		this.setResources();
 
-		gl.BindBuffer(this.m_vertexBuffer.type, 0);
+		gl.BindBuffer(this.m_vertexBuffer.internalType, this.m_vertexBuffer.id);
+		this.setVertexAttributes!(T, file, line)();
 	}
 	
 	/**
 	 * Cleans states for the next drawing operation.
 	 */
 	@nogc
-	private void postDraw() const nothrow
+	private void postDraw() nothrow
 	{
-		if (this.m_pipeline.texture !is null)
+		foreach (resource; this.m_pipeline.resources)
 		{
-			gl.BindTexture(GL_TEXTURE_2D, 0);
+			resource.clear();
 		}
 
 		if (this.m_pipeline.blendState.enabled)
 		{
 			gl.Disable(GL_BLEND);
 		}
+
+		if (this.m_pipeline.depthState.enabled)
+		{
+			gl.Disable(GL_DEPTH_TEST);
+		}
+
+		gl.BindBuffer(this.m_vertexBuffer.internalType, 0);
 	}
 
 	/**
-	 * Sets blending.
+	 * Sets depth state.
 	 */
 	@nogc
-	private void setBlending() const nothrow
+	private void setDepthState() const nothrow
+	{
+		if (!this.m_pipeline.depthState.enabled)
+		{
+			return;
+		}
+
+		gl.Enable(GL_DEPTH_TEST);
+		gl.DepthMask(!this.m_pipeline.depthState.readOnly);
+	}
+
+	/**
+	 * Sets blend state.
+	 */
+	@nogc
+	private void setBlendState() const nothrow
 	{
 		if (!this.m_pipeline.blendState.enabled)
 		{
@@ -171,17 +211,15 @@ class GLCommand : GraphicsCommand
 	}
 
 	/**
-	 * Sets texturing.
+	 * Sets resources.
 	 */
 	@nogc
-	private void setTexture() const nothrow
+	private void setResources()	 nothrow
 	{
-		if (this.m_pipeline.texture is null)
+		foreach (resource; this.m_pipeline.resources)
 		{
-			return;
+			resource.apply();
 		}
-
-		gl.BindTexture(GL_TEXTURE_2D, (cast(GLTexture) this.m_pipeline.texture).id);
 	}
 
 	/**

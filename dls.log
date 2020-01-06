@@ -1,8 +1,0 @@
-[2019-Dec-15 23:53:43.089] [D] Received request 39: textDocument/codeAction
-[2019-Dec-15 23:53:43.097] [I] Fetching code actions for G:\Mes documents\Projects\evael\source\evael\renderer\gl\gl_command.d at range 0,0 to 0,0
-[2019-Dec-15 23:53:43.107] [D] Sending notification: window/logMessage
-[2019-Dec-15 23:53:43.116] [D] Sending response with result for request 39
-[2019-Dec-15 23:53:43.232] [D] Received request 40: textDocument/codeAction
-[2019-Dec-15 23:53:43.241] [I] Fetching code actions for G:\Mes documents\Projects\evael\source\evael\renderer\gl\gl_command.d at range 104,9 to 104,9
-[2019-Dec-15 23:53:43.254] [D] Sending notification: window/logMessage
-[2019-Dec-15 23:53:43.263] [D] Sending response with result for request 40

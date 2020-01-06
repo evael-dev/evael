@@ -1,7 +1,5 @@
 module evael.core.game_state;
 
-import decs;
-
 import evael.core.game;
 
 import evael.graphics.graphics_device;
@@ -155,10 +153,11 @@ abstract class GameState
 		this.m_assetLoader = game.assetLoader;
 	}
 
-	public Entity createEntity()
+	// TODO: use evael-ecs
+	/*public Entity createEntity()
 	{
 		return this.m_game.entityManager.createEntity();
-	}
+	}*/
 
 	@nogc
 	@property nothrow
@@ -178,9 +177,9 @@ abstract class GameState
 			return this.m_guiManager;
 		}
 
-		public EntityManager entityManager()
+		/*public EntityManager entityManager()
 		{
 			return this.m_game.entityManager;
-		}
+		}*/
 	}
 }

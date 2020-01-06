@@ -1,7 +1,7 @@
 module evael.renderer.gl.gl_texture;
 
-import evael.renderer.texture;
 import evael.renderer.gl.gl_wrapper;
+import evael.renderer.texture;
 
 class GLTexture : Texture
 {

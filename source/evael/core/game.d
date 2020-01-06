@@ -4,8 +4,6 @@ import std.array : split;
 import std.conv;
 import std.typecons;
 
-public import decs;
-
 import dnogc.DynamicArray;
 
 import evael.core.game_state;
@@ -31,7 +29,7 @@ class Game
 	private GuiManager     m_guiManager;
 	private AssetLoader    m_assetLoader;
 	private AudioDevice    m_audioDevice;
-	private EntityManager  m_entityManager;
+	//private EntityManager  m_entityManager;
 	private I18n           m_i18n;
 	private InputHandler   m_inputHandler;
 
@@ -86,7 +84,7 @@ class Game
 		this.m_graphicsDevice.resolution = settings.resolution;
 		this.m_guiManager = new GuiManager(this.m_graphicsDevice, this.m_window.glfwWindow);
 		this.m_audioDevice = new AudioDevice();
-		this.m_entityManager = new EntityManager();
+		//this.m_entityManager = new EntityManager();
 
 		this.m_tickrate = 64.0f;
 		this.m_deltaTime = 1000.0f / this.m_tickrate;
@@ -366,10 +364,10 @@ class Game
 			return this.m_assetLoader;
 		}
 
-		public EntityManager entityManager()
+		/*public EntityManager entityManager()
 		{
 			return this.m_entityManager;
-		}
+		}*/
 
 		public GameState currentGameState()
 		{
