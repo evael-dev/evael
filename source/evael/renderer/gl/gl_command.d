@@ -28,7 +28,6 @@ class GLCommand : Command
 		super(pipeline);
 
 		this.m_shader = cast(GLShader) pipeline.shader;
-		this.m_uniforms = Dictionary!(string, int)(32);
 	}
 
 	/**
@@ -83,51 +82,6 @@ class GLCommand : Command
 		this.prepareDraw!T();
 
 		gl.DrawElements(this.m_pipeline.primitiveType, count, type, indices);
-	}
-
-	import evael.lib.containers.dictionary;
-
-	private Dictionary!(string, int) m_uniforms;
-
-	/**
-	 * Sets a specific shader uniform variable.
-	 * Params:
-	 *		param : param name
-	 *		value : value to set
-	 */
-	@nogc
-	@property
-	public void setShaderParam(string param, T)(T value)
-	{
-		import evael.utils.math : mat4;
-
-		int location = this.m_uniforms.get(param, -1);
-
-		debug
-		{
-			import std.stdio;
-			writeln(param, " : ", location);
-		}
-		
-		if (location == -1)
-		{
-        	location = gl.GetUniformLocation(this.m_shader.programId, cast(char*) param);
-			this.m_uniforms[param] = location;
-		}
-
-  		static if ( is(T == int) )
-        {
-            gl.Uniform1i(location, value);
-        }
-		else static if ( is(T == mat4) )
-        {
-
-            gl.UniformMatrix4fv(location, 1, false, value.arrayof.ptr);
-        }
-        else
-        {
-            static assert(false, "Invalid uniform type: " ~ T.stringof);
-        }
 	}
 
 	/**
