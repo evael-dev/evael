@@ -11,13 +11,13 @@ public import std.typecons : Flag, Yes, No;
 
 abstract class Shader : NoGCClass, IAsset
 {
-    /**
-     * Shader constructor.
-     */
-    @nogc
-    public this()
-    {
-    }
+	/**
+	 * Shader constructor.
+	 */
+	@nogc
+	public this()
+	{
+	}
 }
 
 struct ShaderAttribute

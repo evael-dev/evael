@@ -20,8 +20,8 @@ class Sound : IAsset
 	private uint m_buffer;
 	
 	/// List of sources for this sound.
-    private DynamicArray!uint m_sources;
-    
+	private DynamicArray!uint m_sources;
+	
 	/**
 	 * Sound constructor.
 	 * Params:
@@ -36,13 +36,13 @@ class Sound : IAsset
 	/**
 	 * Sound destructor.
 	 */
- 	@nogc
+	 @nogc
 	public void dispose() nothrow
 	{
-        foreach (id; this.m_sources)
-        {
-            al.DeleteSources(1, &id);
-        }
+		foreach (id; this.m_sources)
+		{
+			al.DeleteSources(1, &id);
+		}
 
 		al.DeleteBuffers(1, &this.m_buffer);
 	}
@@ -51,25 +51,25 @@ class Sound : IAsset
 	 * Creates a new source linked to this sound resource.
 	 */
 	@nogc
-    public Source createSource() nothrow
-    {
-        uint id;
+	public Source createSource() nothrow
+	{
+		uint id;
 		al.GenSources(1, &id);
 
-        this.m_sources.insert(id);
+		this.m_sources.insert(id);
 
-        return Source(id, this.m_buffer);
-    }
-    
+		return Source(id, this.m_buffer);
+	}
+	
 	/**
 	 * Loads sound.
 	 * Params:
 	 *		soundName: sound to load
 	 */
 	public static Sound load(in string soundName)
-    {
-        import std.string : format, toStringz;
-        
+	{
+		import std.string : format, toStringz;
+		
 		auto fileName = toStringz(GameConfig.paths.sounds ~ soundName);
 
 		SF_INFO fileInfo;
@@ -102,31 +102,31 @@ class Sound : IAsset
 		al.GenBuffers(1, &buffer);
 		al.BufferData(buffer, fileFormat, samples.ptr, cast(int) (samples.length * ushort.sizeof), fileInfo.samplerate);
 
-        return new Sound(buffer);
-    }
+		return new Sound(buffer);
+	}
 
-    /**
-     * Finds the sound format according to the number of channels.
-     * Params:
-     * 		channelCount: number of channels
-     */
+	/**
+	 * Finds the sound format according to the number of channels.
+	 * Params:
+	 * 		channelCount: number of channels
+	 */
 	@nogc
-    public static int getFormatFromChannelCount(in uint channelCount) nothrow
-    {
-        int format;
+	public static int getFormatFromChannelCount(in uint channelCount) nothrow
+	{
+		int format;
 
-        switch (channelCount)
-        {
-            case 1:  format = AL_FORMAT_MONO16;                    break;
-            case 2:  format = AL_FORMAT_STEREO16;                  break;
-            case 4:  format = alGetEnumValue("AL_FORMAT_QUAD16");  break;
-            case 6:  format = alGetEnumValue("AL_FORMAT_51CHN16"); break;
-            case 7:  format = alGetEnumValue("AL_FORMAT_61CHN16"); break;
-            case 8:  format = alGetEnumValue("AL_FORMAT_71CHN16"); break;
-            default: format = 0;                                   break;
-        }
+		switch (channelCount)
+		{
+			case 1:  format = AL_FORMAT_MONO16;                    break;
+			case 2:  format = AL_FORMAT_STEREO16;                  break;
+			case 4:  format = alGetEnumValue("AL_FORMAT_QUAD16");  break;
+			case 6:  format = alGetEnumValue("AL_FORMAT_51CHN16"); break;
+			case 7:  format = alGetEnumValue("AL_FORMAT_61CHN16"); break;
+			case 8:  format = alGetEnumValue("AL_FORMAT_71CHN16"); break;
+			default: format = 0;                                   break;
+		}
 
-        return format;
-    }
+		return format;
+	}
 
 }

@@ -10,7 +10,7 @@ public
 
 class VkCommand : Command
 {
-    /**
+	/**
 	 * VkCommand constructor.
 	 */
 	@nogc
@@ -28,7 +28,7 @@ class VkCommand : Command
 
 	}
 
-    /**
+	/**
 	 * Specifies clear values for the color buffers.
 	 * Params:
 	 *		color : clear color
@@ -41,7 +41,7 @@ class VkCommand : Command
 
 	}
 
-    /**
+	/**
 	 * Renders primitives.
 	 * Params:
 	 * 		first : starting index in the enabled arrays
@@ -52,13 +52,13 @@ class VkCommand : Command
 	{
 
 	}
-    
+	
 	/**
 	 * Renders indexed primitives.
 	 * Params:
 	 * 		count : number of elements to be rendered
 	 * 		type : the type of the values in indices
-     *      indices : pointer to the location where the indices are stored
+	 *      indices : pointer to the location where the indices are stored
 	 */
 	@nogc
 	public void drawIndexed(in int count, in IndexBufferType type, in void* indices) const nothrow

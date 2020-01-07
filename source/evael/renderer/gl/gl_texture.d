@@ -5,44 +5,44 @@ import evael.renderer.texture;
 
 class GLTexture : Texture
 {
-    private uint m_id;
+	private uint m_id;
 
-    /**
-     * GLTexture constructor.
-     */
-    @nogc
-    public this()
-    {
-        super();
-        
+	/**
+	 * GLTexture constructor.
+	 */
+	@nogc
+	public this()
+	{
+		super();
+		
 		gl.GenTextures(1, &this.m_id);
-    }
+	}
 
-    /**
-     * GLTexture destructor.
-     */
-    @nogc
-    public ~this()
-    {
+	/**
+	 * GLTexture destructor.
+	 */
+	@nogc
+	public ~this()
+	{
 		this.dispose();
-    }
+	}
 
-    // TODO: remove this when IAsset is cleaned.
-    @nogc
-    public void dispose()
-    {
+	// TODO: remove this when IAsset is cleaned.
+	@nogc
+	public void dispose()
+	{
 		gl.DeleteTextures(1, &this.m_id);
-    }
+	}
 
-    /**
-     * Loads a texture.
-     * Params:
-     *      fileName : texture to load
-     */
+	/**
+	 * Loads a texture.
+	 * Params:
+	 *      fileName : texture to load
+	 */
 	public static GLTexture load(in string fileName)
 	{
-        import evael.lib.memory : MemoryHelper;
-        import evael.lib.image.image : Image;
+		import evael.lib.memory : MemoryHelper;
+		import evael.lib.image.image : Image;
 
 		auto texture = MemoryHelper.create!GLTexture();
 
@@ -86,13 +86,13 @@ class GLTexture : Texture
 		return texture;
 	}
 
-    @nogc
-    @property nothrow
-    {
-        public uint id() const
-        {
-            return this.m_id;
-        }
-    }
+	@nogc
+	@property nothrow
+	{
+		public uint id() const
+		{
+			return this.m_id;
+		}
+	}
 }
 

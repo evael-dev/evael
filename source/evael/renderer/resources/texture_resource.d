@@ -6,20 +6,20 @@ import evael.renderer.texture;
 
 abstract class TextureResource : Resource
 {
-    private Texture m_texture;
-    
-    @nogc
-    public this(Texture texture)
-    {
-        super(ResourceType.Texture);
+	private Texture m_texture;
+	
+	@nogc
+	public this(Texture texture)
+	{
+		super(ResourceType.Texture);
 
-        this.m_texture = texture;
-    }
-    
-    @nogc
-    @property nothrow
-    public Texture texture()
-    {
-        return this.m_texture;
-    }
+		this.m_texture = texture;
+	}
+	
+	@nogc
+	@property nothrow
+	public Texture texture()
+	{
+		return this.m_texture;
+	}
 }

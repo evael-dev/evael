@@ -2,16 +2,16 @@ module evael.renderer.enums.blend_factor;
 
 enum BlendFactor
 {
-    Zero,
-    One,
+	Zero,
+	One,
 
-    SourceColor,
-    InverseSourceColor,
-    DestinationColor,
-    InverseDestinationColor,
+	SourceColor,
+	InverseSourceColor,
+	DestinationColor,
+	InverseDestinationColor,
 
-    SourceAlpha,
-    InverseSourceAlpha,
-    DestinationAlpha,
-    InverseDestinationAlpha
+	SourceAlpha,
+	InverseSourceAlpha,
+	DestinationAlpha,
+	InverseDestinationAlpha
 }

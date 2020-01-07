@@ -9,32 +9,32 @@ import evael.renderer.enums.buffer_type;
 alias VertexBuffer = GLBuffer!(BufferType.Vertex);
 alias IndexBuffer = GLBuffer!(BufferType.Index);
 alias UniformBuffer = GLBuffer!(BufferType.Uniform);
-    
+	
 class GLBuffer(BufferType type, uint usage = GL_DYNAMIC_DRAW) : Buffer!type
 {
-    /**
-     * GLBuffer constructor.
-     */
-    @nogc
-    public this(in size_t size, void* data = null)
-    {
-        super(size);
-        
-	    this.m_internalType = GLEnumConverter.bufferType(type);
+	/**
+	 * GLBuffer constructor.
+	 */
+	@nogc
+	public this(in size_t size, void* data = null)
+	{
+		super(size);
+		
+		this.m_internalType = GLEnumConverter.bufferType(type);
 
 		gl.GenBuffers(1, &this.m_id);
 		gl.BindBuffer(this.m_internalType, this.m_id);
-        gl.BufferData(this.m_internalType, size, data, usage);
-    }
+		gl.BufferData(this.m_internalType, size, data, usage);
+	}
 
-    /**
-     * GLBuffer destructor.
-     */
-    @nogc
-    public ~this()
-    {
+	/**
+	 * GLBuffer destructor.
+	 */
+	@nogc
+	public ~this()
+	{
 		gl.DeleteBuffers(1, &this.m_id);
-    }
+	}
 
 	/**
 	 * Updates a subset of a buffer object's data store.
@@ -45,12 +45,12 @@ class GLBuffer(BufferType type, uint usage = GL_DYNAMIC_DRAW) : Buffer!type
 	 */
 	@nogc
 	public override void update(in long offset, in ptrdiff_t size, in void* data) const nothrow
-    {
-        assert(offset + size <= this.m_size, "Updating buffer with invalid offset/size.");
+	{
+		assert(offset + size <= this.m_size, "Updating buffer with invalid offset/size.");
 
-        gl.BindBuffer(this.m_internalType, this.m_id);
+		gl.BindBuffer(this.m_internalType, this.m_id);
 		gl.BufferSubData(this.m_internalType, offset, size, data);
-    }
+	}
 }
 
 

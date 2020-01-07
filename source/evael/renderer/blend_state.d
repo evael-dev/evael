@@ -8,32 +8,32 @@ import evael.renderer.enums.blend_function;
  */
 struct BlendState
 {
-    /// Specifies how the red, green, and blue blending factors are computed
-    public BlendFactor sourceRGB;
+	/// Specifies how the red, green, and blue blending factors are computed
+	public BlendFactor sourceRGB;
 
-    /// Specifies how the red, green, and blue destination blending factors are computed.
-    public BlendFactor destinationRGB;
+	/// Specifies how the red, green, and blue destination blending factors are computed.
+	public BlendFactor destinationRGB;
 
-    /// Specifies how the alpha source blending factor is computed.
-    public BlendFactor sourceAlpha;
+	/// Specifies how the alpha source blending factor is computed.
+	public BlendFactor sourceAlpha;
 
-    /// Specifies how the alpha destination blending factor is computed.
-    public BlendFactor destinationAlpha;
+	/// Specifies how the alpha destination blending factor is computed.
+	public BlendFactor destinationAlpha;
 
-    /// Specifies how the red, green, and blue components of the source and destination colors are combined.
-    public BlendFunction colorFunction;
+	/// Specifies how the red, green, and blue components of the source and destination colors are combined.
+	public BlendFunction colorFunction;
 
-    /// Specifies how the alpha component of the source and destination colors are combined.
-    public BlendFunction alphaFunction;
+	/// Specifies how the alpha component of the source and destination colors are combined.
+	public BlendFunction alphaFunction;
 
-    public bool enabled = true;
+	public bool enabled = true;
 
-    public static BlendState Default = {
-        sourceRGB        : BlendFactor.SourceAlpha,
-        destinationRGB   : BlendFactor.InverseSourceAlpha,
-        sourceAlpha      : BlendFactor.SourceAlpha,
-        destinationAlpha : BlendFactor.InverseSourceAlpha,
-        colorFunction    : BlendFunction.Add,
-        alphaFunction    : BlendFunction.Add,
-    };
+	public static BlendState Default = {
+		sourceRGB        : BlendFactor.SourceAlpha,
+		destinationRGB   : BlendFactor.InverseSourceAlpha,
+		sourceAlpha      : BlendFactor.SourceAlpha,
+		destinationAlpha : BlendFactor.InverseSourceAlpha,
+		colorFunction    : BlendFunction.Add,
+		alphaFunction    : BlendFunction.Add,
+	};
 }

@@ -19,7 +19,7 @@ class GLCommand : Command
 {
 	private GLShader m_shader;
 
-    /**
+	/**
 	 * GLCommand constructor.
 	 */
 	@nogc
@@ -39,7 +39,7 @@ class GLCommand : Command
 
 	}
 
-    /**
+	/**
 	 * Specifies clear values for the color buffers.
 	 * Params:
 	 *		color : clear color
@@ -53,7 +53,7 @@ class GLCommand : Command
 		gl.ClearColor(colorf[0], colorf[1], colorf[2], 1.0f); 
 	}
 
-    /**
+	/**
 	 * Renders primitives.
 	 * Params:
 	 * 		first : starting index in the enabled arrays
@@ -68,13 +68,13 @@ class GLCommand : Command
 
 		this.postDraw();
 	}
-    
+	
 	/**
 	 * Renders indexed primitives.
 	 * Params:
 	 * 		count : number of elements to be rendered
 	 * 		type : the type of the values in indices
-     *      indices : pointer to the location where the indices are stored
+	 *      indices : pointer to the location where the indices are stored
 	 */
 	@nogc
 	public void drawIndexed(T)(in int count, in IndexBufferType type, in void* indices) const nothrow

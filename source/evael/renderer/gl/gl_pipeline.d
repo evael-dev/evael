@@ -15,21 +15,21 @@ import evael.lib.memory;
 
 class GLPipeline : Pipeline
 {
-    @nogc
-    public override GLTextureResource addTextureResource(Texture texture = null)
-    {
-        auto resource = MemoryHelper.create!GLTextureResource(texture);
-        this.m_resources.insert(resource);
-        return resource;
-    }
+	@nogc
+	public override GLTextureResource addTextureResource(Texture texture = null)
+	{
+		auto resource = MemoryHelper.create!GLTextureResource(texture);
+		this.m_resources.insert(resource);
+		return resource;
+	}
 
-    @nogc
-    public GLUniformResource!T addUniformResource(T)(in string name, T value)
-    {
-        assert(this.shader !is null, "Set a shader before adding an uniform resource.");
+	@nogc
+	public GLUniformResource!T addUniformResource(T)(in string name, T value)
+	{
+		assert(this.shader !is null, "Set a shader before adding an uniform resource.");
 
-        auto resource = MemoryHelper.create!(GLUniformResource!T)(name, (cast(GLShader) this.shader).programId, value);
-        this.m_resources.insert(resource);
-        return resource;
-    }
+		auto resource = MemoryHelper.create!(GLUniformResource!T)(name, (cast(GLShader) this.shader).programId, value);
+		this.m_resources.insert(resource);
+		return resource;
+	}
 }

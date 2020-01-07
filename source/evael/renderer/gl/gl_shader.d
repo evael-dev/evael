@@ -14,37 +14,37 @@ public
 
 class GLShader : Shader
 {
-    private uint m_programId;
-    private uint m_vertexShaderId;
-    private uint m_fragmentShaderId;
-    private uint m_geometryShaderId;
+	private uint m_programId;
+	private uint m_vertexShaderId;
+	private uint m_fragmentShaderId;
+	private uint m_geometryShaderId;
 
-    /**
-     * GLShader constructor.
-     */
-    @nogc
-    public this(in uint programId, in uint vertexShaderId, in uint fragmentShaderId)
-    {
-        super();
+	/**
+	 * GLShader constructor.
+	 */
+	@nogc
+	public this(in uint programId, in uint vertexShaderId, in uint fragmentShaderId)
+	{
+		super();
 
-        this.m_programId = programId;
-        this.m_vertexShaderId = vertexShaderId;
-        this.m_fragmentShaderId = fragmentShaderId;
-    }
+		this.m_programId = programId;
+		this.m_vertexShaderId = vertexShaderId;
+		this.m_fragmentShaderId = fragmentShaderId;
+	}
 
-    /**
-     * GLShader destructor.
-     */
-    @nogc
-    public ~this()
-    {
+	/**
+	 * GLShader destructor.
+	 */
+	@nogc
+	public ~this()
+	{
 		this.dispose();
-    }
+	}
 
-    // TODO: remove this when IAsset is cleaned.
-    @nogc
-    public void dispose()
-    {
+	// TODO: remove this when IAsset is cleaned.
+	@nogc
+	public void dispose()
+	{
 		gl.DeleteShader(this.m_vertexShaderId);
 		gl.DeleteShader(this.m_fragmentShaderId);
 
@@ -52,7 +52,7 @@ class GLShader : Shader
 		{
 			gl.DeleteShader(this.m_geometryShaderId);
 		}
-    }
+	}
 
 	/**
 	 * Returns location of an uniform variable.
@@ -70,12 +70,12 @@ class GLShader : Shader
 	 * Params:
 	 *		fileName : shader to load
 	 */
-    public static GLShader load(in string fileName)
-    {
+	public static GLShader load(in string fileName)
+	{
 		import std.file : readText;
 
 		return GLShader.load(readText(fileName ~ ".vert"), readText(fileName ~ ".frag"));
-    }
+	}
 
 
 	/**
@@ -84,7 +84,7 @@ class GLShader : Shader
 	 *		vs : vertex shader
 	 *		fs : fragment shader
 	 */
-    public static GLShader load(in string vs, in string fs)
+	public static GLShader load(in string vs, in string fs)
 	{
 		immutable uint programId = gl.CreateProgram();
 		
@@ -140,13 +140,13 @@ class GLShader : Shader
 		return shader;
 	}
 
-    @nogc
-    @property nothrow
-    {
-        public uint programId() const
-        {
-            return this.m_programId;
-        }
-    }
+	@nogc
+	@property nothrow
+	{
+		public uint programId() const
+		{
+			return this.m_programId;
+		}
+	}
 }
 

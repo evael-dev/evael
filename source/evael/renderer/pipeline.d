@@ -13,40 +13,41 @@ import evael.lib.containers;
 
 abstract class Pipeline
 {
-    public uint primitiveType;
+	public uint primitiveType;
 
-    public Shader shader;
-    
-    public BlendState blendState;
-    
-    public DepthState depthState;
+	public Shader shader;
+	
+	public BlendState blendState;
+	
+	public DepthState depthState;
 
 	protected Array!Resource m_resources;
 
-    @nogc
-    public this()
-    {
-    }
+	@nogc
+	public this()
+	{
+		this.blendState = BlendState.Default;
+	}
 
-    @nogc
-    public ~this()
-    {
-        foreach (resource; this.m_resources)
-        {
-            MemoryHelper.dispose(resource);
-        }
+	@nogc
+	public ~this()
+	{
+		foreach (resource; this.m_resources)
+		{
+			MemoryHelper.dispose(resource);
+		}
 
-        this.m_resources.dispose();
-    }
+		this.m_resources.dispose();
+	}
 
-    @nogc
-    public abstract TextureResource addTextureResource(Texture texture = null);
+	@nogc
+	public abstract TextureResource addTextureResource(Texture texture = null);
 
-    @nogc
-    @property nothrow
-    public ref Array!Resource resources()
-    {
-        return this.m_resources;
-    }
+	@nogc
+	@property nothrow
+	public ref Array!Resource resources()
+	{
+		return this.m_resources;
+	}
 
 }
