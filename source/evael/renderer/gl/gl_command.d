@@ -92,9 +92,7 @@ class GLCommand : Command
 	{
 		gl.UseProgram(this.m_shader.programId);
 		
-		this.setDepthState();
-		this.setBlendState();
-		this.setResources();
+		this.m_pipeline.apply();
 
 		gl.BindBuffer(this.m_vertexBuffer.internalType, this.m_vertexBuffer.id);
 		this.setVertexAttributes!(T, file, line)();
@@ -106,74 +104,9 @@ class GLCommand : Command
 	@nogc
 	private void postDraw() nothrow
 	{
-		foreach (resource; this.m_pipeline.resources)
-		{
-			resource.clear();
-		}
-
-		if (this.m_pipeline.blendState.enabled)
-		{
-			gl.Disable(GL_BLEND);
-		}
-
-		if (this.m_pipeline.depthState.enabled)
-		{
-			gl.Disable(GL_DEPTH_TEST);
-		}
+		this.m_pipeline.clear();
 
 		gl.BindBuffer(this.m_vertexBuffer.internalType, 0);
-	}
-
-	/**
-	 * Sets depth state.
-	 */
-	@nogc
-	private void setDepthState() const nothrow
-	{
-		if (!this.m_pipeline.depthState.enabled)
-		{
-			return;
-		}
-
-		gl.Enable(GL_DEPTH_TEST);
-		gl.DepthMask(!this.m_pipeline.depthState.readOnly);
-	}
-
-	/**
-	 * Sets blend state.
-	 */
-	@nogc
-	private void setBlendState() const nothrow
-	{
-		if (!this.m_pipeline.blendState.enabled)
-		{
-			return;
-		}
-
-		gl.Enable(GL_BLEND);
-		gl.BlendFuncSeparate(
-			GLEnumConverter.blendFactor(this.m_pipeline.blendState.sourceRGB),
-			GLEnumConverter.blendFactor(this.m_pipeline.blendState.destinationRGB),
-			GLEnumConverter.blendFactor(this.m_pipeline.blendState.sourceAlpha),
-			GLEnumConverter.blendFactor(this.m_pipeline.blendState.destinationAlpha)
-		);
-
-		gl.BlendEquationSeparate(
-			GLEnumConverter.blendFunction(this.m_pipeline.blendState.colorFunction),
-			GLEnumConverter.blendFunction(this.m_pipeline.blendState.alphaFunction)
-		);
-	}
-
-	/**
-	 * Sets resources.
-	 */
-	@nogc
-	private void setResources()	 nothrow
-	{
-		foreach (resource; this.m_pipeline.resources)
-		{
-			resource.apply();
-		}
 	}
 
 	/**
@@ -186,41 +119,48 @@ class GLCommand : Command
 
 		foreach (i, member; __traits(allMembers, T))
 		{
-			enum UDAs = __traits(getAttributes, __traits(getMember, T, member));
-
-			static assert(UDAs.length > 0, "You need to specify UDA for member " ~ T.stringof ~ "." ~ member);
-
-			enum shaderAttribute = UDAs[0];
-
-			static if(is(typeof(shaderAttribute) : ShaderAttribute))
+			static if (member == "opAssign")
 			{
-				enum offset = __traits(getMember, T, member).offsetof;
-
-				enum glBufferType = GLEnumConverter.attributeType(shaderAttribute.type);
-
-				gl.EnableVertexAttribArray(shaderAttribute.layoutIndex);
-				gl.VertexAttribPointer(
-					shaderAttribute.layoutIndex, 
-					shaderAttribute.size, 
-					glBufferType,  
-					shaderAttribute.normalized, 
-					size, cast(void*) offset
-				);
-
-				version(GL_DEBUG) 
-				{
-					import std.string : format;
-					pragma(msg, "%s:%d : gl.VertexAttribPointer(%d, %d, %d, %d, %d, %d);".format(file, line, shaderAttribute.layoutIndex,
-						shaderAttribute.size, 
-						shaderAttribute.type, 
-						shaderAttribute.normalized, 
-						size, offset
-					));
-				}
+				continue;
 			}
-			else 
+			else
 			{
-				static assert(false, "UDA defined for member " ~ T.stringof ~ "." ~ member ~ " but is not a valid ShaderAttribute.");
+				enum UDAs = __traits(getAttributes, __traits(getMember, T, member));
+
+				static assert(UDAs.length > 0, "You need to specify UDA for member " ~ T.stringof ~ "." ~ member);
+
+				enum shaderAttribute = UDAs[0];
+
+				static if(is(typeof(shaderAttribute) : ShaderAttribute))
+				{
+					enum offset = __traits(getMember, T, member).offsetof;
+
+					enum glAttributeType = GLEnumConverter.attributeType(shaderAttribute.type);
+
+					gl.EnableVertexAttribArray(shaderAttribute.layoutIndex);
+					gl.VertexAttribPointer(
+						shaderAttribute.layoutIndex, 
+						shaderAttribute.size, 
+						glAttributeType,  
+						shaderAttribute.normalized, 
+						size, cast(void*) offset
+					);
+
+					version(GL_DEBUG) 
+					{
+						import std.string : format;
+						pragma(msg, "%s:%d : gl.VertexAttribPointer(%d, %d, %d, %d, %d, %d);".format(file, line, shaderAttribute.layoutIndex,
+							shaderAttribute.size, 
+							shaderAttribute.type, 
+							shaderAttribute.normalized, 
+							size, offset
+						));
+					}
+				}
+				else 
+				{
+					static assert(false, "UDA defined for member " ~ T.stringof ~ "." ~ member ~ " but is not a valid ShaderAttribute.");
+				}
 			}
 		}
 	}

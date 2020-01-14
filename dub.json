@@ -25,7 +25,7 @@
 	},
 	"versions": [
 		"GL_33",
-		"GLFW_31",
+		"GLFW_33",
 		"FI_318",
 		"NanovgGL3",
 		"NK_INCLUDE_FONT_BAKING",

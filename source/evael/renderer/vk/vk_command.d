@@ -48,9 +48,8 @@ class VkCommand : Command
 	 * 		count : number of indices to be rendered
 	 */
 	@nogc
-	public void draw(in int first, in int count) const nothrow
+	public void draw(T)(in int first, in int count) nothrow
 	{
-
 	}
 	
 	/**
@@ -61,8 +60,7 @@ class VkCommand : Command
 	 *      indices : pointer to the location where the indices are stored
 	 */
 	@nogc
-	public void drawIndexed(in int count, in IndexBufferType type, in void* indices) const nothrow
+	public void drawIndexed(T)(in int count, in IndexBufferType type, in void* indices) const nothrow
 	{
-
 	}
 }

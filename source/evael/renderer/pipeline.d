@@ -41,6 +41,12 @@ abstract class Pipeline
 	}
 
 	@nogc
+	public abstract void apply() const nothrow;
+
+	@nogc
+	public abstract void clear() const nothrow;
+	
+	@nogc
 	public abstract TextureResource addTextureResource(Texture texture = null);
 
 	@nogc
