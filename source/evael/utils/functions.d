@@ -65,3 +65,20 @@ auto bindDelegate(T)(T t) nothrow
 
 	return &func;
 }
+
+@nogc
+auto bindDelegate2(T)(T t) nothrow
+	if(isDelegate!T)
+{
+	static T dg;
+
+	dg = t;
+
+	extern(Windows)
+	static ReturnType!T func(ParameterTypeTuple!T args)
+	{
+		return dg(args);
+	}
+
+	return &func;
+}

@@ -7,7 +7,7 @@ import evael.renderer.resources.uniform_resource;
 
 import evael.lib.memory : MemoryHelper;
 
-class VkUniformResource(T) : UniformResource!T
+class VulkanUniformResource(T) : UniformResource!T
 {   
 	/**
 	 * VkUniformResource constructor.

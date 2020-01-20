@@ -12,7 +12,7 @@ public
 	import evael.renderer.shader : ShaderAttribute;
 }
 
-class VkShader : Shader
+class VulkanShader : Shader
 {
 	/**
 	 * GLShader constructor.
@@ -45,11 +45,11 @@ class VkShader : Shader
 	 * Params:
 	 *		fileName : shader to load
 	 */
-	public static VkShader load(in string fileName)
+	public static VulkanShader load(in string fileName)
 	{
 		import std.file : readText;
 
-		return VkShader.load(readText(fileName ~ ".vert"), readText(fileName ~ ".frag"));
+		return VulkanShader.load(readText(fileName ~ ".vert"), readText(fileName ~ ".frag"));
 	}
 
 
@@ -59,13 +59,13 @@ class VkShader : Shader
 	 *		vs : vertex shader
 	 *		fs : fragment shader
 	 */
-	public static VkShader load(in string vs, in string fs)
+	public static VulkanShader load(in string vs, in string fs)
 	{
 		immutable uint programId = 0;
 		immutable uint vertexShaderId = 0;
 		immutable uint fragmentShaderId = 0;
 
-		auto shader = MemoryHelper.create!VkShader(programId, vertexShaderId, fragmentShaderId);
+		auto shader = MemoryHelper.create!VulkanShader(programId, vertexShaderId, fragmentShaderId);
 
 		return shader;
 	}

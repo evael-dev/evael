@@ -3,7 +3,7 @@ module evael.renderer.vk.vk_enum_converter;
 import evael.renderer.enums;
 import bindbc.opengl;
 
-static class VkEnumConverter
+static class VulkanEnumConverter
 {
 	@nogc
 	public static uint bufferType(BufferType type) nothrow

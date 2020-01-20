@@ -14,7 +14,7 @@ import evael.renderer.texture;
 
 import evael.lib.memory;
 
-class VkPipeline : Pipeline
+class VulkanPipeline : Pipeline
 {
 	@nogc
 	public override void apply() const nothrow
@@ -53,15 +53,15 @@ class VkPipeline : Pipeline
 	}
 
 	@nogc
-	public override VkTextureResource addTextureResource(Texture texture = null)
+	public override VulkanTextureResource addTextureResource(Texture texture = null)
 	{
-		auto resource = MemoryHelper.create!VkTextureResource(texture);
+		auto resource = MemoryHelper.create!VulkanTextureResource(texture);
 		this.m_resources.insert(resource);
 		return resource;
 	}
 
 	@nogc
-	public VkUniformResource!T addUniformResource(T)(in string name, T value)
+	public VulkanUniformResource!T addUniformResource(T)(in string name, T value)
 	{
 		assert(this.shader !is null, "Set a shader before adding an uniform resource.");
 

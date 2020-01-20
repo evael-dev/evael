@@ -7,16 +7,16 @@ import evael.renderer.texture;
 
 import evael.renderer.resources.texture_resource;
 
-class VkTextureResource : TextureResource
+class VulkanTextureResource : TextureResource
 {   
-	private VkTexture m_vkTexture;
+	private VulkanTexture m_vkTexture;
 	
 	@nogc
 	public this(Texture texture)
 	{
 		super(texture);
 
-		this.m_vkTexture = cast(VkTexture) texture;
+		this.m_vkTexture = cast(VulkanTexture) texture;
 	}
 
 	@nogc

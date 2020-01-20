@@ -3,7 +3,7 @@ module evael.renderer.vk.vk_texture;
 import evael.renderer.vk.vk_wrapper;
 import evael.renderer.texture;
 
-class VkTexture : Texture
+class VulkanTexture : Texture
 {
 	/**
 	 * VkTexture constructor.
@@ -35,12 +35,12 @@ class VkTexture : Texture
 	 * Params:
 	 *      fileName : texture to load
 	 */
-	public static VkTexture load(in string fileName)
+	public static VulkanTexture load(in string fileName)
 	{
 		import evael.lib.memory : MemoryHelper;
 		import evael.lib.image.image : Image;
 
-		auto texture = MemoryHelper.create!VkTexture();
+		auto texture = MemoryHelper.create!VulkanTexture();
 		return texture;
 	}
 

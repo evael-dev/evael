@@ -6,11 +6,11 @@ import evael.renderer.vk.vk_enum_converter;
 import evael.renderer.buffer;
 import evael.renderer.enums.buffer_type;
 
-alias VertexBuffer = VkBuffer!(BufferType.Vertex);
-alias IndexBuffer = VkBuffer!(BufferType.Index);
-alias UniformBuffer = VkBuffer!(BufferType.Uniform);
+alias VertexBuffer = VulkanBuffer!(BufferType.Vertex);
+alias IndexBuffer = VulkanBuffer!(BufferType.Index);
+alias UniformBuffer = VulkanBuffer!(BufferType.Uniform);
 	
-class VkBuffer(BufferType type) : Buffer!type
+class VulkanBuffer(BufferType type) : Buffer!type
 {
 	/**
 	 * GLBuffer constructor.
@@ -20,7 +20,7 @@ class VkBuffer(BufferType type) : Buffer!type
 	{
 		super(size);
 		
-		this.m_internalType = VkEnumConverter.bufferType(type);
+		this.m_internalType = VulkanEnumConverter.bufferType(type);
 	}
 
 	/**

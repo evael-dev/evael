@@ -8,7 +8,7 @@ public
 	import evael.renderer.texture;
 }
 
-class VkCommand : Command
+class VulkanCommand : Command
 {
 	/**
 	 * VkCommand constructor.

@@ -12,12 +12,12 @@ public
 	import evael.renderer.vk.vk_uniform_resource;
 	import evael.renderer.vk.vk_texture_resource;
 	
-	alias Device = VkDevice;
-	alias Command = VkCommand;
-	alias Pipeline = VkPipeline;
-	alias Texture = VkTexture;
-	alias Shader = VkShader;
-	alias Buffer = VkBuffer;
-	alias UniformResource = VkUniformResource;
-	alias TextureResource = VkTextureResource;
+	alias Device = VulkanDevice;
+	alias Command = VulkanCommand;
+	alias Pipeline = VulkanPipeline;
+	alias Texture = VulkanTexture;
+	alias Shader = VulkanShader;
+	alias Buffer = VulkanBuffer;
+	alias UniformResource = VulkanUniformResource;
+	alias TextureResource = VulkanTextureResource;
 }
