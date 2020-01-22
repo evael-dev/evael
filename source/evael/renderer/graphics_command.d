@@ -1,8 +1,8 @@
-module evael.renderer.command;
+module evael.renderer.graphics_command;
 
 public
 {
-	import evael.renderer.buffer;
+	import evael.renderer.graphics_buffer;
 	import evael.renderer.pipeline;
 	import evael.renderer.texture;
 	import evael.renderer.enums;
@@ -14,7 +14,7 @@ import evael.lib.memory;
 /**
  * Command is the base class for all the API commands.
  */
-abstract class Command : NoGCClass
+abstract class GraphicsCommand : NoGCClass
 {
 	protected Pipeline m_pipeline;
 

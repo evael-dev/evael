@@ -11,12 +11,12 @@ public
 	import evael.renderer.gl.gl_uniform_resource;
 	import evael.renderer.gl.gl_texture_resource;
 	
-	alias Device = GLDevice;
-	alias Command = GLCommand;
+	alias GraphicsDevice = GLDevice;
+	alias GraphicsCommand = GLCommand;
 	alias Pipeline = GLPipeline;
 	alias Texture = GLTexture;
 	alias Shader = GLShader;
-	alias Buffer = GLBuffer;
+	alias GraphicsBuffer = GLBuffer;
 	alias UniformResource = GLUniformResource;
 	alias TextureResource = GLTextureResource;
 }

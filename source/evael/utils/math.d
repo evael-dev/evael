@@ -2,7 +2,7 @@ module evael.utils.math;
 
 import std.math;
 
-import dnogc.DynamicArray;
+import evael.lib.containers : Array;
 
 alias ubvec4 = Vector!(ubyte, 4);
 
@@ -18,7 +18,7 @@ public
 enum degToRad = (PI * 2) / 360;
 enum pi = 180 / PI;
 
-alias PolygonDefinition = DynamicArray!vec3;
+alias PolygonDefinition = Array!vec3;
 
 /**
  * Returns angle between two points.

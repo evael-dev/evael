@@ -1,8 +1,5 @@
 module evael.utils.color;
 
-import derelict.nanovg.types : NVGcolor;
-import derelict.nanovg.funcs : nvgRGBA;
-
 /**
  * Color.
  */
@@ -85,19 +82,10 @@ struct Color
 		{
 			return [this.m_values[0] / 255.0f, this.m_values[1] / 255.0f, this.m_values[2] / 255.0f, this.m_values[3] / 255.0f];
 		}
-	}
-
-	@trusted
-	@property
-	public NVGcolor asNvg() const
-	{
-		return nvgRGBA(this.m_values[0], this.m_values[1], this.m_values[2], this.m_values[3]);
-	}
-
-	@nogc
-	@property
-	public auto ptr() nothrow
-	{
-		return this.m_values.ptr;
+		
+		public auto ptr()
+		{
+			return this.m_values.ptr;
+		}
 	}
 }

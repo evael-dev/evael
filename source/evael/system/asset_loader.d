@@ -4,14 +4,14 @@ debug import std.experimental.logger;
 
 import evael.system.asset;
 
-import evael.graphics.shaders.shader;
-
 import evael.utils.singleton;
+
+import evael.lib.memory;
 
 /**
  * AssetLoader
  */
-class AssetLoader
+class AssetLoader : NoGCClass
 {	
 	mixin Singleton!();
 
@@ -29,11 +29,12 @@ class AssetLoader
 	/**
 	 * AssetLoader destructor.
 	 */
-	public void dispose()
+	@nogc
+	public ~this()
 	{
 		foreach (resource; this.m_assets.byValue())
 		{
-			resource.dispose();
+			MemoryHelper.dispose(resource);
 		}
 	}
 

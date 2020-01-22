@@ -9,15 +9,14 @@ struct gl
 	{ 
 		debug
 		{
-			import dnogc.Utils : dln;
-			import std.experimental.logger : error;
 			scope (exit)
 			{
 				immutable uint glError = glGetError();
 
 				if (glError != GL_NO_ERROR)
 				{
-					dln(file, ", ", line, " , gl", name, " : ", glError);
+					import std.conv : to;
+                	assert(false, "gl" ~ name ~ ": " ~ glError.to!string());
 				}
 			}
 		}

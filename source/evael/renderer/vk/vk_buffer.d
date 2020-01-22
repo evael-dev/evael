@@ -3,14 +3,14 @@ module evael.renderer.vk.vk_buffer;
 import evael.renderer.vk.vk_wrapper;
 import evael.renderer.vk.vk_enum_converter;
 
-import evael.renderer.buffer;
+import evael.renderer.graphics_buffer;
 import evael.renderer.enums.buffer_type;
 
 alias VertexBuffer = VulkanBuffer!(BufferType.Vertex);
 alias IndexBuffer = VulkanBuffer!(BufferType.Index);
 alias UniformBuffer = VulkanBuffer!(BufferType.Uniform);
 	
-class VulkanBuffer(BufferType type) : Buffer!type
+class VulkanBuffer(BufferType type) : GraphicsBuffer!type
 {
 	/**
 	 * GLBuffer constructor.

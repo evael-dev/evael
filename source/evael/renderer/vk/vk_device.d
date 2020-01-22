@@ -5,7 +5,7 @@ import bindbc.glfw;
 
 mixin(bindGLFW_Vulkan);
 
-import evael.renderer.device;
+import evael.renderer.graphics_device;
 import evael.renderer.vk.vk_command;
 import evael.renderer.vk.vk_wrapper;
 
@@ -15,8 +15,6 @@ import evael.lib.containers.array;
 import std.experimental.allocator: make;
 import std.experimental.allocator.mallocator: Mallocator;
 
-import bindbc.glfw;
-
 debug 
 {
 	import evael.renderer.vk.vk_debugger;
@@ -24,7 +22,7 @@ debug
 	import std.experimental.logger: info, infof;
 }
 
-class VulkanDevice : Device
+class VulkanDevice : GraphicsDevice
 {
 	private VkInstance m_instance;
 	private VkPhysicalDevice m_physicalDevice;
@@ -43,10 +41,12 @@ class VulkanDevice : Device
 	 * VkDevice constructor.
 	 */
 	@nogc
-	public this(GLFWwindow* window)
+	public this(in ref GraphicsSettings graphicsSettings, GLFWwindow* window)
 	{
+		super(graphicsSettings, window);
+
 		this.createInstance();
-		this.createSurface(window);
+		this.createSurface();
 		this.selectPhysicalDevice();
 		this.createLogicalDevice();
 	}
@@ -131,9 +131,9 @@ class VulkanDevice : Device
 
 
 	@nogc
-	private void createSurface(GLFWWindow* window)
+	private void createSurface()
 	{
-		if (glfwCreateWindowSurface(this.m_instance, window, null, &this.m_surface) != VK_SUCCESS) 
+		if (glfwCreateWindowSurface(this.m_instance, this.m_window, null, &this.m_surface) != VK_SUCCESS) 
 		{
 			throw Mallocator.instance.make!Error("Error when trying to create window surface.");
 		}
@@ -231,8 +231,8 @@ class VulkanDevice : Device
 			throw Mallocator.instance.make!Error("Error when trying to create the logical device.");
 		}
 
-		vk.GetDeviceQueue(this.m_logicalDevice, this.m_queueFamilyIndex, 0, &this.m_graphicsQueue);
-		vk.GetDeviceQueue(this.m_logicalDevice, this.m_queueFamilyIndex, 0, &this.m_presentQueue);
+		vkGetDeviceQueue(this.m_logicalDevice, this.m_graphicsFamilyIndex, 0, &this.m_graphicsQueue);
+		vkGetDeviceQueue(this.m_logicalDevice, this.m_presentFamilyIndex, 0, &this.m_presentQueue);
 	}
 
 	public uint findQueueFamilies()

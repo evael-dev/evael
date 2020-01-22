@@ -2,7 +2,7 @@ module evael.renderer.resources.uniform_resource;
 
 import evael.renderer.resources.resource;
 import evael.renderer.enums.resource_type;
-import evael.renderer.buffer;
+import evael.renderer.graphics_buffer;
 
 import evael.lib.memory : MemoryHelper;
 

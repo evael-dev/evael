@@ -1,7 +1,7 @@
 module evael.renderer.vk.vk_pipeline;
 
 import evael.renderer.pipeline;
-import evael.renderer.buffer;
+import evael.renderer.graphics_buffer;
 
 import evael.renderer.vk.vk_shader;
 import evael.renderer.vk.vk_wrapper;

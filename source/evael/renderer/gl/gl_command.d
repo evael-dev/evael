@@ -5,7 +5,7 @@ import evael.renderer.gl.gl_enum_converter;
 import evael.renderer.gl.gl_shader;
 import evael.renderer.gl.gl_texture;
 
-import evael.renderer.command;
+import evael.renderer.graphics_command;
 import evael.renderer.resources;
 
 import evael.lib.containers.array;
@@ -15,7 +15,7 @@ public
 	import evael.utils.color;
 }
 
-class GLCommand : Command
+class GLCommand : GraphicsCommand
 {
 	private GLShader m_shader;
 

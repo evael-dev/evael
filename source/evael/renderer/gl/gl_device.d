@@ -1,16 +1,26 @@
 module evael.renderer.gl.gl_device;
 
-import evael.renderer.device;
+import bindbc.glfw;
+
+import evael.renderer.graphics_device;
 import evael.renderer.gl.gl_wrapper;
 import evael.renderer.gl.gl_enum_converter;
 import evael.renderer.gl.gl_shader;
 import evael.renderer.gl.gl_texture;
+import evael.renderer.gl.gl_context_settings;
+
+import evael.core.game_config : GraphicsSettings;
 
 import evael.lib.image.image;
 import evael.lib.memory;
 import evael.lib.containers.array;
 
-class GLDevice : Device
+debug 
+{
+	import std.experimental.logger;
+}
+
+class GLDevice : GraphicsDevice
 {
 	private uint m_vao;
 
@@ -18,8 +28,10 @@ class GLDevice : Device
 	 * GLDevice constructor.
 	 */
 	@nogc
-	public this()
+	public this(in ref GraphicsSettings graphicsSettings, GLFWwindow* window)
 	{
+		super(graphicsSettings, window);
+
 		this.initialize();
 	}
 
@@ -34,9 +46,27 @@ class GLDevice : Device
 	
 	@nogc
 	private void initialize()
-	{
+	{		
+		this.initializeGLFW();
+		
+		debug infof("OpenGL %s loaded.", loadOpenGL());
+
 		gl.GenVertexArrays(1, &this.m_vao);
 		gl.BindVertexArray(this.m_vao);
+	}
+
+	@nogc
+	private void initializeGLFW()
+	{
+		immutable contextSettings = GLContextSettings();
+
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, contextSettings.ver / 10);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, contextSettings.ver % 10);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, contextSettings.profile);
+		glfwWindowHint(GLFW_SAMPLES, 4);
+
+		glfwMakeContextCurrent(this.m_window);
+		glfwSwapInterval(this.m_graphicsSettings.vsync);
 	}
 
 	@nogc

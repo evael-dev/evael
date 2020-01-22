@@ -9,14 +9,12 @@ struct vk
 	{ 
 		debug
 		{
-			import dnogc.Utils : dln;
-
 		    auto vkResult = mixin("vk" ~ name ~ "(args)");
 
             if (vkResult != VK_SUCCESS)
             {
-                dln(file, ", ", line, " , gl", name, " : ", vkResult);
-                return false;
+				import std.conv : to;
+                assert(false, "vk" ~ name ~ ": " ~ vkResult.to!string());
             }
 
             return true;
