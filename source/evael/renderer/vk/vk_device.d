@@ -49,6 +49,7 @@ class VulkanDevice : GraphicsDevice
 	{
 		super(graphicsSettings, window);
 
+		this.initializeGLFW();
 		this.createInstance();
 		this.createSurface();
 		this.selectPhysicalDevice();
@@ -76,6 +77,15 @@ class VulkanDevice : GraphicsDevice
 	public override void endFrame()
 	{
 
+	}
+
+	/*
+	 * Initializes GLFW.
+	 */
+	@nogc
+	private void initializeGLFW()
+	{
+		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 	}
 
 	/*
@@ -135,7 +145,8 @@ class VulkanDevice : GraphicsDevice
 	@nogc
 	private void createSurface()
 	{
-		if (glfwCreateWindowSurface(this.m_instance, this.m_window, null, &this.m_surface) != VK_SUCCESS) 
+		auto result= glfwCreateWindowSurface(this.m_instance, this.m_window, null, &this.m_surface);
+		if (result != VK_SUCCESS) 
 		{
 			// TODO: remove this trick when std.string.format is nogc
 			assumeNoGC((VkResult r)
@@ -145,7 +156,7 @@ class VulkanDevice : GraphicsDevice
 			})(result);
 		}
 	}
-	
+
 	/*
 	 * Selects a physical device.
 	 */
