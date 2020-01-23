@@ -153,7 +153,7 @@ class VulkanDevice : GraphicsDevice
 		assumeNoGC((VkResult r)
 		{
 			import std.string : format;
-			enforce(result == VK_SUCCESS, "Error when trying to create window surface: %d.".format(r));
+			enforce(r == VK_SUCCESS, "Error when trying to create window surface: %d.".format(r));
 		})(result);
 	}
 
@@ -181,10 +181,7 @@ class VulkanDevice : GraphicsDevice
 			}
 		}
 
-		if (this.m_physicalDevice == null)
-		{
-			throw Mallocator.instance.make!Error("No graphics card that can handle specific Vulkan features.");
-		}
+		enforce(this.m_physicalDevice !is null, "No graphics card that can handle specific Vulkan features.");
 	}
 
 	@nogc
@@ -259,10 +256,10 @@ class VulkanDevice : GraphicsDevice
 			enabledExtensionCount
 		};
 
-		if (vk.CreateDevice(this.m_physicalDevice, &createInfo, null, &this.m_logicalDevice) == false)
-		{
-			throw Mallocator.instance.make!Error("Error when trying to create the logical device.");
-		}
+		enforce(
+			vk.CreateDevice(this.m_physicalDevice, &createInfo, null, &this.m_logicalDevice), 
+			"Error when trying to create the logical device."
+		);
 
 		loadDeviceLevelFunctions(this.m_logicalDevice);
 
