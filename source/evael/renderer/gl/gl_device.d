@@ -28,11 +28,11 @@ class GLDevice : GraphicsDevice
 	 * GLDevice constructor.
 	 */
 	@nogc
-	public this(in ref GraphicsSettings graphicsSettings, GLFWwindow* window)
+	public this(in ref GraphicsSettings graphicsSettings)
 	{
-		super(graphicsSettings, window);
+		super(graphicsSettings);
 
-		this.initialize();
+		this.initializeGLFW();
 	}
 
 	/**
@@ -45,28 +45,13 @@ class GLDevice : GraphicsDevice
 	}
 	
 	@nogc
-	private void initialize()
-	{		
-		this.initializeGLFW();
-		
-		debug infof("OpenGL %s loaded.", loadOpenGL());
-
-		gl.GenVertexArrays(1, &this.m_vao);
-		gl.BindVertexArray(this.m_vao);
-	}
-
-	@nogc
-	private void initializeGLFW()
+	@property
+	public override void window(GLFWwindow* win)
 	{
-		immutable contextSettings = GLContextSettings();
-
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, contextSettings.ver / 10);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, contextSettings.ver % 10);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, contextSettings.profile);
-		glfwWindowHint(GLFW_SAMPLES, 4);
-
+		super.window = win;
 		glfwMakeContextCurrent(this.m_window);
-		glfwSwapInterval(this.m_graphicsSettings.vsync);
+
+		this.initialize();
 	}
 
 	@nogc
@@ -82,5 +67,27 @@ class GLDevice : GraphicsDevice
 	public override void endFrame()
 	{
 
+	}
+
+	@nogc
+	private void initializeGLFW()
+	{
+		immutable contextSettings = GLContextSettings();
+
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, contextSettings.ver / 10);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, contextSettings.ver % 10);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, contextSettings.profile);
+		glfwWindowHint(GLFW_SAMPLES, 4);
+
+		glfwSwapInterval(this.m_graphicsSettings.vsync);
+	}
+
+	@nogc
+	private void initialize()
+	{
+		debug infof("OpenGL:%s", loadOpenGL());
+		
+		gl.GenVertexArrays(1, &this.m_vao);
+		gl.BindVertexArray(this.m_vao);
 	}
 } 

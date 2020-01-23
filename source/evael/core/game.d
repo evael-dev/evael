@@ -64,6 +64,8 @@ class Game : NoGCClass
 
 		this.m_inputHandler = MemoryHelper.create!InputHandler();
 
+		this.m_graphicsDevice = MemoryHelper.create!GraphicsDevice(config.graphicsSettings);
+
 		this.m_window = MemoryHelper.create!Window(title, config.graphicsSettings);
 		this.m_window.onWindowClose = bindDelegate(&this.onWindowClose);
 		this.m_window.onWindowSize = bindDelegate(&this.onWindowResize);
@@ -73,7 +75,7 @@ class Game : NoGCClass
 		this.m_window.onCursorPos = bindDelegate(&this.onMouseMove);
 		this.m_window.onMouseButton = bindDelegate(&this.onMouseButton);
 
-		this.m_graphicsDevice = MemoryHelper.create!GraphicsDevice(config.graphicsSettings, this.m_window.glfwWindow);
+		this.m_graphicsDevice.window = this.m_window.glfwWindow;
 
 		this.m_tickrate = 64.0f;
 		this.m_deltaTime = 1000.0f / this.m_tickrate;

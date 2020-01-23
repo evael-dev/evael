@@ -28,10 +28,9 @@ abstract class GraphicsDevice : NoGCClass
 	 * Device constructor.
 	 */
 	@nogc
-	public this(in ref GraphicsSettings graphicsSettings, GLFWwindow* window)
+	public this(in ref GraphicsSettings graphicsSettings)
 	{
 		this.m_graphicsSettings = graphicsSettings;
-		this.m_window = window;
 	}
 
 	/**
@@ -48,4 +47,11 @@ abstract class GraphicsDevice : NoGCClass
 
 	@nogc
 	public abstract void endFrame();
-} 
+
+	@nogc
+	@property
+	public void window(GLFWwindow* win)
+	{
+		this.m_window = win;
+	}
+}

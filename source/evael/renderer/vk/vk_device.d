@@ -16,9 +16,6 @@ import evael.utils.functions : assumeNoGC;
 
 import evael.system.window;
 
-import std.experimental.allocator: make;
-import std.experimental.allocator.mallocator: Mallocator;
-
 debug 
 {
 	import evael.renderer.vk.vk_debugger;
@@ -45,13 +42,12 @@ class VulkanDevice : GraphicsDevice
 	 * VkDevice constructor.
 	 */
 	@nogc
-	public this(in ref GraphicsSettings graphicsSettings, GLFWwindow* window)
+	public this(in ref GraphicsSettings graphicsSettings)
 	{
-		super(graphicsSettings, window);
+		super(graphicsSettings);
 
 		this.initializeGLFW();
 		this.createInstance();
-		this.createSurface();
 		this.selectPhysicalDevice();
 		this.createLogicalDevice();
 	}
@@ -67,6 +63,15 @@ class VulkanDevice : GraphicsDevice
 		vkDestroyInstance(this.m_instance, null);
 	}
 	
+	@nogc
+	@property
+	public override void window(GLFWwindow* win)
+	{
+		super.window = win;
+		this.createSurface();
+	}
+
+
 	@nogc
 	public override void beginFrame(in Color color = Color.LightGrey)
 	{
@@ -132,10 +137,7 @@ class VulkanDevice : GraphicsDevice
 			this.m_debugger.addValidationLayers(createInfo);
 		}
 		
-		if (vk.CreateInstance(&createInfo, null, &this.m_instance) == false)
-		{
-			throw Mallocator.instance.make!Error("Error when trying to create Vulkan instance.");
-		}
+		enforce(vk.CreateInstance(&createInfo, null, &this.m_instance), "Error when trying to create Vulkan instance.");
 
 		debug this.m_debugger.setupCallback(this.m_instance);
 
@@ -145,16 +147,14 @@ class VulkanDevice : GraphicsDevice
 	@nogc
 	private void createSurface()
 	{
-		auto result= glfwCreateWindowSurface(this.m_instance, this.m_window, null, &this.m_surface);
-		if (result != VK_SUCCESS) 
+		auto result = glfwCreateWindowSurface(this.m_instance, this.m_window, null, &this.m_surface);
+
+		// TODO: remove this trick when std.string.format is nogc
+		assumeNoGC((VkResult r)
 		{
-			// TODO: remove this trick when std.string.format is nogc
-			assumeNoGC((VkResult r)
-			{
-				import std.string : format;
-				throw Mallocator.instance.make!Error("Error when trying to create window surface: %d.".format(r));
-			})(result);
-		}
+			import std.string : format;
+			enforce(result == VK_SUCCESS, "Error when trying to create window surface: %d.".format(r));
+		})(result);
 	}
 
 	/*
@@ -166,10 +166,7 @@ class VulkanDevice : GraphicsDevice
 		uint deviceCount = 0;
 		vk.EnumeratePhysicalDevices(this.m_instance, &deviceCount, null);
 
-		if (deviceCount == 0)
-		{
-			throw Mallocator.instance.make!Error("No graphics card that can handle Vulkan.");
-		}
+		enforce(deviceCount > 0, "No graphics card that can handle Vulkan.");
 
 		auto devices = Array!VkPhysicalDevice(deviceCount);
 		devices.length = deviceCount;
@@ -178,50 +175,66 @@ class VulkanDevice : GraphicsDevice
 		// We select the best suitable device
 		foreach (ref device; devices)
 		{
-			VkPhysicalDeviceProperties deviceProperties;
-			VkPhysicalDeviceFeatures deviceFeatures;
-
-			vkGetPhysicalDeviceProperties(device, &deviceProperties);
-			vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
-
-			if (deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU && deviceFeatures.geometryShader)
+			if (this.isDeviceSuitable(device))
 			{
-				uint queueFamilyCount = 0;
-				vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, null);
-
-				auto queueFamilies = Array!VkQueueFamilyProperties(queueFamilyCount);
-				queueFamilies.length = queueFamilyCount;
-
-				vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, queueFamilies.data.ptr);
-				
-				foreach (i, ref queueFamily; queueFamilies)
-				{
-					if (queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT) 
-					{
-						this.m_physicalDevice = device;
-						this.m_graphicsFamilyIndex = cast(uint) i;
-						this.m_presentFamilyIndex = cast(uint) i;
-
-						debug
-						{
-							VkPhysicalDeviceProperties properties;
-							vkGetPhysicalDeviceProperties(device, &properties);
-							info("The following physical device has been selected: ");
-							info("\tPhysical device: ", properties.deviceName.ptr.fromStringz);
-							info("\tAPI Version: ", VK_VERSION_MAJOR(properties.apiVersion), ".", VK_VERSION_MINOR(properties.apiVersion), ".", VK_VERSION_PATCH(properties.apiVersion));
-							info("\tDriver Version: ", properties.driverVersion);
-							info("\tDevice type: ", properties.deviceType);
-						}
-
-						break;
-					}
-				}
+				this.m_physicalDevice = device;
 			}
 		}
 
 		if (this.m_physicalDevice == null)
 		{
 			throw Mallocator.instance.make!Error("No graphics card that can handle specific Vulkan features.");
+		}
+	}
+
+	@nogc
+	private bool isDeviceSuitable(ref VkPhysicalDevice device)
+	{
+		VkPhysicalDeviceProperties deviceProperties;
+		VkPhysicalDeviceFeatures deviceFeatures;
+
+		vkGetPhysicalDeviceProperties(device, &deviceProperties);
+		vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
+
+		if (deviceProperties.deviceType != VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU)
+			return false;
+			
+		if (deviceFeatures.geometryShader == false)
+			return false;
+		
+		uint queueFamilyCount = 0;
+		vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, null);
+
+		auto queueFamilies = Array!VkQueueFamilyProperties(queueFamilyCount);
+		queueFamilies.length = queueFamilyCount;
+
+		vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, queueFamilies.data.ptr);
+		
+		foreach (i, ref queueFamily; queueFamilies)
+		{
+			if (queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT) 
+			{
+				graphicsFamilyIndex = cast(uint) i;
+				presentFamilyIndex = cast(uint) i;
+
+				return true;
+				this.m_physicalDevice = device;
+				this.m_graphicsFamilyIndex = cast(uint) i;
+				this.m_presentFamilyIndex = cast(uint) i;
+
+				debug
+				{
+					VkPhysicalDeviceProperties properties;
+					vkGetPhysicalDeviceProperties(device, &properties);
+					info("The following physical device has been selected: ");
+					info("\tPhysical device: ", properties.deviceName.ptr.fromStringz);
+					info("\tAPI Version: ", VK_VERSION_MAJOR(properties.apiVersion), ".", VK_VERSION_MINOR(properties.apiVersion), ".", VK_VERSION_PATCH(properties.apiVersion));
+					info("\tDriver Version: ", properties.driverVersion);
+					info("\tDevice type: ", properties.deviceType);
+				}
+
+				break;
+			}
 		}
 	}
 
@@ -233,7 +246,7 @@ class VulkanDevice : GraphicsDevice
 		queueCreateInfo.queueFamilyIndex = this.m_graphicsFamilyIndex;
 		queueCreateInfo.queueCount = 1;
 
-		immutable queuePriority = 1.0f;
+		immutable float queuePriority = 1.0f;
 		queueCreateInfo.pQueuePriorities = &queuePriority;
 
 		VkPhysicalDeviceFeatures deviceFeatures;
@@ -242,13 +255,16 @@ class VulkanDevice : GraphicsDevice
 			sType: VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO,
 			pQueueCreateInfos: &queueCreateInfo,
 			queueCreateInfoCount: 1,
-			pEnabledFeatures: &deviceFeatures
+			pEnabledFeatures: &deviceFeatures,
+			enabledExtensionCount
 		};
 
 		if (vk.CreateDevice(this.m_physicalDevice, &createInfo, null, &this.m_logicalDevice) == false)
 		{
 			throw Mallocator.instance.make!Error("Error when trying to create the logical device.");
 		}
+
+		loadDeviceLevelFunctions(this.m_logicalDevice);
 
 		vkGetDeviceQueue(this.m_logicalDevice, this.m_graphicsFamilyIndex, 0, &this.m_graphicsQueue);
 		vkGetDeviceQueue(this.m_logicalDevice, this.m_presentFamilyIndex, 0, &this.m_presentQueue);
