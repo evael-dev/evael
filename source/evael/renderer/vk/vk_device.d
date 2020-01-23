@@ -5,7 +5,7 @@ import bindbc.glfw;
 
 mixin(bindGLFW_Vulkan);
 
-import evael.renderer.device;
+import evael.renderer.graphics_device;
 import evael.renderer.vk.vk_command;
 import evael.renderer.vk.vk_wrapper;
 
@@ -26,7 +26,7 @@ debug
 	import std.experimental.logger: info, infof;
 }
 
-class VulkanDevice : Device
+class VulkanDevice : GraphicsDevice
 {
 	private VkInstance m_instance;
 	private VkPhysicalDevice m_physicalDevice;
@@ -45,10 +45,12 @@ class VulkanDevice : Device
 	 * VkDevice constructor.
 	 */
 	@nogc
-	public this(Window window)
+	public this(in ref GraphicsSettings graphicsSettings, GLFWwindow* window)
 	{
+		super(graphicsSettings, window);
+
 		this.createInstance();
-		this.createSurface(window.glfwWindow);
+		this.createSurface();
 		this.selectPhysicalDevice();
 		this.createLogicalDevice();
 	}
@@ -131,10 +133,9 @@ class VulkanDevice : Device
 	}
 
 	@nogc
-	private void createSurface(GLFWwindow* window)
+	private void createSurface()
 	{
-		auto result = glfwCreateWindowSurface(this.m_instance, window, null, &this.m_surface);
-		if (result != VK_SUCCESS) 
+		if (glfwCreateWindowSurface(this.m_instance, this.m_window, null, &this.m_surface) != VK_SUCCESS) 
 		{
 			// TODO: remove this trick when std.string.format is nogc
 			assumeNoGC((VkResult r)
@@ -144,6 +145,7 @@ class VulkanDevice : Device
 			})(result);
 		}
 	}
+	
 	/*
 	 * Selects a physical device.
 	 */

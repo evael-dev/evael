@@ -1,6 +1,6 @@
 module evael.renderer.vk.vk_command;
 
-import evael.renderer.command;
+import evael.renderer.graphics_command;
 
 public 
 {
@@ -8,7 +8,7 @@ public
 	import evael.renderer.texture;
 }
 
-class VulkanCommand : Command
+class VulkanCommand : GraphicsCommand
 {
 	/**
 	 * VkCommand constructor.

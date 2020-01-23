@@ -1,7 +1,7 @@
 module evael.renderer.gl.gl_pipeline;
 
 import evael.renderer.pipeline;
-import evael.renderer.buffer;
+import evael.renderer.graphics_buffer;
 
 import evael.renderer.gl.gl_shader;
 import evael.renderer.gl.gl_wrapper;

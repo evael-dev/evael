@@ -6,7 +6,7 @@ import evael.renderer.texture;
 import evael.renderer.blend_state;
 import evael.renderer.depth_state;
 import evael.renderer.resources;
-import evael.renderer.buffer;
+import evael.renderer.graphics_buffer;
 
 import evael.lib.memory;
 import evael.lib.containers;

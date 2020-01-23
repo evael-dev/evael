@@ -2,29 +2,22 @@ module evael.core.game_state;
 
 import evael.core.game;
 
-import evael.graphics.graphics_device;
-import evael.graphics.drawable;
-import evael.graphics.gui.gui_manager;
-
 import evael.system.input;
 import evael.system.asset_loader;
 
 import evael.utils.math;
+
+import evael.lib.memory;
 
 public import std.variant;
 
 /**
  * GameState.
  */
-abstract class GameState
+abstract class GameState : NoGCClass
 {
-	protected Game 		 	 m_game;
-	protected GraphicsDevice m_graphicsDevice;
-	protected GuiManager  	 m_guiManager;
-	protected AssetLoader 	 m_assetLoader;
-
-	/// Indicates if mouse button is clicked
-	protected bool m_mouseClicked;
+	protected Game m_game;
+	protected AssetLoader m_assetLoader;
 
 	/**
 	 * GameState constructor.
@@ -38,7 +31,8 @@ abstract class GameState
 	/**
 	 * GameState destructor.
 	 */
-	public void dispose()
+	@nogc
+	public ~this()
 	{
 	} 
 
@@ -82,9 +76,7 @@ abstract class GameState
 	 */
 	public void onMouseClick(in MouseButton mouseButton, in ref vec2 position)
 	{
-		this.m_mouseClicked = true;
-
-		this.m_guiManager.onMouseClick(mouseButton, position);
+		// this.m_guiManager.onMouseClick(mouseButton, position);
 	}
 
 	/**
@@ -95,9 +87,7 @@ abstract class GameState
 	 */
 	public void onMouseUp(in MouseButton mouseButton, in ref vec2 position)
 	{
-		this.m_mouseClicked = false;
-
-		this.m_guiManager.onMouseUp(mouseButton);
+		// this.m_guiManager.onMouseUp(mouseButton);
 	}
 
 	/**
@@ -107,7 +97,7 @@ abstract class GameState
 	 */
 	public void onMouseMove(in ref vec2 position)
 	{		
-		this.m_guiManager.onMouseMove(position);
+		// this.m_guiManager.onMouseMove(position);
 	}
 
 	/**
@@ -127,17 +117,27 @@ abstract class GameState
 	 */
 	public void onText(in int text)
 	{
-		this.m_guiManager.onText(text);
+		// this.m_guiManager.onText(text);
 	}
 
 	/**
-	 * Event called on key action.
+	 * Event called on key down action.
 	 * Params:
 	 *		key : pressed key
 	 */
-	public void onKey(in int key)
+	public void onKeyDown(in Key key)
 	{
-		this.m_guiManager.onKey(key);
+		// this.m_guiManager.onKey(key);
+	}
+
+	/**
+	 * Event called on key up action.
+	 * Params:
+	 *		key : released key
+	 */
+	public void onKeyUp(in Key key)
+	{
+		// this.m_guiManager.onKey(key);
 	}
 
 	/**
@@ -148,8 +148,7 @@ abstract class GameState
 	package void setParent(Game game) nothrow
 	{
 		this.m_game = game;
-		this.m_graphicsDevice = game.graphicsDevice;
-		this.m_guiManager = game.guiManager;
+		// this.m_guiManager = game.guiManager;
 		this.m_assetLoader = game.assetLoader;
 	}
 
@@ -167,15 +166,10 @@ abstract class GameState
 			return this.m_game;
 		}
 
-		public GraphicsDevice graphicsDevice()
-		{
-			return this.m_graphicsDevice;
-		}
-
-		public GuiManager guiManager()
+		/*public GuiManager guiManager()
 		{
 			return this.m_guiManager;
-		}
+		}*/
 
 		/*public EntityManager entityManager()
 		{

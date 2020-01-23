@@ -1,19 +1,20 @@
 module evael.network.packet;
 
-import dnogc.DynamicArray;
+import evael.lib.containers : Array;
 
 struct Packet
 {
-	public DynamicArray!ubyte data;
+	public Array!ubyte data;
 
 	@nogc
 	public this(in size_t capacity)
 	{
-		this.data = DynamicArray!ubyte(capacity);
+		this.data = Array!ubyte(capacity);
 		this.data.length = capacity;
 	}
 
-	public void dispose()
+	@nogc
+	public ~this()
 	{
 		this.data.dispose();
 	}

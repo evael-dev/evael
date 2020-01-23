@@ -24,15 +24,9 @@ class GLTexture : Texture
 	@nogc
 	public ~this()
 	{
-		this.dispose();
-	}
-
-	// TODO: remove this when IAsset is cleaned.
-	@nogc
-	public void dispose()
-	{
 		gl.DeleteTextures(1, &this.m_id);
 	}
+
 
 	/**
 	 * Loads a texture.

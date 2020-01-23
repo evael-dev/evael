@@ -3,14 +3,14 @@ module evael.renderer.gl.gl_buffer;
 import evael.renderer.gl.gl_wrapper;
 import evael.renderer.gl.gl_enum_converter;
 
-import evael.renderer.buffer;
+import evael.renderer.graphics_buffer;
 import evael.renderer.enums.buffer_type;
 
 alias VertexBuffer = GLBuffer!(BufferType.Vertex);
 alias IndexBuffer = GLBuffer!(BufferType.Index);
 alias UniformBuffer = GLBuffer!(BufferType.Uniform);
 	
-class GLBuffer(BufferType type, uint usage = GL_DYNAMIC_DRAW) : Buffer!type
+class GLBuffer(BufferType type, uint usage = GL_DYNAMIC_DRAW) : GraphicsBuffer!type
 {
 	/**
 	 * GLBuffer constructor.

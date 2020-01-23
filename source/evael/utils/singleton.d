@@ -1,5 +1,7 @@
 module evael.utils.singleton;
 
+import evael.lib.memory;
+
 /**
  * Singleton.
  */
@@ -9,15 +11,16 @@ template Singleton()
 
 	private __gshared static typeof(this) instance;
  
+	@nogc
 	public static typeof(this) getInstance()
 	{
-		if(!instantiated)
+		if (!instantiated)
 		{
-			synchronized(typeof(this).classinfo)
+			synchronized (typeof(this).classinfo)
 			{
-				if(!instance)
+				if (!instance)
 				{
-					instance = new typeof(this)();
+					instance = MemoryHelper.create!(typeof(this))();
 				}
  
 				instantiated = true;
@@ -27,11 +30,12 @@ template Singleton()
 		return instance;
 	}
 
+	@nogc
 	public static void dispose()
 	{
-		if(instantiated) 
+		if (instantiated) 
 		{
-			destroy(instance);
+			MemoryHelper.dispose(instance);
 			instance = null;
 		}
 	}

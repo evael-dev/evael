@@ -1,14 +1,14 @@
-module evael.renderer.buffer;
+module evael.renderer.graphics_buffer;
 
 import evael.renderer.enums.buffer_type;
 
 import evael.lib.memory;
 
-alias VertexBuffer = Buffer!(BufferType.Vertex);
-alias IndexBuffer = Buffer!(BufferType.Index);
-alias UniformBuffer = Buffer!(BufferType.Uniform);
+alias VertexBuffer = GraphicsBuffer!(BufferType.Vertex);
+alias IndexBuffer = GraphicsBuffer!(BufferType.Index);
+alias UniformBuffer = GraphicsBuffer!(BufferType.Uniform);
 
-abstract class Buffer(BufferType t) : NoGCClass
+abstract class GraphicsBuffer(BufferType t) : NoGCClass
 {
 	protected BufferType m_type = t;
 	protected uint m_internalType;
