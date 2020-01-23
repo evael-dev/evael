@@ -12,10 +12,12 @@ import evael.renderer.vk.vk_wrapper;
 import evael.lib.memory;
 import evael.lib.containers.array;
 
+import evael.utils.functions : assumeNoGC;
+
+import evael.system.window;
+
 import std.experimental.allocator: make;
 import std.experimental.allocator.mallocator: Mallocator;
-
-import bindbc.glfw;
 
 debug 
 {
@@ -43,10 +45,10 @@ class VulkanDevice : Device
 	 * VkDevice constructor.
 	 */
 	@nogc
-	public this(GLFWwindow* window)
+	public this(Window window)
 	{
 		this.createInstance();
-		this.createSurface(window);
+		this.createSurface(window.glfwWindow);
 		this.selectPhysicalDevice();
 		this.createLogicalDevice();
 	}
@@ -116,7 +118,6 @@ class VulkanDevice : Device
 			
 			this.m_debugger.addDebugExtensions(createInfo,  glfwExtensions, glfwExtensionCount);
 			this.m_debugger.addValidationLayers(createInfo);
-			this.m_debugger.displayAvailableExtensions();
 		}
 		
 		if (vk.CreateInstance(&createInfo, null, &this.m_instance) == false)
@@ -129,13 +130,18 @@ class VulkanDevice : Device
 		loadInstanceLevelFunctions(this.m_instance);
 	}
 
-
 	@nogc
-	private void createSurface(GLFWWindow* window)
+	private void createSurface(GLFWwindow* window)
 	{
-		if (glfwCreateWindowSurface(this.m_instance, window, null, &this.m_surface) != VK_SUCCESS) 
+		auto result = glfwCreateWindowSurface(this.m_instance, window, null, &this.m_surface);
+		if (result != VK_SUCCESS) 
 		{
-			throw Mallocator.instance.make!Error("Error when trying to create window surface.");
+			// TODO: remove this trick when std.string.format is nogc
+			assumeNoGC((VkResult r)
+			{
+				import std.string : format;
+				throw Mallocator.instance.make!Error("Error when trying to create window surface: %d.".format(r));
+			})(result);
 		}
 	}
 	/*
@@ -231,8 +237,8 @@ class VulkanDevice : Device
 			throw Mallocator.instance.make!Error("Error when trying to create the logical device.");
 		}
 
-		vk.GetDeviceQueue(this.m_logicalDevice, this.m_queueFamilyIndex, 0, &this.m_graphicsQueue);
-		vk.GetDeviceQueue(this.m_logicalDevice, this.m_queueFamilyIndex, 0, &this.m_presentQueue);
+		vkGetDeviceQueue(this.m_logicalDevice, this.m_graphicsFamilyIndex, 0, &this.m_graphicsQueue);
+		vkGetDeviceQueue(this.m_logicalDevice, this.m_presentFamilyIndex, 0, &this.m_presentQueue);
 	}
 
 	public uint findQueueFamilies()

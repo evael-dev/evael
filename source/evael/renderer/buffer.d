@@ -43,7 +43,7 @@ abstract class Buffer(BufferType t) : NoGCClass
 	 *		 data : pointer to the new data that will be copied into the data store
 	 */
 	@nogc
-	public abstract void update(in long offset, in ptrdiff_t size, in void* data) const nothrow;
+	public abstract void update(in ptrdiff_t offset, in ptrdiff_t size, in void* data) const nothrow;
 
 	@nogc
 	@property nothrow

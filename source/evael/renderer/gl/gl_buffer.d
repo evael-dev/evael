@@ -44,7 +44,7 @@ class GLBuffer(BufferType type, uint usage = GL_DYNAMIC_DRAW) : Buffer!type
 	 *		 data : pointer to the new data that will be copied into the data store
 	 */
 	@nogc
-	public override void update(in long offset, in ptrdiff_t size, in void* data) const nothrow
+	public override void update(in ptrdiff_t offset, in ptrdiff_t size, in void* data) const nothrow
 	{
 		assert(offset + size <= this.m_size, "Updating buffer with invalid offset/size.");
 

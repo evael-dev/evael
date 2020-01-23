@@ -82,3 +82,13 @@ auto bindDelegate2(T)(T t) nothrow
 
 	return &func;
 }
+
+/**
+ * Casts @nogc out of a function or delegate type.
+ * Thanks to https://p0nce.github.io/d-idioms/#Bypassing-@nogc
+ */
+auto assumeNoGC(T) (T t) if (isFunctionPointer!T || isDelegate!T)
+{
+    enum attrs = functionAttributes!T | FunctionAttribute.nogc;
+    return cast(SetFunctionAttributes!(T, functionLinkage!T, attrs)) t;
+}

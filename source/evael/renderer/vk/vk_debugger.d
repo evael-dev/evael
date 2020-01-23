@@ -77,9 +77,24 @@ class VulkanDebugger
 
 	public void addDebugExtensions(ref VkInstanceCreateInfo createInfo, const(char*)* glfwExtensions, uint glfwExtensionCount)
 	{
+		// We need to select between VK_EXT_debug_utils and VK_EXT_debug_report
+		string defaultDebugExtension = "VK_EXT_debug_report";
+		auto availableExtensions = this.getAvailableExtensions();
+
+		foreach (ref extension; availableExtensions)
+		{
+			string name = cast(string) (cast(char*) extension.extensionName).fromStringz();
+
+			if(name == VK_EXT_DEBUG_UTILS_EXTENSION_NAME)
+			{
+				defaultDebugExtension = VK_EXT_DEBUG_UTILS_EXTENSION_NAME;
+				break;
+			}
+		}
+
 		cstring[] newGlfwExtensions = cast(cstring[]) glfwExtensions[0..glfwExtensionCount];
-		newGlfwExtensions ~= VK_EXT_DEBUG_UTILS_EXTENSION_NAME;
-			
+		newGlfwExtensions ~= defaultDebugExtension.toStringz();
+		
 		createInfo.enabledExtensionCount++;
 		createInfo.ppEnabledExtensionNames = newGlfwExtensions.ptr;
 	}
@@ -119,7 +134,7 @@ class VulkanDebugger
 		}
 	}
 
-	public void displayAvailableExtensions()
+	public VkExtensionProperties[] getAvailableExtensions()
 	{
 		uint extensionCount = 0;
 		vk.EnumerateInstanceExtensionProperties(null, &extensionCount, null);
@@ -131,8 +146,10 @@ class VulkanDebugger
 		infof("Enumerating %d Vulkan extensions...", extensionCount);
 		foreach (ref extension; extensions)
 		{
-			infof("Extension name: %s", extension.extensionName[0..extension.extensionName.length]);
+			infof("\t%s", (cast(char*) extension.extensionName).fromStringz());
 		}
+
+		return extensions;
 	}
 
 	@property
