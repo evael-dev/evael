@@ -1,49 +1,66 @@
-# Dear people of the future
+evael 0.0.2
+===========
 
-Hello guys!
+Evael is a small 2D/3D game engine written in the D programming language. It is based on OpenGL 3.3.
 
-My name is Robert Georges (born Rafat Petros-Gorguis), I wrote this message as part of the Github Archive Program, 1 hour before the archiving start. I hope everything is good for you and you will be able to read this :-).
+### Features
 
-I'm a 29 years old Software engineer from Paris. I wrote my first line of code 15 years ago, and never left programming since that day. My favorite language is the D programming language, a powerful general-purpose programming language. You can find it on this platform with the keyword "dlang". I'm actually writing a little game engine with it (evael).
+- Asset loader (texture, models, shaders)
+- Terrain rendering (blend map, normal map, height map)
+- Model rendering (IQM, OBJ)
+- Basic lighting support (directional light, point light)
+- Shadow support
+- Instancing (for OBJ models atm)
+- Integrated custom GUI based on NanoVG (support multiple basic controls, theming, fonts...)
+- GUI with [Nuklear](https://github.com/vurtun/nuklear/)
+- Input handling as event mode or immediate mode (onMouseAction() or isMouseButtonClicked())
+- Entity Component System with [decs](https://github.com/aldocd4/decs)
 
-My father left Irak for France in 1991, when the country was at war. I would like to give a big <3 to my family: 
+### Planned features
 
-- Baba (Hekmat)
-- Mama (Soaad)
-- Rami
-- Ronak
-- David
-- Marie
-- Mathilda
+- Water rendering
+- Network support
+- Physics support
+- Navigation support (recast & detour)
+- Controller support
+- more!
 
-Here is a picture of my parents: 
-<br>
-<img src="./img/parents.jpg" width="600" />
+Some part of the code are old. They need to be updated:
+ - Shaders sources
+ - Models (write better loader and clean the code)
+ - probably other parts...
 
-<br>
-<br>
-Here is a picture of my brothers & sisters: <br>
-<img src="./img/family.jpg" width="600" />
-<br>
-From left to right: David, me, Rami, Ronak, Natasha (Ronak's gf), Marie and Mathilda.
+### Supported platforms
 
-<br>
-<br>
-My cats (and their mom!):<br>
-<img src="./img/cats.jpg" width="600" />
-<br>
-<img src="./img/mommy.jpg" width="600" />
+- Windows (tested)
+- Linux?
+- Android?
 
-<br>
-<br>
-Finally, some pictures of me:<br>
-<img src="./img/baby.jpg" width="600" />
-<br>
-<img src="./img/teen.jpg" width="600" />
-<br>
-<img src="./img/adult.jpg" width="600" />
+### Build
 
+You have to use [dub](https://code.dlang.org/download) to build the project.
 
-God bless you, hope you did something good with this earth for all the people around the world <3.
+Add this project as a dependency to your **dub.json**:
 
-PS: you will find my favorite music in the music directory.
+```json
+"dependencies": {
+    "evael": "~>0.0.1"
+}
+```
+
+Documentation
+===========
+
+You can find tutorials on [this repository](https://github.com/evael-dev/evael-tutorials).
+
+A base game template is provided [here](https://github.com/evael-dev/evael-game-template).
+
+Screenshots
+===========
+
+![Game](https://pbs.twimg.com/media/Czla-BXWQAAGSxH.jpg)
+
+License
+===========
+
+Boost Software License - Version 1.0
