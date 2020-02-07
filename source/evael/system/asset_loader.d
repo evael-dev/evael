@@ -4,14 +4,14 @@ debug import std.experimental.logger;
 
 import evael.system.asset;
 
-import evael.graphics.shaders.shader;
-
 import evael.utils.singleton;
+
+import evael.lib.memory;
 
 /**
  * AssetLoader
  */
-class AssetLoader
+class AssetLoader : NoGCClass
 {	
 	mixin Singleton!();
 
@@ -29,18 +29,19 @@ class AssetLoader
 	/**
 	 * AssetLoader destructor.
 	 */
-	public void dispose()
+	@nogc
+	public ~this()
 	{
 		foreach (resource; this.m_assets.byValue())
 		{
-			resource.dispose();
+			MemoryHelper.dispose(resource);
 		}
 	}
 
 	/**
 	 * Loads an asset.
 	 * Params:
-     *		fileName : asset to load
+	 *		fileName : asset to load
 	 *      params : variadic params
 	 */
 	public T load(T, Params...)(in string fileName, Params params)
@@ -54,24 +55,22 @@ class AssetLoader
 		{
 			return cast(T) this.m_assets[shortName];
 		}
+
+		debug infof("Loading asset: %s", fileName);
+		
+		IAsset asset;
+
+		static if (params.length)
+		{
+			asset = T.load(fileName, params[0]);
+		}
 		else
 		{
-			debug infof("Loading asset: %s", fileName);
-			
-			IAsset asset;
-
-			static if (params.length)
-			{
-				asset = T.load(fileName, params[0]);
-			}
-			else
-			{
-				asset = T.load(fileName);
-			}
-
-			this.m_assets[shortName] = asset;
-
-			return cast(T) asset;
+			asset = T.load(fileName);
 		}
+
+		this.m_assets[shortName] = asset;
+
+		return cast(T) asset;
 	}
 }

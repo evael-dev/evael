@@ -18,8 +18,13 @@
 docs.json
 __dummy.html
 docs/
+dub.selections.json
 
 # Code coverage
 *.lst
+
 *.dll
 !dist/*/*.dll
+.history
+.vscode
+dls.log

@@ -12,5 +12,5 @@ enum Cursor
 	Crosshair = GLFW_CROSSHAIR_CURSOR,
 	Ibeam = GLFW_IBEAM_CURSOR,
 	HorizontalResize = GLFW_HRESIZE_CURSOR,
-	VerticalResize = GLFW_VRESIZE_CURSOR
+	VerticalResize 	= GLFW_VRESIZE_CURSOR
 }

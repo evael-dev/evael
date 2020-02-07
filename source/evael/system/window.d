@@ -1,24 +1,22 @@
 module evael.system.window;
 
-import std.string : toStringz;
 import std.traits : EnumMembers;
 import std.experimental.logger;
 
 public import bindbc.glfw;
-import bindbc.opengl;
 
-import derelict.nanovg.nanovg;
-
-import evael.system.window_settings;
-import evael.system.gl_context_settings;
+import evael.core.game_config : GraphicsSettings;
 import evael.system.cursor;
+
+import evael.lib.memory : NoGCClass;
+import evael.lib.string : Cstring;
 
 /**
  * Window.
  *
  * High-level interface to GLFWWindow.
  */
-class Window
+class Window : NoGCClass
 {
 	/// GLFW window handle
 	private GLFWwindow* m_glfwWindow;
@@ -29,55 +27,45 @@ class Window
 	/// Current cursor
 	private Cursor m_currentCursor;
 
-	mixin(GLFWCallback!("WindowClose", "GLFWwindowclosefun"));
-	mixin(GLFWCallback!("WindowSize", "GLFWwindowsizefun"));
-	mixin(GLFWCallback!("CursorPos", "GLFWcursorposfun"));
-	mixin(GLFWCallback!("MouseButton", "GLFWmousebuttonfun"));
-	mixin(GLFWCallback!("Scroll", "GLFWscrollfun"));
-	mixin(GLFWCallback!("Key", "GLFWkeyfun"));
-	mixin(GLFWCallback!("Char", "GLFWcharfun"));
-
+	mixin(GLFWCallback!("onWindowClose", "GLFWwindowclosefun"));
+	mixin(GLFWCallback!("onWindowSize", "GLFWwindowsizefun"));
+	mixin(GLFWCallback!("onCursorPos", "GLFWcursorposfun"));
+	mixin(GLFWCallback!("onMouseButton", "GLFWmousebuttonfun"));
+	mixin(GLFWCallback!("onScroll", "GLFWscrollfun"));
+	mixin(GLFWCallback!("onKey", "GLFWkeyfun"));
+	mixin(GLFWCallback!("onChar", "GLFWcharfun"));
+	
 	/**
 	 * Window constructor.
 	 * Params:
+	 *		title : window title
 	 *      settings : window settings
-	 *      contextSettings : gl settings
 	 */
-	public this(in ref WindowSettings settings, in ref GLContextSettings contextSettings)
+	@nogc
+	public this(in string title, in ref GraphicsSettings graphicsSettings)
 	{
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, contextSettings.ver / 10);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, contextSettings.ver % 10);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, contextSettings.profile);
-		glfwWindowHint(GLFW_RESIZABLE, settings.resizable);
-		glfwWindowHint(GLFW_SAMPLES, 4);
+		glfwWindowHint(GLFW_RESIZABLE, graphicsSettings.resizable);
 		
-		this.m_glfwWindow = glfwCreateWindow(settings.resolution.width, settings.resolution.height,
-			settings.title.toStringz(), settings.fullscreen ? glfwGetPrimaryMonitor() : null, null);
+		this.m_glfwWindow = glfwCreateWindow(graphicsSettings.width, graphicsSettings.height,
+			Cstring(title), graphicsSettings.fullscreen ? glfwGetPrimaryMonitor() : null, null);
 
-		glfwMakeContextCurrent(this.m_glfwWindow);
-		
-		glfwSwapInterval(settings.vsync);
-		
-		// We have a context now, we can reload gl3
-		infof("Opengl %s loaded.", loadOpenGL());
-		DerelictNANOVG.load();
-
-		foreach(cursor; [EnumMembers!(Cursor)])
+		/*foreach(cursor; [EnumMembers!(Cursor)])
 		{
 			this.m_cursors[cursor] = glfwCreateStandardCursor(cursor);
 		}
 
-		this.setCursor(Cursor.Arrow);
+		this.setCursor(Cursor.Arrow);*/
 	}
 
 	/**
 	 * Window destructor.
 	 */
-	public void dispose()
+	@nogc
+	public ~this()
 	{
-		foreach (cursor; [EnumMembers!(Cursor)])
+		foreach (cursor; this.m_cursors.byValue())
 		{
-			glfwDestroyCursor(this.m_cursors[cursor]);            
+			glfwDestroyCursor(cursor);            
 		}
 
 		glfwDestroyWindow(this.m_glfwWindow);
@@ -96,7 +84,7 @@ class Window
 	/**
 	 * Sets window cursor.
 	 * Params:
-	 *      cursor : cursor to set
+	 *      cursor: cursor to set
 	 */
 	@nogc
 	public void setCursor(in Cursor cursor) nothrow
@@ -139,7 +127,7 @@ template GLFWCallback(string name, string glfwCallback)
 	string GLFWCallbackImpl()
 	{
 		enum callbackName = name ~ "Callback";
-		return "public void set" ~ callbackName ~ "(" ~ glfwCallback ~ " cb) { glfwSet" ~ callbackName ~ "(this.m_glfwWindow, cb); }";
+		return "@nogc @property public void " ~ name ~ "(" ~ glfwCallback ~ " cb) { glfwSet" ~ callbackName[2..$] ~ "(this.m_glfwWindow, cb); }";
 	}
 
 	enum GLFWCallback = GLFWCallbackImpl;

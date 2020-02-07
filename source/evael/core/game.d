@@ -1,49 +1,41 @@
 module evael.core.game;
 
-import std.array : split;
-import std.conv;
 import std.typecons;
-
-public import decs;
-
-import dnogc.DynamicArray;
 
 import evael.core.game_state;
 import evael.core.game_config;
 
-import evael.graphics.graphics_device;
-import evael.graphics.font;
-import evael.graphics.gui.gui_manager;
-
-import evael.audio.audio_device;
-
+import evael.renderer;
 import evael.system;
 import evael.utils;
 import evael.init;
 
+import evael.lib.memory;
+import evael.lib.containers : Array;
+
 /**
  * Game
  */
-class Game
+class Game : NoGCClass
 {
-	private Window         m_window;
+	private GameConfig m_config;
 	private GraphicsDevice m_graphicsDevice;
-	private GuiManager     m_guiManager;
+	private InputHandler m_inputHandler;
+	private Window m_window;
+
 	private AssetLoader    m_assetLoader;
-	private AudioDevice    m_audioDevice;
-	private EntityManager  m_entityManager;
+	//private EntityManager  m_entityManager;
 	private I18n           m_i18n;
-	private InputHandler   m_inputHandler;
 
 	/// Current game state.
 	private GameState m_currentGameState;
 
 	/// Tasks of other thread that will be processed by main thread.
 	private alias OnEvent = void delegate();
-	private DynamicArray!OnEvent m_events;
+	private Array!OnEvent m_events;
 
 	private alias Task = Tuple!(long, OnEvent);
-	private DynamicArray!Task m_scheduledTasks;
+	private Array!Task m_scheduledTasks;
 
 	/// Indicates if the game is still running.
 	private bool m_running;
@@ -61,63 +53,66 @@ class Game
 	 *      settings : window settings
 	 *      contextSettings : gl context settings
 	 */
-	public this(in WindowSettings settings, in GLContextSettings contextSettings = GLContextSettings())
+	@nogc
+	public this(in string title = "My D Game!", GameConfig config = GameConfig("./config.ini"))
 	{
 		loadExternalLibraries();
-			   
-		GameConfig.load("./config.ini");
-
-		this.m_window = new Window(settings, contextSettings);
-		this.m_window.setWindowCloseCallback(bindDelegate(&this.onWindowClose));
-		this.m_window.setWindowSizeCallback(bindDelegate(&this.onWindowResize));
-		this.m_window.setScrollCallback(bindDelegate(&this.onMouseWheel));
-		this.m_window.setKeyCallback(bindDelegate(&this.onKey));
-		this.m_window.setCharCallback(bindDelegate(&this.onText));
-
-		this.m_inputHandler = new InputHandler(this);
-
-		this.m_window.setCursorPosCallback(bindDelegate(&this.m_inputHandler.onMouseMove));
-		this.m_window.setMouseButtonCallback(bindDelegate(&this.m_inputHandler.onMouseClick));
+		
+		this.m_config = config;
 
 		this.m_assetLoader = AssetLoader.getInstance();
 
-		this.m_graphicsDevice = GraphicsDevice.getInstance();
-		this.m_graphicsDevice.defaultFont = this.m_assetLoader.load!(Font)("Roboto-Regular.ttf", this.m_graphicsDevice.nvgContext);
-		this.m_graphicsDevice.resolution = settings.resolution;
-		this.m_guiManager = new GuiManager(this.m_graphicsDevice, this.m_window.glfwWindow);
-		this.m_audioDevice = new AudioDevice();
-		this.m_entityManager = new EntityManager();
+		this.m_inputHandler = MemoryHelper.create!InputHandler();
+
+		this.m_graphicsDevice = MemoryHelper.create!GraphicsDevice(config.graphicsSettings);
+
+		this.m_window = MemoryHelper.create!Window(title, config.graphicsSettings);
+		this.m_window.onWindowClose = bindDelegate(&this.onWindowClose);
+		this.m_window.onWindowSize = bindDelegate(&this.onWindowResize);
+		this.m_window.onScroll = bindDelegate(&this.onMouseWheel);
+		this.m_window.onKey = bindDelegate(&this.onKey);
+		this.m_window.onChar = bindDelegate(&this.onText);
+		this.m_window.onCursorPos = bindDelegate(&this.onMouseMove);
+		this.m_window.onMouseButton = bindDelegate(&this.onMouseButton);
+
+		this.m_graphicsDevice.window = this.m_window.glfwWindow;
 
 		this.m_tickrate = 64.0f;
 		this.m_deltaTime = 1000.0f / this.m_tickrate;
 		this.m_maxFrameSkip = 5;
 
-		this.m_i18n = new I18n();
-		this.m_i18n.setLocale("fr");
-
 		this.m_running = true;
+/*
+		this.m_audioDevice = MemoryHelper.create!AudioDevice();
+		//this.m_entityManager = new EntityManager();
+
+
+		this.m_i18n = new I18n();
+		this.m_i18n.setLocale("fr");*/
 	}
 
 	/**
 	 * Game destructor.
 	 */
-	public void dispose()
+	@nogc
+	public ~this()
 	{
 		this.m_running = false;
 
+		this.m_events.dispose();
+
 		foreach (gameState; this.m_gameStates.byValue)
 		{
-			gameState.dispose();
+			MemoryHelper.dispose(gameState);
 		}
 
-		this.m_window.dispose();
-		this.m_events.dispose();
-		this.m_currentGameState.dispose();
-		this.m_audioDevice.dispose();
-		this.m_graphicsDevice.dispose();
-		this.m_guiManager.dispose();
+		MemoryHelper.dispose(this.m_graphicsDevice);
+		MemoryHelper.dispose(this.m_window);
+		MemoryHelper.dispose(this.m_inputHandler);
 
-		unloadExternalLibraries();        
+		this.m_assetLoader.dispose();
+
+		unloadExternalLibraries();
 	}
 
 	/**
@@ -127,25 +122,25 @@ class Game
 	{
 		float nextGameTick = getCurrentTime();
 
-        int loops = 0;
+		int loops = 0;
 
 		while (this.m_running)
 		{	
-            immutable currentTick = getCurrentTime();
-            loops = 0;
+			immutable currentTick = getCurrentTime();
+			loops = 0;
 
-            while (currentTick > nextGameTick && loops < this.m_maxFrameSkip)
-            {
-                this.fixedUpdate();
+			while (currentTick > nextGameTick && loops < this.m_maxFrameSkip)
+			{
+				this.fixedUpdate();
 
-                nextGameTick += this.m_deltaTime;
-                loops++;               
-            }
+				nextGameTick += this.m_deltaTime;
+				loops++;               
+			}
 
-            immutable interpolation = cast(float)(currentTick + this.m_deltaTime - nextGameTick) / cast(float) this.m_deltaTime;
+			immutable interpolation = cast(float) (currentTick + this.m_deltaTime - nextGameTick) / cast(float) this.m_deltaTime;
 
 			this.update(interpolation);    
-            this.pollEvents();
+			this.pollEvents();
 		}
 	}
 
@@ -159,7 +154,7 @@ class Game
 			for (; this.m_events.length ;)
 			{
 				this.m_events[0]();
-				this.m_events.remove(0);
+				this.m_events.removeAt(0);
 			}
 		}
 
@@ -181,6 +176,8 @@ class Game
 	 * Defines current game state.
 	 * Params:
 	 *		params : params
+	 *
+	 * Note: intentionnaly not annotated with @nogc.
 	 */
 	public void setGameState(T)(Variant[] params = null)
 	{
@@ -193,7 +190,7 @@ class Game
 
 		if (gameState is null) 
 		{
-			T gs = new T();
+			T gs = MemoryHelper.create!T();
 			(cast(GameState) gs).setParent(this);
 			this.m_gameStates[T.stringof] = gs;
 			this.m_currentGameState = gs;
@@ -233,7 +230,7 @@ class Game
 	{
 		synchronized(this)
 		{
-			this.m_events ~= event;
+			this.m_events.insert(event);
 		}
 	}
 
@@ -259,11 +256,59 @@ class Game
 			}
 		}
 
-		this.m_scheduledTasks ~= taskTuple;
+		this.m_scheduledTasks.insert(taskTuple);
 	}
 
 	extern(C) nothrow
 	{
+		/**
+		 * Event called on mouse button action.
+		 * Params:
+		 *		button : mouse button
+		 *		action : press or release
+		 */
+		public void onMouseButton(GLFWwindow* window, int button, int action, int dunno)
+		{
+			try
+			{
+				immutable bool pressed = action == GLFW_PRESS;
+				immutable MouseButton mouseButton = cast(MouseButton) button;
+
+				this.m_inputHandler.onMouseButton(mouseButton, pressed);
+
+				if (pressed)
+				{
+					this.m_currentGameState.onMouseClick(mouseButton, this.m_inputHandler.mousePosition);
+				}
+				else
+				{
+					this.m_currentGameState.onMouseUp(mouseButton, this.m_inputHandler.mousePosition);
+				}
+			}
+			catch(Exception e)
+			{
+			}
+		}
+
+		/**
+		 * Event called on mouse movement.
+		 * Params:
+		 *		x : x mouse coord
+		 *		y : y moue coord
+		 */
+		public void onMouseMove(GLFWwindow* window, double x, double y)
+		{
+			try
+			{
+				immutable position = vec2(x, y);
+				this.m_inputHandler.onMouseMove(position);
+				this.m_currentGameState.onMouseMove(position);
+			}
+			catch(Exception e)
+			{
+			}
+		}
+		
 		/**
 		 * Event called on mouse wheel action.
 		 * Params:
@@ -310,15 +355,13 @@ class Game
 		 */
 		public void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
-			if(action == GLFW_RELEASE)
+			try
 			{
-				try
-				{
-					this.m_currentGameState.onKey(key);
-				}
-				catch(Exception e)
-				{
-				}
+				immutable Key ekey = cast(Key) key;
+				action == GLFW_RELEASE ? this.m_currentGameState.onKeyDown(ekey) : this.m_currentGameState.onKeyUp(ekey);
+			}
+			catch(Exception e)
+			{
 			}
 		}
 
@@ -331,7 +374,6 @@ class Game
 		 */
 		public void onWindowResize(GLFWwindow* window, int width, int height)
 		{
-			this.m_graphicsDevice.resolution = Size!int(width, height);
 		}
 
 		/**
@@ -351,25 +393,15 @@ class Game
 	@nogc
 	@property nothrow
 	{
-		public GraphicsDevice graphicsDevice()
-		{
-			return this.m_graphicsDevice;
-		}
-
-		public GuiManager guiManager()
-		{
-			return this.m_guiManager;
-		}
-
 		public AssetLoader assetLoader()
 		{
 			return this.m_assetLoader;
 		}
 
-		public EntityManager entityManager()
+		/*public EntityManager entityManager()
 		{
 			return this.m_entityManager;
-		}
+		}*/
 
 		public GameState currentGameState()
 		{

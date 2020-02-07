@@ -5,41 +5,35 @@ public import bindbc.glfw;
 import std.traits : EnumMembers;
 
 import evael.system.input;
-import evael.core.game;
 import evael.utils.math;
+import evael.lib.memory.no_gc_class;
 
 /**
  * Input handler.
  * Handle mouse movements and mouse buttons / keys states.
- * TODO: this class shouldnt have couple with game class
  */
-class InputHandler
+class InputHandler : NoGCClass
 {
-	private Game m_game;
-
 	private bool[ [EnumMembers!(MouseButton)].length ] m_mouseButtonsStates;
 
 	private vec2 m_mousePosition;
-	private bool m_mouseHasMoved;
 	private bool m_mouseButtonClicked;
-
+	
 	/**
 	 * InputHandler constructor.
 	 */
 	@nogc
-	public this(Game game) nothrow
+	public this() nothrow
 	{
-		this.m_game = game;
-
 		this.m_mouseButtonsStates = [false, false];
-		this.m_mouseHasMoved = false;
 		this.m_mouseButtonClicked = false;
 	}
 
 	/**
 	 * InputHandler destructor.
 	 */
-	public void dispose()
+	@nogc
+	public ~this()
 	{
 
 	}
@@ -49,32 +43,20 @@ class InputHandler
 	 */
 	public void update()
 	{
-		if (this.m_mouseHasMoved)
-		{
-			this.m_game.currentGameState.onMouseMove(this.m_mousePosition);
-			this.m_mouseHasMoved = false;
-		}
-
 		if (this.m_mouseButtonClicked)
 		{
-			static bool[] lastMouseButtonsStates = [false, false];
+			static bool[2] lastMouseButtonsStates = [false, false];
 
 			bool isMouseButtonPressed;
 			int enumIndex;
 
 			static foreach (e; [EnumMembers!(MouseButton)])
 			{
-				enumIndex = cast(int)e;
+				enumIndex = cast(int) e;
 				isMouseButtonPressed = this.m_mouseButtonsStates[enumIndex];
 
 				if (isMouseButtonPressed != lastMouseButtonsStates[enumIndex])
 				{
-					if (isMouseButtonPressed)
-					{
-						this.m_game.currentGameState.onMouseClick(e, this.m_mousePosition);
-					}
-					else this.m_game.currentGameState.onMouseUp(e,this.m_mousePosition);
-
 					lastMouseButtonsStates[enumIndex] = isMouseButtonPressed;
 				}
 			}
@@ -102,35 +84,33 @@ class InputHandler
 	@nogc
 	public bool isKeyPressed(in Key key) nothrow
 	{
-		return glfwGetKey(this.m_game.window.glfwWindow, key) == GLFW_PRESS;
+		// TODO: ASAP!!!
+		return false;
 	}
 
+	/**
+	 * Event called on mouse button action.
+	 * Params:
+	 *		button : mouse button
+	 *		pressed : pressed or released
+	 */
 	@nogc
-	extern(C) nothrow
+	public void onMouseButton(in MouseButton button, in bool pressed)
 	{
-		/**
-		 * Event called on mouse button click action.
-		 * Params:
-		 *		button : mouse button
-		 *		action : press or release
-		 */
-		public void onMouseClick(GLFWwindow* window, int button, int action, int dunno)
-		{
-			this.m_mouseButtonsStates[button] = (action == GLFW_PRESS);
-			this.m_mouseButtonClicked = true;
-		}
+		this.m_mouseButtonsStates[button] = pressed;
+		this.m_mouseButtonClicked = true;
+	}
 
-		/**
-		 * Event called on mouse movement.
-		 * Params:
-		 *		x : x mouse coord
-		 *		y : y moue coord
-		 */
-		public void onMouseMove(GLFWwindow* window, double x, double y)
-		{
-			this.m_mouseHasMoved = true;            
-			this.m_mousePosition = vec2(x, y);
-		}
+	/**
+	 * Event called on mouse movement.
+	 * Params:
+	 *		x : x mouse coord
+	 *		y : y moue coord
+	 */
+	@nogc
+	public void onMouseMove(in ref vec2 position)
+	{
+		this.m_mousePosition = position;
 	}
 
 	@nogc
