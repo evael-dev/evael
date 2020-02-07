@@ -12,33 +12,20 @@
 
 - - -
 
-Evael is a small 2D/3D game engine written in the D programming language. It is based on OpenGL 3.3.
+Evael is a small 2D/3D game engine written in the D programming language.
 
-### Features
+Note: I'm currently rewriting a lot of parts of the engine, it is not usable at all right now.
 
-- Asset loader (texture, models, shaders)
-- Terrain rendering (blend map, normal map, height map)
-- Model rendering (IQM, OBJ)
-- Basic lighting support (directional light, point light)
-- Shadow support
-- Instancing (for OBJ models atm)
+### Features (need to be updated)
+
+- OpenGL backend (WIP)
+- Vulkan backend (WIP)
 - GUI with [Nuklear](https://github.com/vurtun/nuklear/)
 - Input handling as event mode or immediate mode (onMouseAction() or isMouseButtonClicked())
 - Entity Component System with [evael-ecs](https://github.com/evael-dev/evael-ecs)
 
 ### Planned features
 
-- Water rendering
-- Network support
-- Physics support
-- Navigation support (recast & detour)
-- Controller support
-- more!
-
-Some part of the code are old. They need to be updated:
- - Shaders sources
- - Models (write better loader and clean the code)
- - probably other parts...
 
 ### Supported platforms
 
