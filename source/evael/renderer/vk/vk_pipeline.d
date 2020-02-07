@@ -16,55 +16,55 @@ import evael.lib.memory;
 
 class VulkanPipeline : Pipeline
 {
-	@nogc
-	public override void apply() const nothrow
-	{
-		if (this.depthState.enabled)
-		{
+    @nogc
+    public override void apply() const nothrow
+    {
+        if (this.depthState.enabled)
+        {
 
-		}
-		
-		if (this.blendState.enabled)
-		{
-		
-		}
+        }
+        
+        if (this.blendState.enabled)
+        {
+        
+        }
 
-		foreach (resource; this.m_resources)
-		{
-			resource.apply();
-		}
-	}
+        foreach (resource; this.m_resources)
+        {
+            resource.apply();
+        }
+    }
 
-	@nogc
-	public override void clear() const nothrow
-	{
-		foreach (resource; this.m_resources)
-		{
-			resource.clear();
-		}
+    @nogc
+    public override void clear() const nothrow
+    {
+        foreach (resource; this.m_resources)
+        {
+            resource.clear();
+        }
 
-		if (this.blendState.enabled)
-		{
-		}
+        if (this.blendState.enabled)
+        {
+        }
 
-		if (this.depthState.enabled)
-		{
-		}
-	}
+        if (this.depthState.enabled)
+        {
+        }
+    }
 
-	@nogc
-	public override VulkanTextureResource addTextureResource(Texture texture = null)
-	{
-		auto resource = MemoryHelper.create!VulkanTextureResource(texture);
-		this.m_resources.insert(resource);
-		return resource;
-	}
+    @nogc
+    public override VulkanTextureResource addTextureResource(Texture texture = null)
+    {
+        auto resource = MemoryHelper.create!VulkanTextureResource(texture);
+        this.m_resources.insert(resource);
+        return resource;
+    }
 
-	@nogc
-	public VulkanUniformResource!T addUniformResource(T)(in string name, T value)
-	{
-		assert(this.shader !is null, "Set a shader before adding an uniform resource.");
+    @nogc
+    public VulkanUniformResource!T addUniformResource(T)(in string name, T value)
+    {
+        assert(this.shader !is null, "Set a shader before adding an uniform resource.");
 
-		return null;
-	}
+        return null;
+    }
 }

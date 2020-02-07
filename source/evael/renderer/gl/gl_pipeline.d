@@ -16,71 +16,71 @@ import evael.lib.memory;
 
 class GLPipeline : Pipeline
 {
-	@nogc
-	public override void apply() const nothrow
-	{
-		if (this.depthState.enabled)
-		{
-			gl.Enable(GL_DEPTH_TEST);
-			gl.DepthMask(!this.depthState.readOnly);
-		}
-		
-		if (this.blendState.enabled)
-		{
-			gl.Enable(GL_BLEND);
-			gl.BlendFuncSeparate(
-				GLEnumConverter.blendFactor(this.blendState.sourceRGB),
-				GLEnumConverter.blendFactor(this.blendState.destinationRGB),
-				GLEnumConverter.blendFactor(this.blendState.sourceAlpha),
-				GLEnumConverter.blendFactor(this.blendState.destinationAlpha)
-			);
+    @nogc
+    public override void apply() const nothrow
+    {
+        if (this.depthState.enabled)
+        {
+            gl.Enable(GL_DEPTH_TEST);
+            gl.DepthMask(!this.depthState.readOnly);
+        }
+        
+        if (this.blendState.enabled)
+        {
+            gl.Enable(GL_BLEND);
+            gl.BlendFuncSeparate(
+                GLEnumConverter.blendFactor(this.blendState.sourceRGB),
+                GLEnumConverter.blendFactor(this.blendState.destinationRGB),
+                GLEnumConverter.blendFactor(this.blendState.sourceAlpha),
+                GLEnumConverter.blendFactor(this.blendState.destinationAlpha)
+            );
 
-			gl.BlendEquationSeparate(
-				GLEnumConverter.blendFunction(this.blendState.colorFunction),
-				GLEnumConverter.blendFunction(this.blendState.alphaFunction)
-			);
-		}
+            gl.BlendEquationSeparate(
+                GLEnumConverter.blendFunction(this.blendState.colorFunction),
+                GLEnumConverter.blendFunction(this.blendState.alphaFunction)
+            );
+        }
 
-		foreach (resource; this.m_resources)
-		{
-			resource.apply();
-		}
-	}
+        foreach (resource; this.m_resources)
+        {
+            resource.apply();
+        }
+    }
 
-	@nogc
-	public override void clear() const nothrow
-	{
-		foreach (resource; this.m_resources)
-		{
-			resource.clear();
-		}
+    @nogc
+    public override void clear() const nothrow
+    {
+        foreach (resource; this.m_resources)
+        {
+            resource.clear();
+        }
 
-		if (this.blendState.enabled)
-		{
-			gl.Disable(GL_BLEND);
-		}
+        if (this.blendState.enabled)
+        {
+            gl.Disable(GL_BLEND);
+        }
 
-		if (this.depthState.enabled)
-		{
-			gl.Disable(GL_DEPTH_TEST);
-		}
-	}
+        if (this.depthState.enabled)
+        {
+            gl.Disable(GL_DEPTH_TEST);
+        }
+    }
 
-	@nogc
-	public override GLTextureResource addTextureResource(Texture texture = null)
-	{
-		auto resource = MemoryHelper.create!GLTextureResource(texture);
-		this.m_resources.insert(resource);
-		return resource;
-	}
+    @nogc
+    public override GLTextureResource addTextureResource(Texture texture = null)
+    {
+        auto resource = MemoryHelper.create!GLTextureResource(texture);
+        this.m_resources.insert(resource);
+        return resource;
+    }
 
-	@nogc
-	public GLUniformResource!T addUniformResource(T)(in string name, T value)
-	{
-		assert(this.shader !is null, "Set a shader before adding an uniform resource.");
+    @nogc
+    public GLUniformResource!T addUniformResource(T)(in string name, T value)
+    {
+        assert(this.shader !is null, "Set a shader before adding an uniform resource.");
 
-		auto resource = MemoryHelper.create!(GLUniformResource!T)(name, (cast(GLShader) this.shader).programId, value);
-		this.m_resources.insert(resource);
-		return resource;
-	}
+        auto resource = MemoryHelper.create!(GLUniformResource!T)(name, (cast(GLShader) this.shader).programId, value);
+        this.m_resources.insert(resource);
+        return resource;
+    }
 }

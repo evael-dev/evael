@@ -17,77 +17,77 @@ import evael.lib.containers.array;
 
 debug 
 {
-	import std.experimental.logger;
+    import std.experimental.logger;
 }
 
 class GLDevice : GraphicsDevice
 {
-	private uint m_vao;
+    private uint m_vao;
 
-	/**
-	 * GLDevice constructor.
-	 */
-	@nogc
-	public this(in ref GraphicsSettings graphicsSettings)
-	{
-		super(graphicsSettings);
+    /**
+     * GLDevice constructor.
+     */
+    @nogc
+    public this(in ref GraphicsSettings graphicsSettings)
+    {
+        super(graphicsSettings);
 
-		this.initializeGLFW();
-	}
+        this.initializeGLFW();
+    }
 
-	/**
-	 * GLDevice destructor.
-	 */
-	@nogc
-	public ~this()
-	{
+    /**
+     * GLDevice destructor.
+     */
+    @nogc
+    public ~this()
+    {
 
-	}
-	
-	@nogc
-	@property
-	public override void window(GLFWwindow* win)
-	{
-		super.window = win;
-		glfwMakeContextCurrent(this.m_window);
+    }
+    
+    @nogc
+    @property
+    public override void window(GLFWwindow* win)
+    {
+        super.window = win;
+        glfwMakeContextCurrent(this.m_window);
 
-		this.initialize();
-	}
+        this.initialize();
+    }
 
-	@nogc
-	public override void beginFrame(in Color color = Color.LightGrey)
-	{
-		auto colorf = color.asFloat();
+    @nogc
+    public override void beginFrame(in Color color = Color.LightGrey)
+    {
+        auto colorf = color.asFloat();
 
-		gl.Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		gl.ClearColor(colorf[0], colorf[1], colorf[2], 1.0f); 
-	}
+        gl.Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        gl.ClearColor(colorf[0], colorf[1], colorf[2], 1.0f); 
+    }
 
-	@nogc
-	public override void endFrame()
-	{
+    @nogc
+    public override void endFrame()
+    {
 
-	}
+    }
 
-	@nogc
-	private void initializeGLFW()
-	{
-		immutable contextSettings = GLContextSettings();
+    @nogc
+    private void initializeGLFW()
+    {
+        immutable contextSettings = GLContextSettings();
 
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, contextSettings.ver / 10);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, contextSettings.ver % 10);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, contextSettings.profile);
-		glfwWindowHint(GLFW_SAMPLES, 4);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, contextSettings.ver / 10);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, contextSettings.ver % 10);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, contextSettings.profile);
+        glfwWindowHint(GLFW_SAMPLES, 4);
 
-		glfwSwapInterval(this.m_graphicsSettings.vsync);
-	}
+        glfwSwapInterval(this.m_graphicsSettings.vsync);
+    }
 
-	@nogc
-	private void initialize()
-	{
-		debug infof("OpenGL:%s", loadOpenGL());
-		
-		gl.GenVertexArrays(1, &this.m_vao);
-		gl.BindVertexArray(this.m_vao);
-	}
+    @nogc
+    private void initialize()
+    {
+        debug infof("OpenGL:%s", loadOpenGL());
+        
+        gl.GenVertexArrays(1, &this.m_vao);
+        gl.BindVertexArray(this.m_vao);
+    }
 } 

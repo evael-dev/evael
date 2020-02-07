@@ -7,36 +7,36 @@ import evael.lib.memory;
  */
 template Singleton()
 {
-	private static bool instantiated;
+    private static bool instantiated;
 
-	private __gshared static typeof(this) instance;
+    private __gshared static typeof(this) instance;
  
-	@nogc
-	public static typeof(this) getInstance()
-	{
-		if (!instantiated)
-		{
-			synchronized (typeof(this).classinfo)
-			{
-				if (!instance)
-				{
-					instance = MemoryHelper.create!(typeof(this))();
-				}
+    @nogc
+    public static typeof(this) getInstance()
+    {
+        if (!instantiated)
+        {
+            synchronized (typeof(this).classinfo)
+            {
+                if (!instance)
+                {
+                    instance = MemoryHelper.create!(typeof(this))();
+                }
  
-				instantiated = true;
-			}
-		}
+                instantiated = true;
+            }
+        }
  
-		return instance;
-	}
+        return instance;
+    }
 
-	@nogc
-	public static void dispose()
-	{
-		if (instantiated) 
-		{
-			MemoryHelper.dispose(instance);
-			instance = null;
-		}
-	}
+    @nogc
+    public static void dispose()
+    {
+        if (instantiated) 
+        {
+            MemoryHelper.dispose(instance);
+            instance = null;
+        }
+    }
 }

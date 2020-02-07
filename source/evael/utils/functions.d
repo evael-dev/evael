@@ -13,12 +13,12 @@ immutable MonoTime startupTime;
 
 shared static this()
 {
-	startupTime = MonoTime.currTime;
+    startupTime = MonoTime.currTime;
 }
 
 void startTask(void delegate() func)
 {
-	task(func).executeInNewThread();
+    task(func).executeInNewThread();
 }
 
 /**
@@ -29,58 +29,58 @@ void startTask(void delegate() func)
  */
 void startDelayedTask(void delegate() callback, in int interval)
 {
-	task(()
-	{
-		Thread.sleep(interval.seconds);
-		callback();
+    task(()
+    {
+        Thread.sleep(interval.seconds);
+        callback();
 
-	}).executeInNewThread();
+    }).executeInNewThread();
 }
 
 @nogc
 Duration timeSinceProgramStarted() nothrow
 {
-	return MonoTime.currTime - startupTime;
+    return MonoTime.currTime - startupTime;
 }
 
 @nogc
 float getCurrentTime() nothrow
 {
-	return timeSinceProgramStarted.total!"msecs";
+    return timeSinceProgramStarted.total!"msecs";
 }
 
 @nogc
 auto bindDelegate(T)(T t) nothrow
-	if(isDelegate!T)
+    if(isDelegate!T)
 {
-	static T dg;
+    static T dg;
 
-	dg = t;
+    dg = t;
 
-	extern(C)
-	static ReturnType!T func(ParameterTypeTuple!T args)
-	{
-		return dg(args);
-	}
+    extern(C)
+    static ReturnType!T func(ParameterTypeTuple!T args)
+    {
+        return dg(args);
+    }
 
-	return &func;
+    return &func;
 }
 
 @nogc
 auto bindDelegate2(T)(T t) nothrow
-	if(isDelegate!T)
+    if(isDelegate!T)
 {
-	static T dg;
+    static T dg;
 
-	dg = t;
+    dg = t;
 
-	extern(Windows)
-	static ReturnType!T func(ParameterTypeTuple!T args)
-	{
-		return dg(args);
-	}
+    extern(Windows)
+    static ReturnType!T func(ParameterTypeTuple!T args)
+    {
+        return dg(args);
+    }
 
-	return &func;
+    return &func;
 }
 
 /**

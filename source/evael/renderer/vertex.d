@@ -18,76 +18,76 @@ alias Vertex3PositionColorNormal = VertexPositionColorNormal!3;
 struct VertexPositionColor(int positionCount)
 {
     @ShaderAttribute(0, AttributeType.Float, positionCount, No.normalized)
-	public Vector!(float, positionCount) position;
-	
+    public Vector!(float, positionCount) position;
+    
     @ShaderAttribute(1, AttributeType.UByte, 4, Yes.normalized)
-	public Color color;
+    public Color color;
 }
 
 struct VertexPositionColorTexture(int positionCount)
 {
-	@ShaderAttribute(0, AttributeType.Float, positionCount, No.normalized)
-	public Vector!(float, positionCount) position;
+    @ShaderAttribute(0, AttributeType.Float, positionCount, No.normalized)
+    public Vector!(float, positionCount) position;
 
-	@ShaderAttribute(1, AttributeType.UByte, 4, Yes.normalized)
-	public Color color;
+    @ShaderAttribute(1, AttributeType.UByte, 4, Yes.normalized)
+    public Color color;
 
-	@ShaderAttribute(2, AttributeType.Float, 2, No.normalized)
-	public vec2 textureCoordinate;
+    @ShaderAttribute(2, AttributeType.Float, 2, No.normalized)
+    public vec2 textureCoordinate;
 }
 
 struct VertexPositionColorNormal(int positionCount)
 {
-	@ShaderAttribute(0, AttributeType.Float, positionCount, No.normalized)
-	public Vector!(float, positionCount) position;
+    @ShaderAttribute(0, AttributeType.Float, positionCount, No.normalized)
+    public Vector!(float, positionCount) position;
 
-	@ShaderAttribute(1, AttributeType.UByte, 4, Yes.normalized)
-	public Color color;
+    @ShaderAttribute(1, AttributeType.UByte, 4, Yes.normalized)
+    public Color color;
 
-	@ShaderAttribute(2, AttributeType.Float, 3, Yes.normalized)
-	public vec3 normal;
+    @ShaderAttribute(2, AttributeType.Float, 3, Yes.normalized)
+    public vec3 normal;
 }
 
 struct VertexPositionColorNormalTexture
 {
-	@ShaderAttribute(0, AttributeType.Float, 3, No.normalized)
-	public vec3 position;
+    @ShaderAttribute(0, AttributeType.Float, 3, No.normalized)
+    public vec3 position;
 
-	@ShaderAttribute(1, AttributeType.UByte, 4, Yes.normalized)
-	public Color color;
+    @ShaderAttribute(1, AttributeType.UByte, 4, Yes.normalized)
+    public Color color;
 
-	@ShaderAttribute(2, AttributeType.Float, 3, Yes.normalized)
-	public vec3 normal;
+    @ShaderAttribute(2, AttributeType.Float, 3, Yes.normalized)
+    public vec3 normal;
 
-	@ShaderAttribute(3, AttributeType.Float, 2, No.normalized)
-	public vec2 textureCoordinate;
+    @ShaderAttribute(3, AttributeType.Float, 2, No.normalized)
+    public vec2 textureCoordinate;
 }
 
 struct TerrainVertex
 {
-	@ShaderAttribute(0, AttributeType.Float, 3, No.normalized)
-	public vec3 position;
+    @ShaderAttribute(0, AttributeType.Float, 3, No.normalized)
+    public vec3 position;
 
-	@ShaderAttribute(1, AttributeType.UByte, 4, Yes.normalized)
-	public Color color;
+    @ShaderAttribute(1, AttributeType.UByte, 4, Yes.normalized)
+    public Color color;
 
-	@ShaderAttribute(2, AttributeType.Float, 3, Yes.normalized)
-	public vec3 normal;
+    @ShaderAttribute(2, AttributeType.Float, 3, Yes.normalized)
+    public vec3 normal;
 
-	@ShaderAttribute(3, AttributeType.Float, 2, No.normalized)
-	public vec2 textureCoordinate;
+    @ShaderAttribute(3, AttributeType.Float, 2, No.normalized)
+    public vec2 textureCoordinate;
 
-	@ShaderAttribute(4, AttributeType.Float, 3, Yes.normalized)
-	public vec3 tangent;
-	
-	@ShaderAttribute(5, AttributeType.Float, 3, Yes.normalized)
-	public vec3 bitangent;
+    @ShaderAttribute(4, AttributeType.Float, 3, Yes.normalized)
+    public vec3 tangent;
+    
+    @ShaderAttribute(5, AttributeType.Float, 3, Yes.normalized)
+    public vec3 bitangent;
 
-	@ShaderAttribute(6, AttributeType.Float, 1, No.normalized)
-	public float textureId;
+    @ShaderAttribute(6, AttributeType.Float, 1, No.normalized)
+    public float textureId;
 
-	@ShaderAttribute(7, AttributeType.Float, 1, No.normalized)
-	public float blendingTextureId;
+    @ShaderAttribute(7, AttributeType.Float, 1, No.normalized)
+    public float blendingTextureId;
 }
 
 struct IqmVertex
@@ -113,7 +113,7 @@ struct IqmVertex
 
 struct Instancing(int layoutIndex)
 {
-	@ShaderAttribute(layoutIndex, AttributeType.Float, 4, No.normalized)
+    @ShaderAttribute(layoutIndex, AttributeType.Float, 4, No.normalized)
     public vec4 row1;
 
     @ShaderAttribute(layoutIndex + 1, AttributeType.Float, 4, No.normalized)

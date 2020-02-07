@@ -6,11 +6,11 @@ import evael.system.asset;
 
 abstract class Texture : NoGCClass, IAsset
 {
-	/**
-	 * Texture constructor.
-	 */
-	@nogc
-	public this()
-	{
-	}
+    /**
+     * Texture constructor.
+     */
+    @nogc
+    public this()
+    {
+    }
 }

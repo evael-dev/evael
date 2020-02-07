@@ -7,5 +7,5 @@ import evael.lib.memory : NoGCInterface;
  */
 interface IAsset : NoGCInterface
 {
-	public void load()(in string fileName, ...);
+    public void load()(in string fileName, ...);
 }
